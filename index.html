@@ -6784,63 +6784,22 @@
         }
     }
 
-    /** נגן TTS אחד (הפניה יציבה ב-window כדי שלא ייאסף) — מובייל: play() ישירות מתוך לחיצה */
-    var _ttsAudioEl = null;
-    function _ttsAttachDebugListeners(a) {
-        if (!a || a._ttsDebugAttached) return;
-        a._ttsDebugAttached = true;
-        a.addEventListener('error', function() {
-            var err = a.error;
-            console.warn('[audio] TTS <audio> error:', err ? ('code ' + err.code + ' ' + (err.message || '')) : 'unknown');
-            _ttsAudioEl = null;
-            try { delete window.__greekTtsAudioKeep; } catch (e) {}
-        });
-        a.addEventListener('stalled', function() {
-            console.warn('[audio] TTS stalled (network/buffer)');
-        });
-        a.addEventListener('abort', function() {
-            console.warn('[audio] TTS load aborted');
-        });
+    function speak(text) {
+        // בודק אם הדפדפן תומך בדיבור
+        if ('speechSynthesis' in window) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'el-GR'; // מגדיר את השפה ליוונית
+            window.speechSynthesis.speak(utterance);
+        } else {
+            console.error("Your browser does not support text-to-speech.");
+        }
     }
     function playAudio(t) {
-        resumeSharedAudioContextFromUserGesture();
-
         var textToSpeak = String(t || '');
         if (textToSpeak === 'γγ') textToSpeak = 'εγγόνι';   // γγ = ng כמו ב־sing (נכד)
         if (textToSpeak === 'γκ') textToSpeak = 'γκάζι';   // γκ = g כמו ב־go (גז) – מילה שמתחילה ב-γκ
-        var url = 'https://translate.google.com/translate_tts?ie=UTF-8&q=' +
-            encodeURIComponent(textToSpeak) + '&tl=el&client=tw-ob';
-
-        try {
-            if (!_ttsAudioEl) {
-                _ttsAudioEl = new Audio();
-                _ttsAudioEl.preload = 'auto';
-                _ttsAudioEl.setAttribute('playsinline', '');
-                _ttsAudioEl.setAttribute('webkit-playsinline', '');
-                _ttsAttachDebugListeners(_ttsAudioEl);
-                try { window.__greekTtsAudioKeep = _ttsAudioEl; } catch (e) {}
-            }
-
-            var a = _ttsAudioEl;
-            a.pause();
-            try { a.currentTime = 0; } catch (e0) {}
-
-            a.src = url;
-
-            try { a.currentTime = 0; } catch (e1) {}
-
-            var p = a.play();
-            if (p !== undefined && typeof p.then === 'function') {
-                p.catch(function(err) {
-                    var msg = err && err.message ? err.message : String(err);
-                    console.warn('[audio] TTS play() rejected:', msg);
-                    if (a.error) console.warn('[audio] TTS media error code:', a.error.code);
-                });
-            }
-        } catch (e) {
-            console.warn('[audio] playAudio exception:', e);
-            try { _ttsAudioEl = null; } catch (e2) {}
-        }
+        try { window.speechSynthesis.cancel(); } catch (e) {}
+        speak(textToSpeak);
     }
 
     (function wireGrammarPresentPronounsBtn() {
