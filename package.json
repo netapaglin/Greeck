@@ -1,0 +1,8 @@
+{
+  "name": "greeck",
+  "private": true,
+  "description": "Static app + /api/tts proxy on Vercel",
+  "engines": {
+    "node": ">=18"
+  }
+}
