@@ -6784,21 +6784,62 @@
         }
     }
 
+    /** מובייל (במיוחד iOS / Chrome Android): getVoices נטען לעיתים רק אחרי אינטראקציה – מרעננים ב-touch/click הראשונים */
+    (function primeSpeechSynthesisOnFirstUserGesture() {
+        if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+        var done = false;
+        function initVoices() {
+            if (done) return;
+            done = true;
+            try { window.speechSynthesis.getVoices(); } catch (e) {}
+        }
+        document.addEventListener('touchstart', initVoices, { capture: true, passive: true, once: true });
+        document.addEventListener('click', initVoices, { capture: true, once: true });
+        try {
+            window.speechSynthesis.addEventListener('voiceschanged', function() {
+                try { window.speechSynthesis.getVoices(); } catch (e) {}
+            });
+        } catch (e) {}
+    })();
+
     function speak(text) {
-        // בודק אם הדפדפן תומך בדיבור
-        if ('speechSynthesis' in window) {
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'el-GR'; // מגדיר את השפה ליוונית
-            window.speechSynthesis.speak(utterance);
-        } else {
+        if (!('speechSynthesis' in window)) {
             console.error("Your browser does not support text-to-speech.");
+            return;
+        }
+        var plain = String(text || '');
+        if (!plain.trim()) return;
+        var syn = window.speechSynthesis;
+        try { syn.getVoices(); } catch (e) {}
+        if (typeof syn.resume === 'function' && syn.paused) {
+            try { syn.resume(); } catch (e2) {}
+        }
+        try { syn.cancel(); } catch (e3) {}
+        var utter = new SpeechSynthesisUtterance(plain);
+        utter.lang = 'el-GR';
+        utter.rate = 0.95;
+        utter.volume = 1;
+        if (typeof syn.getVoices === 'function') {
+            var voices = syn.getVoices() || [];
+            var greekVoice =
+                voices.find(function(v) { return v.lang && v.lang.toLowerCase().indexOf('el') === 0; }) ||
+                voices.find(function(v) { return v.name && v.name.toLowerCase().indexOf('greek') !== -1; }) ||
+                null;
+            if (greekVoice) utter.voice = greekVoice;
+        }
+        try {
+            syn.speak(utter);
+        } catch (e4) {
+            console.warn('[audio] speak failed:', e4);
         }
     }
     function playAudio(t) {
+        resumeSharedAudioContextFromUserGesture();
         var textToSpeak = String(t || '');
-        if (textToSpeak === 'γγ') textToSpeak = 'εγγόνι';   // γγ = ng כמו ב־sing (נכד)
-        if (textToSpeak === 'γκ') textToSpeak = 'γκάζι';   // γκ = g כמו ב־go (גז) – מילה שמתחילה ב-γκ
-        try { window.speechSynthesis.cancel(); } catch (e) {}
+        if (textToSpeak === 'γγ') textToSpeak = 'εγγόνι';
+        if (textToSpeak === 'γκ') textToSpeak = 'γκάζι';
+        if (!('speechSynthesis' in window)) return;
+        try { window.speechSynthesis.getVoices(); } catch (e) {}
         speak(textToSpeak);
     }
 
