@@ -2350,6 +2350,10 @@
                 <span>Τα αγαπημένα μας κατοικίδια (חיות המחמד האהובות שלנו)</span>
                 <small>ניקוס, אנה, כלב, חתולה, ברונו, לוסי</small>
             </button>
+            <button class="btn-main main-choice-btn" onclick="showStoryAthenaOlive()">
+                <span>Η Αθηνά και η ελιά – אתנה והזית</span>
+                <small>מיתוס, אתנה, פוסידון, זית, אתונה</small>
+            </button>
         </div>
     </div>
     
@@ -3422,6 +3426,12 @@
         { speaker: "Αφήγηση", text: "Ο Μπρούνο κουνάει την ουρά του από χαρά. Τα παιδιά ξέρουν ότι οι φίλοι τους οι τετράποδοι χρειάζονται φροντίδα και αγάπη.", segments: [{gr:"Ο Μπρούνο",heb:"ברונו"},{gr:" ",heb:""},{gr:"κουνάει την ουρά του από χαρά",heb:"מניע את הזנב משמחה"},{gr:". ",heb:""},{gr:"Τα παιδιά ξέρουν",heb:"הילדים יודעים"},{gr:" ",heb:""},{gr:"ότι",heb:"ש"},{gr:" ",heb:""},{gr:"οι φίλοι τους οι τετράποδοι",heb:"החברים הארבע-רגליים שלהם"},{gr:" ",heb:""},{gr:"χρειάζονται φροντίδα και αγάπη",heb:"צריכים טיפול ואהבה"},{gr:".",heb:""}] },
         { speaker: "Αφήγηση", text: "Είναι πολύ τυχεροί που έχουν τέτοια καλή παρέα στο σπίτι!", segments: [{gr:"Είναι πολύ τυχεροί",heb:"הם מאוד ברי מזל"},{gr:" ",heb:""},{gr:"που έχουν",heb:"שיש להם"},{gr:" ",heb:""},{gr:"τέτοια καλή παρέα",heb:"חברה כל כך טובה"},{gr:" ",heb:""},{gr:"στο σπίτι",heb:"בבית"},{gr:"!",heb:""}] }
     ];
+    const STORY_ATHENA_OLIVE = [
+        { speaker: "Αφήγηση", text: "Πολύ παλιά, οι θεοί ήθελαν να δώσουν όνομα σε μια όμορφη πόλη της Ελλάδας. Ο Ποσειδώνας και η Αθηνά ήθελαν και οι δύο να γίνουν προστάτες της πόλης. Οι κάτοικοι περίμεναν να δουν ποιος θεός θα τους έκανε το καλύτερο δώρο.", segments: [{gr:"Πολύ παλιά",heb:"לפני הרבה זמן"},{gr:", ",heb:""},{gr:"οι θεοί",heb:"האלים"},{gr:" ",heb:""},{gr:"ήθελαν",heb:"רצו"},{gr:" ",heb:""},{gr:"να δώσουν όνομα",heb:"לתת שם"},{gr:" ",heb:""},{gr:"σε μια όμορφη πόλη",heb:"לעיר יפה"},{gr:" ",heb:""},{gr:"της Ελλάδας",heb:"של יוון"},{gr:". ",heb:""},{gr:"Ο Ποσειδώνας",heb:"פוסידון"},{gr:" ",heb:""},{gr:"και",heb:"ו"},{gr:" ",heb:""},{gr:"η Αθηνά",heb:"אתנה"},{gr:" ",heb:""},{gr:"ήθελαν και οι δύο",heb:"שניהם רצו"},{gr:" ",heb:""},{gr:"να γίνουν προστάτες",heb:"להיות פטרונים / שומרים"},{gr:" ",heb:""},{gr:"της πόλης",heb:"של העיר"},{gr:". ",heb:""},{gr:"Οι κάτοικοι",heb:"התושבים"},{gr:" ",heb:""},{gr:"περίμεναν",heb:"חיכו"},{gr:" ",heb:""},{gr:"να δουν",heb:"לראות"},{gr:" ",heb:""},{gr:"ποιος θεός",heb:"איזה אל"},{gr:" ",heb:""},{gr:"θα τους έκανε",heb:"יעשה להם"},{gr:" ",heb:""},{gr:"το καλύτερο δώρο",heb:"את המתנה הכי טובה"},{gr:".",heb:""}] },
+        { speaker: "Αφήγηση", text: "Πρώτος μίλησε ο Ποσειδώνας. Χτύπησε δυνατά τον βράχο με την τρίαινά του και από τη γη βγήκε νερό. Οι άνθρωποι θαύμασαν τη δύναμή του, αλλά το νερό ήταν αλμυρό και δεν μπορούσαν να το πιουν.", segments: [{gr:"Πρώτος",heb:"ראשון"},{gr:" ",heb:""},{gr:"μίλησε",heb:"דיבר"},{gr:" ",heb:""},{gr:"ο Ποσειδώνας",heb:"פוסידון"},{gr:". ",heb:""},{gr:"Χτύπησε δυνατά",heb:"הכה בכוח"},{gr:" ",heb:""},{gr:"τον βράχο",heb:"את הסלע"},{gr:" ",heb:""},{gr:"με την τρίαινά του",heb:"בשלישיה שלו (טרידנט)"},{gr:" ",heb:""},{gr:"και",heb:"ו"},{gr:" ",heb:""},{gr:"από τη γη",heb:"מהאדמה"},{gr:" ",heb:""},{gr:"βγήκε νερό",heb:"יצאו מים"},{gr:". ",heb:""},{gr:"Οι άνθρωποι",heb:"בני האדם"},{gr:" ",heb:""},{gr:"θαύμασαν",heb:"השתאו"},{gr:" ",heb:""},{gr:"τη δύναμή του",heb:"את כוחו"},{gr:", ",heb:""},{gr:"αλλά",heb:"אבל"},{gr:" ",heb:""},{gr:"το νερό ήταν αλμυρό",heb:"המים היו מלוחים"},{gr:" ",heb:""},{gr:"και δεν μπορούσαν να το πιουν",heb:"ולא יכלו לשתות אותם"},{gr:".",heb:""}] },
+        { speaker: "Αφήγηση", text: "Ύστερα ήρθε η Αθηνά. Ακούμπησε ήρεμα το χέρι της στο χώμα και φύτρωσε ένα δέντρο ελιάς. Η ελιά έδινε καρπούς, λάδι, ξύλο και σκιά. Οι άνθρωποι κατάλαβαν ότι αυτό το δώρο θα τους βοηθούσε κάθε μέρα.", segments: [{gr:"Ύστερα",heb:"אחר כך"},{gr:" ",heb:""},{gr:"ήρθε",heb:"באה"},{gr:" ",heb:""},{gr:"η Αθηνά",heb:"אתנה"},{gr:". ",heb:""},{gr:"Ακούμπησε ήρεμα",heb:"נגעה בעדינות"},{gr:" ",heb:""},{gr:"το χέρι της",heb:"את ידה"},{gr:" ",heb:""},{gr:"στο χώμα",heb:"בקרקע"},{gr:" ",heb:""},{gr:"και",heb:"ו"},{gr:" ",heb:""},{gr:"φύτρωσε ένα δέντρο ελιάς",heb:"צמח עץ זית"},{gr:". ",heb:""},{gr:"Η ελιά",heb:"עץ הזית"},{gr:" ",heb:""},{gr:"έδινε",heb:"נתן / סיפק"},{gr:" ",heb:""},{gr:"καρπούς, λάδι, ξύλο και σκιά",heb:"פירות, שמן, עץ וצל"},{gr:". ",heb:""},{gr:"Οι άνθρωποι κατάλαβαν",heb:"בני האדם הבינו"},{gr:" ",heb:""},{gr:"ότι",heb:"ש"},{gr:" ",heb:""},{gr:"αυτό το δώρο",heb:"המתנה הזאת"},{gr:" ",heb:""},{gr:"θα τους βοηθούσε",heb:"תעזור להם"},{gr:" ",heb:""},{gr:"κάθε μέρα",heb:"כל יום"},{gr:".",heb:""}] },
+        { speaker: "Αφήγηση", text: "Έτσι, διάλεξαν την Αθηνά για προστάτιδα της πόλης και έδωσαν στην πόλη το όνομά της: Αθήνα. Από τότε η ελιά έγινε σύμβολο σοφίας, ειρήνης και ζωής.", segments: [{gr:"Έτσι",heb:"כך"},{gr:", ",heb:""},{gr:"διάλεξαν",heb:"בחרו"},{gr:" ",heb:""},{gr:"την Αθηνά",heb:"באתנה"},{gr:" ",heb:""},{gr:"για προστάτιδα της πόλης",heb:"כפטרונית העיר"},{gr:" ",heb:""},{gr:"και",heb:"ו"},{gr:" ",heb:""},{gr:"έδωσαν στην πόλη",heb:"נתנו לעיר"},{gr:" ",heb:""},{gr:"το όνομά της",heb:"את שמה"},{gr:": ",heb:""},{gr:"Αθήνα",heb:"אתונה"},{gr:". ",heb:""},{gr:"Από τότε",heb:"מאז"},{gr:" ",heb:""},{gr:"η ελιά έγινε",heb:"עץ הזית הפך"},{gr:" ",heb:""},{gr:"σύμβολο σοφίας, ειρήνης και ζωής",heb:"לסמל חוכמה, שלום וחיים"},{gr:".",heb:""}] }
+    ];
     const STORY_ZOO_VISIT = [
         { speaker: "Αφήγηση", text: "Σήμερα η οικογένεια του Νίκου επισκέπτεται τον ζωολογικό κήπο. Ο ήλιος λάμπει και τα παιδιά ανυπομονούν να δουν τα ζώα.", segments: [{gr:"Σήμερα",heb:"היום"},{gr:" ",heb:""},{gr:"η οικογένεια του Νίκου",heb:"משפחתו של ניקוס"},{gr:" ",heb:""},{gr:"επισκέπτεται",heb:"מבקרת"},{gr:" ",heb:""},{gr:"τον ζωολογικό κήπο",heb:"את גן החיות"},{gr:". ",heb:""},{gr:"Ο ήλιος",heb:"השמש"},{gr:" ",heb:""},{gr:"λάμπει",heb:"זורחת"},{gr:" ",heb:""},{gr:"και",heb:"ו"},{gr:" ",heb:""},{gr:"τα παιδιά",heb:"הילדים"},{gr:" ",heb:""},{gr:"ανυπομονούν να δουν",heb:"מחכים בכיליון עיניים לראות"},{gr:" ",heb:""},{gr:"τα ζώα",heb:"את החיות"},{gr:".",heb:""}] },
         { speaker: "Αφήγηση", text: "Στην είσοδο, παίρνουν έναν χάρτη. Πρώτα, πηγαίνουν στα λιοντάρια. Το λιοντάρι είναι ο βασιλιάς του δάσους. Είναι μεγάλο, δυνατό και έχει μια πλούσια χαίτη.", segments: [{gr:"Στην είσοδο",heb:"בכניסה"},{gr:", ",heb:""},{gr:"παίρνουν",heb:"לוקחים"},{gr:" ",heb:""},{gr:"έναν χάρτη",heb:"מפה"},{gr:". ",heb:""},{gr:"Πρώτα",heb:"קודם"},{gr:", ",heb:""},{gr:"πηγαίνουν",heb:"הולכים"},{gr:" ",heb:""},{gr:"στα λιοντάρια",heb:"אל האריות"},{gr:". ",heb:""},{gr:"Το λιοντάρι",heb:"האריה"},{gr:" ",heb:""},{gr:"είναι ο βασιλιάς του δάσους",heb:"הוא מלך החיות"},{gr:". ",heb:""},{gr:"Είναι μεγάλο, δυνατό",heb:"הוא גדול, חזק"},{gr:" ",heb:""},{gr:"και",heb:"ו"},{gr:" ",heb:""},{gr:"έχει μια πλούσια χαίτη",heb:"יש לו רעמה שופעת"},{gr:".",heb:""}] },
@@ -4053,6 +4063,58 @@
             correctIndex: 0
         }
     ];
+    const STORY_ATHENA_OLIVE_TITLE = 'Η Αθηνά και η ελιά – אתנה והזית';
+    const STORY_ATHENA_OLIVE_QUIZ_SCORE_KEY = 'קריאה - סיפורים - שאלות - ' + STORY_ATHENA_OLIVE_TITLE;
+    const STORY_ATHENA_OLIVE_QUIZ = [
+        {
+            questionText: 'Τι ήθελαν να κάνουν οι θεοί για την όμορφη πόλη;',
+            segments: [{gr:"Τι",heb:"מה"},{gr:" ",heb:""},{gr:"ήθελαν",heb:"רצו"},{gr:" ",heb:""},{gr:"να κάνουν",heb:"לעשות"},{gr:" ",heb:""},{gr:"οι θεοί",heb:"האלים"},{gr:" ",heb:""},{gr:"για την όμορφη πόλη",heb:"עבור העיר היפה"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Να δώσουν όνομα στην πόλη' }, { letter: 'Β', text: 'Να την καταστρέψουν' }, { letter: 'Γ', text: 'Να την πουν «Ελιά»' }],
+            correctIndex: 0
+        },
+        {
+            questionText: 'Ποιοι δύο θεοί ήθελαν να γίνουν προστάτες της πόλης;',
+            segments: [{gr:"Ποιοι",heb:"מי"},{gr:" ",heb:""},{gr:"δύο θεοί",heb:"שני אלים"},{gr:" ",heb:""},{gr:"ήθελαν",heb:"רצו"},{gr:" ",heb:""},{gr:"να γίνουν προστάτες",heb:"להיות פטרונים"},{gr:" ",heb:""},{gr:"της πόλης",heb:"של העיר"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Ο Ποσειδώνας και η Αθηνά' }, { letter: 'Β', text: 'Ο Δίας και η Ήρα' }, { letter: 'Γ', text: 'Ο Απόλλων και η Άρτεμις' }],
+            correctIndex: 0
+        },
+        {
+            questionText: 'Τι έκανε ο Ποσειδώνας με την τρίαινά του;',
+            segments: [{gr:"Τι",heb:"מה"},{gr:" ",heb:""},{gr:"έκανε",heb:"עשה"},{gr:" ",heb:""},{gr:"ο Ποσειδώνας",heb:"פוסידון"},{gr:" ",heb:""},{gr:"με την τρίαινά του",heb:"בטרידנט שלו"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Χτύπησε τον βράχο και βγήκε νερό από τη γη' }, { letter: 'Β', text: 'Φύτεψε ένα δέντρο' }, { letter: 'Γ', text: 'Έφυγε από την πόλη' }],
+            correctIndex: 0
+        },
+        {
+            questionText: 'Γιατί το νερό του Ποσειδώνα δεν ήταν χρήσιμο για να το πιουν;',
+            segments: [{gr:"Γιατί",heb:"למה"},{gr:" ",heb:""},{gr:"το νερό",heb:"המים"},{gr:" ",heb:""},{gr:"του Ποσειδώνα",heb:"של פוסידון"},{gr:" ",heb:""},{gr:"δεν ήταν χρήσιμο",heb:"לא היו שימושיים"},{gr:" ",heb:""},{gr:"για να το πιουν",heb:"לשתות"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Ήταν αλμυρό' }, { letter: 'Β', text: 'Ήταν πολύ κρύο' }, { letter: 'Γ', text: 'Δεν υπήρχε καθόλου νερό' }],
+            correctIndex: 0
+        },
+        {
+            questionText: 'Τι δώρο έκανε η Αθηνά;',
+            segments: [{gr:"Τι",heb:"מה"},{gr:" ",heb:""},{gr:"δώρο",heb:"מתנה"},{gr:" ",heb:""},{gr:"έκανε",heb:"נתנה"},{gr:" ",heb:""},{gr:"η Αθηνά",heb:"אתנה"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Φύτρωσε ένα δέντρο ελιάς' }, { letter: 'Β', text: 'Έφερε χρυσό' }, { letter: 'Γ', text: 'Έκανε πηγή γλυκού νερού' }],
+            correctIndex: 0
+        },
+        {
+            questionText: 'Τι προσέφερε η ελιά στους ανθρώπους;',
+            segments: [{gr:"Τι",heb:"מה"},{gr:" ",heb:""},{gr:"προσέφερε",heb:"הציעה / סיפקה"},{gr:" ",heb:""},{gr:"η ελιά",heb:"עץ הזית"},{gr:" ",heb:""},{gr:"στους ανθρώπους",heb:"לבני האדם"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Καρπούς, λάδι, ξύλο και σκιά' }, { letter: 'Β', text: 'Μόνο λουλούδια' }, { letter: 'Γ', text: 'Μόνο νερό' }],
+            correctIndex: 0
+        },
+        {
+            questionText: 'Ποιον διάλεξαν οι κάτοικοι για προστάτιδα;',
+            segments: [{gr:"Ποιον",heb:"את מי"},{gr:" ",heb:""},{gr:"διάλεξαν",heb:"בחרו"},{gr:" ",heb:""},{gr:"οι κάτοικοι",heb:"התושבים"},{gr:" ",heb:""},{gr:"για προστάτιδα",heb:"כפטרונית"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Την Αθηνά' }, { letter: 'Β', text: 'Τον Ποσειδώνα' }, { letter: 'Γ', text: 'Τον Δία' }],
+            correctIndex: 0
+        },
+        {
+            questionText: 'Ποιο όνομα έδωσαν στην πόλη και τι συμβολίζει η ελιά;',
+            segments: [{gr:"Ποιο",heb:"איזה"},{gr:" ",heb:""},{gr:"όνομα",heb:"שם"},{gr:" ",heb:""},{gr:"έδωσαν",heb:"נתנו"},{gr:" ",heb:""},{gr:"στην πόλη",heb:"לעיר"},{gr:" ",heb:""},{gr:"και τι συμβολίζει η ελιά",heb:"ומה מסמל עץ הזית"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Αθήνα · η ελιά είναι σύμβολο σοφίας, ειρήνης και ζωής' }, { letter: 'Β', text: 'Σπάρτη · η ελιά είναι σύμβολο πολέμου' }, { letter: 'Γ', text: 'Κρήτη · η ελιά είναι σύμβολο θάλασσας' }],
+            correctIndex: 0
+        }
+    ];
     var currentStoryQuiz = null;
     var storyQuizIndex = 0;
     var storyQuizScore = 0;
@@ -4237,7 +4299,8 @@
             "אוצר מילים - Το καλοκαίρι στο χωριό (הקיץ בכפר)": extractConversationVocab(STORY_SUMMER_VILLAGE),
             "אוצר מילים - Μια μέρα στη λαϊκή αγορά (יום בשוק הפתוח)": extractConversationVocab(STORY_LAIKI_MARKET),
             "אוצר מילים - Εκδρομή στο δάσος (טיול ביער)": extractConversationVocab(STORY_FOREST_TRIP),
-            "אוצר מילים - Τα αγαπημένα μας κατοικίδια (חיות המחמד האהובות שלנו)": extractConversationVocab(STORY_BELOVED_PETS)
+            "אוצר מילים - Τα αγαπημένα μας κατοικίδια (חיות המחמד האהובות שלנו)": extractConversationVocab(STORY_BELOVED_PETS),
+            "אוצר מילים - Η Αθηνά και η ελιά – אתנה והזית": extractConversationVocab(STORY_ATHENA_OLIVE)
         }
     };
     function renderConversation(convData, conversationTitle, readingKind) {
@@ -4444,6 +4507,14 @@
                 quizBtnPet.onclick = function() { startStoryQuiz(STORY_BELOVED_PETS_QUIZ, STORY_BELOVED_PETS_QUIZ_SCORE_KEY, showStoryBelovedPets); };
                 actionsRow.appendChild(quizBtnPet);
             }
+            if (readingKind === 'סיפורים' && conversationTitle === STORY_ATHENA_OLIVE_TITLE) {
+                var quizBtnAth = document.createElement('button');
+                quizBtnAth.className = 'btn-main btn-vocab-conversation';
+                var highQuizAth = getModeHighScore(STORY_ATHENA_OLIVE_QUIZ_SCORE_KEY, 'storyQuiz');
+                quizBtnAth.innerHTML = '<span>שאלות ❓</span><small>שיא: ' + highQuizAth + '%</small>';
+                quizBtnAth.onclick = function() { startStoryQuiz(STORY_ATHENA_OLIVE_QUIZ, STORY_ATHENA_OLIVE_QUIZ_SCORE_KEY, showStoryAthenaOlive); };
+                actionsRow.appendChild(quizBtnAth);
+            }
             wrap.appendChild(actionsRow);
             box.appendChild(wrap);
         }
@@ -4629,6 +4700,7 @@
     function showStoryLaikiMarket() { renderConversation(STORY_LAIKI_MARKET, STORY_LAIKI_TITLE, 'סיפורים'); }
     function showStoryForestTrip() { renderConversation(STORY_FOREST_TRIP, STORY_FOREST_TITLE, 'סיפורים'); }
     function showStoryBelovedPets() { renderConversation(STORY_BELOVED_PETS, STORY_BELOVED_PETS_TITLE, 'סיפורים'); }
+    function showStoryAthenaOlive() { renderConversation(STORY_ATHENA_OLIVE, STORY_ATHENA_OLIVE_TITLE, 'סיפורים'); }
 
     // אותיות יווניות (אות קטנה, אות גדולה) וצירופים לדקדוק
     const GREEK_LETTERS = [
@@ -4872,8 +4944,8 @@
     function mergeStorySegmentsIntoLexicon() {
         if (!defArtGreekHebIndex) return;
         var blocks = [
-            STORY_KITTEN_BALL, STORY_MARIA_BIRTHDAY, STORY_ZOO_WALK, STORY_ZOO_VISIT, STORY_MATH_TEST, STORY_COOKING_PIZZA, STORY_SUMMER_VILLAGE, STORY_LAIKI_MARKET, STORY_FOREST_TRIP, STORY_BELOVED_PETS,
-            STORY_KITTEN_BALL_QUIZ, STORY_MARIA_BIRTHDAY_QUIZ, STORY_ZOO_WALK_QUIZ, STORY_ZOO_VISIT_QUIZ, STORY_MATH_TEST_QUIZ, STORY_COOKING_PIZZA_QUIZ, STORY_SUMMER_VILLAGE_QUIZ, STORY_LAIKI_MARKET_QUIZ, STORY_FOREST_TRIP_QUIZ, STORY_BELOVED_PETS_QUIZ,
+            STORY_KITTEN_BALL, STORY_MARIA_BIRTHDAY, STORY_ZOO_WALK, STORY_ZOO_VISIT, STORY_MATH_TEST, STORY_COOKING_PIZZA, STORY_SUMMER_VILLAGE, STORY_LAIKI_MARKET, STORY_FOREST_TRIP, STORY_BELOVED_PETS, STORY_ATHENA_OLIVE,
+            STORY_KITTEN_BALL_QUIZ, STORY_MARIA_BIRTHDAY_QUIZ, STORY_ZOO_WALK_QUIZ, STORY_ZOO_VISIT_QUIZ, STORY_MATH_TEST_QUIZ, STORY_COOKING_PIZZA_QUIZ, STORY_SUMMER_VILLAGE_QUIZ, STORY_LAIKI_MARKET_QUIZ, STORY_FOREST_TRIP_QUIZ, STORY_BELOVED_PETS_QUIZ, STORY_ATHENA_OLIVE_QUIZ,
             CONV_DIMITRIS_MAMA_ZOO, CONV_NIKOS_MARIA_EXAM, CONV_ALEXANDROS_SOFIA_HOBBIES, CONV_MAIA_NOA_WEEKEND
         ];
         blocks.forEach(function(block) {
@@ -10093,7 +10165,8 @@
             ['STORY_SUMMER_VILLAGE', STORY_SUMMER_VILLAGE],
             ['STORY_LAIKI_MARKET', STORY_LAIKI_MARKET],
             ['STORY_FOREST_TRIP', STORY_FOREST_TRIP],
-            ['STORY_BELOVED_PETS', STORY_BELOVED_PETS]
+            ['STORY_BELOVED_PETS', STORY_BELOVED_PETS],
+            ['STORY_ATHENA_OLIVE', STORY_ATHENA_OLIVE]
         ].forEach(function(pair) {
             walk(pair[1], pair[0]);
         });
@@ -10107,7 +10180,8 @@
             ['STORY_SUMMER_VILLAGE_QUIZ', STORY_SUMMER_VILLAGE_QUIZ],
             ['STORY_LAIKI_MARKET_QUIZ', STORY_LAIKI_MARKET_QUIZ],
             ['STORY_FOREST_TRIP_QUIZ', STORY_FOREST_TRIP_QUIZ],
-            ['STORY_BELOVED_PETS_QUIZ', STORY_BELOVED_PETS_QUIZ]
+            ['STORY_BELOVED_PETS_QUIZ', STORY_BELOVED_PETS_QUIZ],
+            ['STORY_ATHENA_OLIVE_QUIZ', STORY_ATHENA_OLIVE_QUIZ]
         ].forEach(function(pair) {
             walk(pair[1], pair[0]);
         });
