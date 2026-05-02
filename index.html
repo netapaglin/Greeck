@@ -5312,7 +5312,7 @@
                             stars = '⭐⭐⭐';
                             celebrate();
                         } else if (gramSpMemMoves <= good) {
-                            msg = 'חיים שלי בלב! תנסי שוב';
+                            msg = 'חיים שלי בלב! לנסות שוב';
                             stars = '⭐⭐⭐';
                         } else if (gramSpMemMoves <= ok) {
                             msg = 'כפרה עליך תחזרי על הטבלה';
@@ -7183,9 +7183,9 @@
 
             let msg = "";
             if (score > 90) { msg = "גאון של אמא"; celebrate(); }
-            else if (score >= 80) msg = "חיים שלי בלב! תנסי שוב";
-            else if (score >= 70) msg = "כפרה עליך תחזרי על המילים";
-            else msg = "מהממת שאת, נסיון יפה אבל תעברי שוב על המילים";
+            else if (score >= 80) msg = "חיים שלי בלב! לנסות שוב";
+            else if (score >= 70) msg = "כפרה עליך לחזור על המילים";
+            else msg = "נסיון יפה, אבל צריך לחזור על המילים";
             document.getElementById('match-final-msg').innerText = msg;
             return;
         }
@@ -7227,9 +7227,9 @@
             if (saveModeHighScore(getScoreKey(), 'reverseMatch', score)) buildMenu();
             let msg = "";
             if (score > 90) { msg = "גאון של אמא"; celebrate(); }
-            else if (score >= 80) msg = "חיים שלי בלב! תנסי שוב";
-            else if (score >= 70) msg = "כפרה עליך תחזרי על המילים";
-            else msg = "מהממת שאת, נסיון יפה אבל תעברי שוב על המילים";
+            else if (score >= 80) msg = "חיים שלי בלב! לנסות שוב";
+            else if (score >= 70) msg = "כפרה עליך לחזור על המילים";
+            else msg = "נסיון יפה, אבל צריך לחזור על המילים";
             document.getElementById('revmatch-final-msg').innerText = msg;
             return;
         }
@@ -7289,9 +7289,9 @@
                         document.getElementById('memory-results').style.display = 'block';
                         let msg = ""; let stars = "";
                         if (memMoves <= 12) { msg = "גאון של אמא"; stars = "⭐⭐⭐"; celebrate(); if (saveModeHighScore(getScoreKey(), 'memory', 100)) buildMenu(); }
-                        else if (memMoves <= 18) { msg = "חיים שלי בלב! תנסי שוב"; stars = "⭐⭐⭐"; if (saveModeHighScore(getScoreKey(), 'memory', 85)) buildMenu(); }
-                        else if (memMoves <= 22) { msg = "כפרה עליך תחזרי על המילים"; stars = "⭐⭐"; if (saveModeHighScore(getScoreKey(), 'memory', 70)) buildMenu(); }
-                        else { msg = "מהממת שאת, נסיון יפה אבל תעברי שוב על המילים"; stars = "⭐"; if (saveModeHighScore(getScoreKey(), 'memory', 50)) buildMenu(); }
+                        else if (memMoves <= 18) { msg = "חיים שלי בלב! לנסות שוב"; stars = "⭐⭐⭐"; if (saveModeHighScore(getScoreKey(), 'memory', 85)) buildMenu(); }
+                        else if (memMoves <= 22) { msg = "כפרה עליך לחזור על המילים"; stars = "⭐⭐"; if (saveModeHighScore(getScoreKey(), 'memory', 70)) buildMenu(); }
+                        else { msg = "נסיון יפה, אבל צריך לחזור על המילים"; stars = "⭐"; if (saveModeHighScore(getScoreKey(), 'memory', 50)) buildMenu(); }
                         document.getElementById('mem-res-msg').innerText = msg;
                         document.getElementById('mem-stars').innerText = stars;
                     }
@@ -7444,9 +7444,9 @@
         let successRate = getFallingPercentage();
         let msg = "";
         if (successRate > 90) { msg = "גאון של אמא"; celebrate(); }
-        else if (successRate >= 80) msg = "חיים שלי בלב! תנסי שוב";
-        else if (successRate >= 70) msg = "כפרה עליך תחזרי על המילים";
-        else msg = "מהממת שאת, נסיון יפה אבל תעברי שוב על המילים";
+        else if (successRate >= 80) msg = "חיים שלי בלב! לנסות שוב";
+        else if (successRate >= 70) msg = "כפרה עליך לחזור על המילים";
+        else msg = "נסיון יפה, אבל צריך לחזור על המילים";
         document.getElementById('falling-res-msg').innerHTML = `הניקוד שלך: ${successRate}%<br><div style="margin-top: 10px; font-size: 20px;">${msg}</div>`;
         saveHighScore(getScoreKey(), successRate);
     }
@@ -10473,9 +10473,9 @@
             saveHighScore(selectedCategory + " - השלמת משפטים", score);
             let msg = "";
             if (score > 90) { msg = "גאון של אמא"; celebrate(); }
-            else if (score >= 80) msg = "חיים שלי בלב! תנסי שוב";
-            else if (score >= 70) msg = "כפרה עליך תחזרי על המילים";
-            else msg = "מהממת שאת, נסיון יפה אבל תעברי שוב על המילים";
+            else if (score >= 80) msg = "חיים שלי בלב! לנסות שוב";
+            else if (score >= 70) msg = "כפרה עליך לחזור על המילים";
+            else msg = "נסיון יפה, אבל צריך לחזור על המילים";
             document.getElementById('sent-final-msg').innerText = msg;
             return;
         }
