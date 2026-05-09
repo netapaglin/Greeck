@@ -2347,6 +2347,10 @@
                 <span>Η Αθηνά και η ελιά – אתנה והזית</span>
                 <small>מיתוס, אתנה, פוסידון, זית, אתונה</small>
             </button>
+            <button class="btn-main main-choice-btn" onclick="showStoryTheseusAegeus()">
+                <span>Ο Θησέας, ο Αιγέας και το Αιγαίο – תזאוס, אגיאוס והים האגאי</span>
+                <small>אתונה, תזאוס, מינוטאור, מבוך, כרתים, מפרשים, ים האגאי</small>
+            </button>
         </div>
     </div>
     
@@ -3425,6 +3429,16 @@
         { speaker: "Αφήγηση", text: "Ύστερα ήρθε η Αθηνά. Ακούμπησε ήρεμα το χέρι της στο χώμα και φύτρωσε ένα δέντρο ελιάς. Η ελιά έδινε καρπούς, λάδι, ξύλο και σκιά. Οι άνθρωποι κατάλαβαν ότι αυτό το δώρο θα τους βοηθούσε κάθε μέρα.", segments: [{gr:"Ύστερα",heb:"אחר כך"},{gr:" ",heb:""},{gr:"ήρθε",heb:"באה"},{gr:" ",heb:""},{gr:"η Αθηνά",heb:"אתנה"},{gr:". ",heb:""},{gr:"Ακούμπησε ήρεμα",heb:"נגעה בעדינות"},{gr:" ",heb:""},{gr:"το χέρι της",heb:"את ידה"},{gr:" ",heb:""},{gr:"στο χώμα",heb:"בקרקע"},{gr:" ",heb:""},{gr:"και",heb:"ו"},{gr:" ",heb:""},{gr:"φύτρωσε ένα δέντρο ελιάς",heb:"צמח עץ זית"},{gr:". ",heb:""},{gr:"Η ελιά",heb:"עץ הזית"},{gr:" ",heb:""},{gr:"έδινε",heb:"נתן / סיפק"},{gr:" ",heb:""},{gr:"καρπούς, λάδι, ξύλο και σκιά",heb:"פירות, שמן, עץ וצל"},{gr:". ",heb:""},{gr:"Οι άνθρωποι κατάλαβαν",heb:"בני האדם הבינו"},{gr:" ",heb:""},{gr:"ότι",heb:"ש"},{gr:" ",heb:""},{gr:"αυτό το δώρο",heb:"המתנה הזאת"},{gr:" ",heb:""},{gr:"θα τους βοηθούσε",heb:"תעזור להם"},{gr:" ",heb:""},{gr:"κάθε μέρα",heb:"כל יום"},{gr:".",heb:""}] },
         { speaker: "Αφήγηση", text: "Έτσι, διάλεξαν την Αθηνά για προστάτιδα της πόλης και έδωσαν στην πόλη το όνομά της: Αθήνα. Από τότε η ελιά έγινε σύμβολο σοφίας, ειρήνης και ζωής.", segments: [{gr:"Έτσι",heb:"כך"},{gr:", ",heb:""},{gr:"διάλεξαν",heb:"בחרו"},{gr:" ",heb:""},{gr:"την Αθηνά",heb:"באתנה"},{gr:" ",heb:""},{gr:"για προστάτιδα της πόλης",heb:"כפטרונית העיר"},{gr:" ",heb:""},{gr:"και",heb:"ו"},{gr:" ",heb:""},{gr:"έδωσαν στην πόλη",heb:"נתנו לעיר"},{gr:" ",heb:""},{gr:"το όνομά της",heb:"את שמה"},{gr:": ",heb:""},{gr:"Αθήνα",heb:"אתונה"},{gr:". ",heb:""},{gr:"Από τότε",heb:"מאז"},{gr:" ",heb:""},{gr:"η ελιά έγινε",heb:"עץ הזית הפך"},{gr:" ",heb:""},{gr:"σύμβολο σοφίας, ειρήνης και ζωής",heb:"לסמל חוכמה, שלום וחיים"},{gr:".",heb:""}] }
     ];
+    const STORY_THESEUS_AEGEUS = [
+        { speaker: "Αφήγηση", text: "Πριν από πολλά χρόνια, στην Αθήνα ζούσε ο βασιλιάς Αιγέας. Είχε έναν γενναίο γιο, τον Θησέα.", segments: [{gr:"Πριν από",heb:"לפני"},{gr:" ",heb:""},{gr:"πολλά χρόνια",heb:"הרבה שנים"},{gr:", ",heb:""},{gr:"στην Αθήνα",heb:"באתונה"},{gr:" ",heb:""},{gr:"ζούσε",heb:"חי"},{gr:" ",heb:""},{gr:"ο βασιλιάς Αιγέας",heb:"המלך אגיאוס"},{gr:". ",heb:""},{gr:"Είχε",heb:"היה לו"},{gr:" ",heb:""},{gr:"έναν γενναίο γιο",heb:"בן אמיץ"},{gr:", ",heb:""},{gr:"τον Θησέα",heb:"את תזאוס"},{gr:".",heb:""}] },
+        { speaker: "Αφήγηση", text: "Εκείνη την εποχή οι Αθηναίοι έστελναν νέους και νέες στην Κρήτη, γιατί εκεί ζούσε ο τρομερός Μινώταυρος, ένα τέρας που κατοικούσε σε έναν σκοτεινό λαβύρινθο.", segments: [{gr:"Εκείνη την εποχή",heb:"באותה תקופה"},{gr:" ",heb:""},{gr:"οι Αθηναίοι",heb:"האתונאים"},{gr:" ",heb:""},{gr:"έστελναν",heb:"שלחו"},{gr:" ",heb:""},{gr:"νέους και νέες",heb:"בחורים ובחורות"},{gr:" ",heb:""},{gr:"στην Κρήτη",heb:"לכרתים"},{gr:", ",heb:""},{gr:"γιατί",heb:"כי"},{gr:" ",heb:""},{gr:"εκεί",heb:"שם"},{gr:" ",heb:""},{gr:"ζούσε",heb:"חי"},{gr:" ",heb:""},{gr:"ο τρομερός Μινώταυρος",heb:"המינוטאור האימתני"},{gr:", ",heb:""},{gr:"ένα τέρας",heb:"מפלצת"},{gr:" ",heb:""},{gr:"που κατοικούσε",heb:"שגרה"},{gr:" ",heb:""},{gr:"σε έναν σκοτεινό λαβύρινθο",heb:"במבוך אפל"},{gr:".",heb:""}] },
+        { speaker: "Αφήγηση", text: "Ο Θησέας αποφάσισε να ταξιδέψει στην Κρήτη για να σκοτώσει το τέρας και να σώσει την πόλη του. Πριν φύγει, ο πατέρας του τού είπε κάτι πολύ σημαντικό:", segments: [{gr:"Ο Θησέας",heb:"תזאוס"},{gr:" ",heb:""},{gr:"αποφάσισε",heb:"החליט"},{gr:" ",heb:""},{gr:"να ταξιδέψει",heb:"לנסוע"},{gr:" ",heb:""},{gr:"στην Κρήτη",heb:"לכרתים"},{gr:" ",heb:""},{gr:"για να σκοτώσει το τέρας",heb:"כדי להרוג את המפלצת"},{gr:" ",heb:""},{gr:"και να σώσει την πόλη του",heb:"ולהציל את עירו"},{gr:". ",heb:""},{gr:"Πριν φύγει",heb:"לפני שנסע"},{gr:", ",heb:""},{gr:"ο πατέρας του",heb:"אביו"},{gr:" ",heb:""},{gr:"τού είπε",heb:"אמר לו"},{gr:" ",heb:""},{gr:"κάτι πολύ σημαντικό",heb:"דבר חשוב מאוד"},{gr:":",heb:""}] },
+        { speaker: "Αιγέας", text: "«Αν γυρίσεις νικητής, άλλαξε τα μαύρα πανιά του πλοίου και βάλε λευκά. Έτσι θα καταλάβω ότι είσαι ζωντανός.»", segments: [{gr:"«Αν γυρίσεις νικητής",heb:"«אם תשוב מנצח"},{gr:", ",heb:""},{gr:"άλλαξε τα μαύρα πανιά του πλοίου",heb:"החלף את המפרשים השחורים של הספינה"},{gr:" ",heb:""},{gr:"και βάλε λευκά",heb:"ושים לבנים"},{gr:". ",heb:""},{gr:"Έτσι θα καταλάβω",heb:"כך אבין"},{gr:" ",heb:""},{gr:"ότι είσαι ζωντανός",heb:"שאתה בחיים"},{gr:".»",heb:"»"}] },
+        { speaker: "Αφήγηση", text: "Ο Θησέας έφτασε στην Κρήτη, μπήκε στον λαβύρινθο και, με θάρρος και εξυπνάδα, νίκησε τον Μινώταυρο.", segments: [{gr:"Ο Θησέας",heb:"תזאוס"},{gr:" ",heb:""},{gr:"έφτασε στην Κρήτη",heb:"הגיע לכרתים"},{gr:", ",heb:""},{gr:"μπήκε στον λαβύρινθο",heb:"נכנס למבוך"},{gr:" ",heb:""},{gr:"και",heb:"ו"},{gr:", ",heb:""},{gr:"με θάρρος και εξυπνάδα",heb:"באומץ ופקחות"},{gr:", ",heb:""},{gr:"νίκησε τον Μινώταυρο",heb:"ניצח את המינוטאור"},{gr:".",heb:""}] },
+        { speaker: "Αφήγηση", text: "Ύστερα μπήκε πάλι στο πλοίο για να επιστρέψει στην Αθήνα. Όμως, από τη χαρά και την κούραση, ξέχασε να αλλάξει τα μαύρα πανιά.", segments: [{gr:"Ύστερα",heb:"אחר כך"},{gr:" ",heb:""},{gr:"μπήκε πάλι στο πλοίο",heb:"עלה שוב על הספינה"},{gr:" ",heb:""},{gr:"για να επιστρέψει στην Αθήνα",heb:"כדי לחזור לאתונה"},{gr:". ",heb:""},{gr:"Όμως",heb:"אולם"},{gr:", ",heb:""},{gr:"από τη χαρά και την κούραση",heb:"מהשמחה והעייפות"},{gr:", ",heb:""},{gr:"ξέχασε",heb:"שכח"},{gr:" ",heb:""},{gr:"να αλλάξει τα μαύρα πανιά",heb:"להחליף את המפרשים השחורים"},{gr:".",heb:""}] },
+        { speaker: "Αφήγηση", text: "Όταν ο βασιλιάς Αιγέας είδε από μακριά το πλοίο να πλησιάζει με μαύρα πανιά, πίστεψε πως ο γιος του είχε πεθάνει. Γεμάτος λύπη, έπεσε στη θάλασσα. Από τότε, η θάλασσα αυτή ονομάστηκε Αιγαίο Πέλαγος, από το όνομα του βασιλιά Αιγέα.", segments: [{gr:"Όταν",heb:"כש"},{gr:" ",heb:""},{gr:"ο βασιλιάς Αιγέας",heb:"המלך אגיאוס"},{gr:" ",heb:""},{gr:"είδε από μακριά",heb:"ראה מרחוק"},{gr:" ",heb:""},{gr:"το πλοίο να πλησιάζει με μαύρα πανιά",heb:"את הספינה מתקרבת עם מפרשים שחורים"},{gr:", ",heb:""},{gr:"πίστεψε",heb:"האמין"},{gr:" ",heb:""},{gr:"πως ο γιος του είχε πεθάνει",heb:"שבנו מת"},{gr:". ",heb:""},{gr:"Γεμάτος λύπη",heb:"מלא צער"},{gr:", ",heb:""},{gr:"έπεσε στη θάλασσα",heb:"השליך עצמו לים"},{gr:". ",heb:""},{gr:"Από τότε",heb:"מאז"},{gr:", ",heb:""},{gr:"η θάλασσα αυτή",heb:"הים הזה"},{gr:" ",heb:""},{gr:"ονομάστηκε Αιγαίο Πέλαγος",heb:"נקרא ים האגאי"},{gr:", ",heb:""},{gr:"από το όνομα του βασιλιά Αιγέα",heb:"על שם המלך אגיאוס"},{gr:".",heb:""}] },
+        { speaker: "Αφήγηση", text: "Έτσι, κάθε φορά που ακούμε το όνομα Αιγαίο, θυμόμαστε τον μύθο του Αιγέα και του Θησέα.", segments: [{gr:"Έτσι",heb:"כך"},{gr:", ",heb:""},{gr:"κάθε φορά που",heb:"בכל פעם ש"},{gr:" ",heb:""},{gr:"ακούμε το όνομα Αιγαίο",heb:"שומעים את השם אגאי (אגיי)"},{gr:", ",heb:""},{gr:"θυμόμαστε",heb:"אנו זוכרים"},{gr:" ",heb:""},{gr:"τον μύθο του Αιγέα και του Θησέα",heb:"את המיתוס של אגיאוס ותזאוס"},{gr:".",heb:""}] }
+    ];
     const STORY_ZOO_VISIT = [
         { speaker: "Αφήγηση", text: "Σήμερα η οικογένεια του Νίκου επισκέπτεται τον ζωολογικό κήπο. Ο ήλιος λάμπει και τα παιδιά ανυπομονούν να δουν τα ζώα.", segments: [{gr:"Σήμερα",heb:"היום"},{gr:" ",heb:""},{gr:"η οικογένεια του Νίκου",heb:"משפחתו של ניקוס"},{gr:" ",heb:""},{gr:"επισκέπτεται",heb:"מבקרת"},{gr:" ",heb:""},{gr:"τον ζωολογικό κήπο",heb:"את גן החיות"},{gr:". ",heb:""},{gr:"Ο ήλιος",heb:"השמש"},{gr:" ",heb:""},{gr:"λάμπει",heb:"זורחת"},{gr:" ",heb:""},{gr:"και",heb:"ו"},{gr:" ",heb:""},{gr:"τα παιδιά",heb:"הילדים"},{gr:" ",heb:""},{gr:"ανυπομονούν να δουν",heb:"מחכים בכיליון עיניים לראות"},{gr:" ",heb:""},{gr:"τα ζώα",heb:"את החיות"},{gr:".",heb:""}] },
         { speaker: "Αφήγηση", text: "Στην είσοδο, παίρνουν έναν χάρτη. Πρώτα, πηγαίνουν στα λιοντάρια. Το λιοντάρι είναι ο βασιλιάς του δάσους. Είναι μεγάλο, δυνατό και έχει μια πλούσια χαίτη.", segments: [{gr:"Στην είσοδο",heb:"בכניסה"},{gr:", ",heb:""},{gr:"παίρνουν",heb:"לוקחים"},{gr:" ",heb:""},{gr:"έναν χάρτη",heb:"מפה"},{gr:". ",heb:""},{gr:"Πρώτα",heb:"קודם"},{gr:", ",heb:""},{gr:"πηγαίνουν",heb:"הולכים"},{gr:" ",heb:""},{gr:"στα λιοντάρια",heb:"אל האריות"},{gr:". ",heb:""},{gr:"Το λιοντάρι",heb:"האריה"},{gr:" ",heb:""},{gr:"είναι ο βασιλιάς του δάσους",heb:"הוא מלך החיות"},{gr:". ",heb:""},{gr:"Είναι μεγάλο, δυνατό",heb:"הוא גדול, חזק"},{gr:" ",heb:""},{gr:"και",heb:"ו"},{gr:" ",heb:""},{gr:"έχει μια πλούσια χαίτη",heb:"יש לו רעמה שופעת"},{gr:".",heb:""}] },
@@ -4108,6 +4122,58 @@
             correctIndex: 0
         }
     ];
+    const STORY_THESEUS_AEGEUS_TITLE = 'Ο Θησέας, ο Αιγέας και το Αιγαίο – תזאוס, אגיאוס והים האגאי';
+    const STORY_THESEUS_AEGEUS_QUIZ_SCORE_KEY = 'קריאה - סיפורים - שאלות - ' + STORY_THESEUS_AEGEUS_TITLE;
+    const STORY_THESEUS_AEGEUS_QUIZ = [
+        {
+            questionText: 'Πού ζούσε ο βασιλιάς Αιγέας και ποιος ήταν ο γιος του;',
+            segments: [{gr:"Πού",heb:"איפה"},{gr:" ",heb:""},{gr:"ζούσε",heb:"חי"},{gr:" ",heb:""},{gr:"ο βασιλιάς Αιγέας",heb:"המלך אגיאוס"},{gr:" ",heb:""},{gr:"και ποιος ήταν ο γιος του",heb:"ומי היה בנו"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Στην Αθήνα · ο Θησέας' }, { letter: 'Β', text: 'Στην Κρήτη · ο Μινώταυρος' }, { letter: 'Γ', text: 'Στη Θεσσαλονίκη · ο Περσέας' }],
+            correctIndex: 0
+        },
+        {
+            questionText: 'Γιατί οι Αθηναίοι έστελναν νέους και νέες στην Κρήτη;',
+            segments: [{gr:"Γιατί",heb:"למה"},{gr:" ",heb:""},{gr:"οι Αθηναίοι",heb:"האתונאים"},{gr:" ",heb:""},{gr:"έστελναν",heb:"שלחו"},{gr:" ",heb:""},{gr:"νέους και νέες",heb:"בחורים ובחורות"},{gr:" ",heb:""},{gr:"στην Κρήτη",heb:"לכרתים"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Επειδή εκεί ζούσε ο τρομερός Μινώταυρος' }, { letter: 'Β', text: 'Για διακοπές' }, { letter: 'Γ', text: 'Για να μάθουν γλώσσες' }],
+            correctIndex: 0
+        },
+        {
+            questionText: 'Πού κατοικούσε ο Μινώταυρος;',
+            segments: [{gr:"Πού",heb:"איפה"},{gr:" ",heb:""},{gr:"κατοικούσε",heb:"גר"},{gr:" ",heb:""},{gr:"ο Μινώταυρος",heb:"המינוטאור"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Σε έναν σκοτεινό λαβύρινθο' }, { letter: 'Β', text: 'Στη θάλασσα' }, { letter: 'Γ', text: 'Στο βουνό της Αθήνας' }],
+            correctIndex: 0
+        },
+        {
+            questionText: 'Τι αποφάσισε να κάνει ο Θησέας;',
+            segments: [{gr:"Τι",heb:"מה"},{gr:" ",heb:""},{gr:"αποφάσισε",heb:"החליט"},{gr:" ",heb:""},{gr:"να κάνει",heb:"לעשות"},{gr:" ",heb:""},{gr:"ο Θησέας",heb:"תזאוס"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Να πάει στην Κρήτη, να σκοτώσει το τέρας και να σώσει την πόλη του' }, { letter: 'Β', text: 'Να μείνει μόνο στο σπίτι' }, { letter: 'Γ', text: 'Να πουλήσει το πλοίο' }],
+            correctIndex: 0
+        },
+        {
+            questionText: 'Τι είπε ο Αιγέας στον Θησέα για τα πανιά του πλοίου;',
+            segments: [{gr:"Τι",heb:"מה"},{gr:" ",heb:""},{gr:"είπε",heb:"אמר"},{gr:" ",heb:""},{gr:"ο Αιγέας",heb:"אגיאוס"},{gr:" ",heb:""},{gr:"στον Θησέα",heb:"לתזאוס"},{gr:" ",heb:""},{gr:"για τα πανιά του πλοίου",heb:"לגבי מפרשי הספינה"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Αν γυρίσει νικητής, να βάλει λευκά πανιά αντί για μαύρα' }, { letter: 'Β', text: 'Να βάψει το πλοίο κόκκινο' }, { letter: 'Γ', text: 'Να πετάξει τα πανιά' }],
+            correctIndex: 0
+        },
+        {
+            questionText: 'Πώς νίκησε ο Θησέας τον Μινώταυρο;',
+            segments: [{gr:"Πώς",heb:"איך"},{gr:" ",heb:""},{gr:"νίκησε",heb:"ניצח"},{gr:" ",heb:""},{gr:"ο Θησέας",heb:"תזאוס"},{gr:" ",heb:""},{gr:"τον Μινώταυρο",heb:"את המינוטאור"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Με θάρρος και εξυπνάδα, μέσα στον λαβύρινθο' }, { letter: 'Β', text: 'Χωρίς να μπει στον λαβύρινθο' }, { letter: 'Γ', text: 'Με τη χορήγηση δώρων' }],
+            correctIndex: 0
+        },
+        {
+            questionText: 'Γιατί το πλοίο γύριζε με μαύρα πανιά;',
+            segments: [{gr:"Γιατί",heb:"למה"},{gr:" ",heb:""},{gr:"το πλοίο",heb:"הספינה"},{gr:" ",heb:""},{gr:"γύριζε",heb:"חזרה"},{gr:" ",heb:""},{gr:"με μαύρα πανιά",heb:"עם מפרשים שחורים"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Ο Θησέας ξέχασε να τα αλλάξει από χαρά και κούραση' }, { letter: 'Β', text: 'Οι ναύτες ήταν θυμωμένοι' }, { letter: 'Γ', text: 'Δεν υπήρχαν άλλα πανιά' }],
+            correctIndex: 0
+        },
+        {
+            questionText: 'Γιατί ονομάστηκε η θάλασσα «Αιγαίο Πέλαγος»;',
+            segments: [{gr:"Γιατί",heb:"למה"},{gr:" ",heb:""},{gr:"ονομάστηκε",heb:"נקרא"},{gr:" ",heb:""},{gr:"η θάλασσα",heb:"הים"},{gr:" ",heb:""},{gr:"«Αιγαίο Πέλαγος»",heb:"«ים האגאי»"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Από το όνομα του βασιλιά Αιγέα, που έπεσε στη θάλασσα' }, { letter: 'Β', text: 'Από ένα ψάρι' }, { letter: 'Γ', text: 'Από το χρώμα του νερού' }],
+            correctIndex: 0
+        }
+    ];
     var currentStoryQuiz = null;
     var storyQuizIndex = 0;
     var storyQuizScore = 0;
@@ -4293,7 +4359,8 @@
             "אוצר מילים - Μια μέρα στη λαϊκή αγορά (יום בשוק הפתוח)": extractConversationVocab(STORY_LAIKI_MARKET),
             "אוצר מילים - Εκδρομή στο δάσος (טיול ביער)": extractConversationVocab(STORY_FOREST_TRIP),
             "אוצר מילים - Τα αγαπημένα μας κατοικίδια (חיות המחמד האהובות שלנו)": extractConversationVocab(STORY_BELOVED_PETS),
-            "אוצר מילים - Η Αθηνά και η ελιά – אתנה והזית": extractConversationVocab(STORY_ATHENA_OLIVE)
+            "אוצר מילים - Η Αθηνά και η ελιά – אתנה והזית": extractConversationVocab(STORY_ATHENA_OLIVE),
+            "אוצר מילים - Ο Θησέας, ο Αιγέας και το Αιγαίο – תזאוס, אגיאוס והים האגאי": extractConversationVocab(STORY_THESEUS_AEGEUS)
         }
     };
     function renderConversation(convData, conversationTitle, readingKind) {
@@ -4508,6 +4575,14 @@
                 quizBtnAth.onclick = function() { startStoryQuiz(STORY_ATHENA_OLIVE_QUIZ, STORY_ATHENA_OLIVE_QUIZ_SCORE_KEY, showStoryAthenaOlive); };
                 actionsRow.appendChild(quizBtnAth);
             }
+            if (readingKind === 'סיפורים' && conversationTitle === STORY_THESEUS_AEGEUS_TITLE) {
+                var quizBtnTh = document.createElement('button');
+                quizBtnTh.className = 'btn-main btn-vocab-conversation';
+                var highQuizTh = getModeHighScore(STORY_THESEUS_AEGEUS_QUIZ_SCORE_KEY, 'storyQuiz');
+                quizBtnTh.innerHTML = '<span>שאלות ❓</span><small>שיא: ' + highQuizTh + '%</small>';
+                quizBtnTh.onclick = function() { startStoryQuiz(STORY_THESEUS_AEGEUS_QUIZ, STORY_THESEUS_AEGEUS_QUIZ_SCORE_KEY, showStoryTheseusAegeus); };
+                actionsRow.appendChild(quizBtnTh);
+            }
             wrap.appendChild(actionsRow);
             box.appendChild(wrap);
         }
@@ -4694,6 +4769,7 @@
     function showStoryForestTrip() { renderConversation(STORY_FOREST_TRIP, STORY_FOREST_TITLE, 'סיפורים'); }
     function showStoryBelovedPets() { renderConversation(STORY_BELOVED_PETS, STORY_BELOVED_PETS_TITLE, 'סיפורים'); }
     function showStoryAthenaOlive() { renderConversation(STORY_ATHENA_OLIVE, STORY_ATHENA_OLIVE_TITLE, 'סיפורים'); }
+    function showStoryTheseusAegeus() { renderConversation(STORY_THESEUS_AEGEUS, STORY_THESEUS_AEGEUS_TITLE, 'סיפורים'); }
 
     // אותיות יווניות (אות קטנה, אות גדולה) וצירופים לדקדוק
     const GREEK_LETTERS = [
@@ -4937,8 +5013,8 @@
     function mergeStorySegmentsIntoLexicon() {
         if (!defArtGreekHebIndex) return;
         var blocks = [
-            STORY_KITTEN_BALL, STORY_MARIA_BIRTHDAY, STORY_ZOO_WALK, STORY_ZOO_VISIT, STORY_MATH_TEST, STORY_COOKING_PIZZA, STORY_SUMMER_VILLAGE, STORY_LAIKI_MARKET, STORY_FOREST_TRIP, STORY_BELOVED_PETS, STORY_ATHENA_OLIVE,
-            STORY_KITTEN_BALL_QUIZ, STORY_MARIA_BIRTHDAY_QUIZ, STORY_ZOO_WALK_QUIZ, STORY_ZOO_VISIT_QUIZ, STORY_MATH_TEST_QUIZ, STORY_COOKING_PIZZA_QUIZ, STORY_SUMMER_VILLAGE_QUIZ, STORY_LAIKI_MARKET_QUIZ, STORY_FOREST_TRIP_QUIZ, STORY_BELOVED_PETS_QUIZ, STORY_ATHENA_OLIVE_QUIZ,
+            STORY_KITTEN_BALL, STORY_MARIA_BIRTHDAY, STORY_ZOO_WALK, STORY_ZOO_VISIT, STORY_MATH_TEST, STORY_COOKING_PIZZA, STORY_SUMMER_VILLAGE, STORY_LAIKI_MARKET, STORY_FOREST_TRIP, STORY_BELOVED_PETS, STORY_ATHENA_OLIVE, STORY_THESEUS_AEGEUS,
+            STORY_KITTEN_BALL_QUIZ, STORY_MARIA_BIRTHDAY_QUIZ, STORY_ZOO_WALK_QUIZ, STORY_ZOO_VISIT_QUIZ, STORY_MATH_TEST_QUIZ, STORY_COOKING_PIZZA_QUIZ, STORY_SUMMER_VILLAGE_QUIZ, STORY_LAIKI_MARKET_QUIZ, STORY_FOREST_TRIP_QUIZ, STORY_BELOVED_PETS_QUIZ, STORY_ATHENA_OLIVE_QUIZ, STORY_THESEUS_AEGEUS_QUIZ,
             CONV_DIMITRIS_MAMA_ZOO, CONV_NIKOS_MARIA_EXAM, CONV_ALEXANDROS_SOFIA_HOBBIES, CONV_MAIA_NOA_WEEKEND
         ];
         blocks.forEach(function(block) {
@@ -10159,7 +10235,8 @@
             ['STORY_LAIKI_MARKET', STORY_LAIKI_MARKET],
             ['STORY_FOREST_TRIP', STORY_FOREST_TRIP],
             ['STORY_BELOVED_PETS', STORY_BELOVED_PETS],
-            ['STORY_ATHENA_OLIVE', STORY_ATHENA_OLIVE]
+            ['STORY_ATHENA_OLIVE', STORY_ATHENA_OLIVE],
+            ['STORY_THESEUS_AEGEUS', STORY_THESEUS_AEGEUS]
         ].forEach(function(pair) {
             walk(pair[1], pair[0]);
         });
@@ -10174,7 +10251,8 @@
             ['STORY_LAIKI_MARKET_QUIZ', STORY_LAIKI_MARKET_QUIZ],
             ['STORY_FOREST_TRIP_QUIZ', STORY_FOREST_TRIP_QUIZ],
             ['STORY_BELOVED_PETS_QUIZ', STORY_BELOVED_PETS_QUIZ],
-            ['STORY_ATHENA_OLIVE_QUIZ', STORY_ATHENA_OLIVE_QUIZ]
+            ['STORY_ATHENA_OLIVE_QUIZ', STORY_ATHENA_OLIVE_QUIZ],
+            ['STORY_THESEUS_AEGEUS_QUIZ', STORY_THESEUS_AEGEUS_QUIZ]
         ].forEach(function(pair) {
             walk(pair[1], pair[0]);
         });
