@@ -107,12 +107,6 @@
             font-size: 1.2em;
             line-height: 1;
         }
-        .app-subtitle {
-            margin-bottom: 28px;
-            font-size: 18px;
-            color: var(--text-muted);
-            text-align: center;
-        }
 
         .menu-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 20px; width: 100%; max-width: 800px; }
         .main-menu-stack {
@@ -1918,7 +1912,6 @@
     
     <!-- מסך ראשי: בחירה בין אוצר מילים, דקדוק וקריאה (שיחות) -->
     <div id="main-menu-screen" class="screen active">
-        <p class="app-subtitle">בחרי מה ללמוד היום:</p>
         <div class="menu-container main-menu-stack">
             <button class="btn-main main-choice-btn" onclick="showVocabularySection()">
                 <span>📚 אוצר מילים</span>
@@ -5315,10 +5308,10 @@
                             msg = 'חיים שלי בלב! לנסות שוב';
                             stars = '⭐⭐⭐';
                         } else if (gramSpMemMoves <= ok) {
-                            msg = 'כפרה עליך תחזרי על הטבלה';
+                            msg = 'כפרה עליך לחזור על הטבלה';
                             stars = '⭐⭐';
                         } else {
-                            msg = 'נסי שוב — זה מתאמן עם הזמן';
+                            msg = 'לנסות שוב — ככה משתפרים';
                             stars = '⭐';
                         }
                         var sm = document.getElementById('gram-sp-mem-stars');
