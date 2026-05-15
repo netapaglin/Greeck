@@ -2351,6 +2351,10 @@
                 <span>Ο Θησέας, ο Αιγέας και το Αιγαίο – תזאוס, אגיאוס והים האגאי</span>
                 <small>אתונה, תזאוס, מינוטאור, מבוך, כרתים, מפרשים, ים האגאי</small>
             </button>
+            <button class="btn-main main-choice-btn" onclick="showStoryDaedalusIcarus()">
+                <span>Ο Δαίδαλος και ο Ίκαρος – דדאלוס ואיקרוס</span>
+                <small>כרתים, מינוס, כנפיים, שעווה, שמש, ים, עצות</small>
+            </button>
         </div>
     </div>
     
@@ -3440,6 +3444,20 @@
         { speaker: "Αφήγηση", text: "Όταν ο βασιλιάς Αιγέας είδε από μακριά το πλοίο να πλησιάζει με μαύρα πανιά, πίστεψε πως ο γιος του είχε πεθάνει. Γεμάτος λύπη, έπεσε στη θάλασσα. Από τότε, η θάλασσα αυτή ονομάστηκε Αιγαίο Πέλαγος, από το όνομα του βασιλιά Αιγέα.", segments: [{gr:"Όταν",heb:"כש"},{gr:" ",heb:""},{gr:"ο βασιλιάς Αιγέας",heb:"המלך אגיאוס"},{gr:" ",heb:""},{gr:"είδε από μακριά",heb:"ראה מרחוק"},{gr:" ",heb:""},{gr:"το πλοίο να πλησιάζει με μαύρα πανιά",heb:"את הספינה מתקרבת עם מפרשים שחורים"},{gr:", ",heb:""},{gr:"πίστεψε",heb:"האמין"},{gr:" ",heb:""},{gr:"πως ο γιος του είχε πεθάνει",heb:"שבנו מת"},{gr:". ",heb:""},{gr:"Γεμάτος λύπη",heb:"מלא צער"},{gr:", ",heb:""},{gr:"έπεσε στη θάλασσα",heb:"השליך עצמו לים"},{gr:". ",heb:""},{gr:"Από τότε",heb:"מאז"},{gr:", ",heb:""},{gr:"η θάλασσα αυτή",heb:"הים הזה"},{gr:" ",heb:""},{gr:"ονομάστηκε Αιγαίο Πέλαγος",heb:"נקרא ים האגאי"},{gr:", ",heb:""},{gr:"από το όνομα του βασιλιά Αιγέα",heb:"על שם המלך אגיאוס"},{gr:".",heb:""}] },
         { speaker: "Αφήγηση", text: "Έτσι, κάθε φορά που ακούμε το όνομα Αιγαίο, θυμόμαστε τον μύθο του Αιγέα και του Θησέα.", segments: [{gr:"Έτσι",heb:"כך"},{gr:", ",heb:""},{gr:"κάθε φορά που",heb:"בכל פעם ש"},{gr:" ",heb:""},{gr:"ακούμε το όνομα Αιγαίο",heb:"שומעים את השם אגאי (אגיי)"},{gr:", ",heb:""},{gr:"θυμόμαστε",heb:"אנו זוכרים"},{gr:" ",heb:""},{gr:"τον μύθο του Αιγέα και του Θησέα",heb:"את המיתוס של אגיאוס ותזאוס"},{gr:".",heb:""}] }
     ];
+    const STORY_DAEDALUS_ICARUS = [
+        { speaker: "Αφήγηση", text: "Ο Δαίδαλος ήταν ένας πολύ έξυπνος τεχνίτης.", segments: [{gr:"Ο Δαίδαλος",heb:"דדאלוס"},{gr:" ",heb:""},{gr:"ήταν",heb:"היה"},{gr:" ",heb:""},{gr:"ένας πολύ έξυπνος τεχνίτης",heb:"אומן חכם מאוד"},{gr:".",heb:""}] },
+        { speaker: "Αφήγηση", text: "Ζούσε στην Κρήτη μαζί με τον γιο του, τον Ίκαρο.", segments: [{gr:"Ζούσε",heb:"גר"},{gr:" ",heb:""},{gr:"στην Κρήτη",heb:"בכרתים"},{gr:" ",heb:""},{gr:"μαζί με τον γιο του",heb:"עם בנו"},{gr:", ",heb:""},{gr:"τον Ίκαρο",heb:"את איקרוס"},{gr:".",heb:""}] },
+        { speaker: "Αφήγηση", text: "Ο βασιλιάς Μίνωας δεν τους άφηνε να φύγουν από το νησί.", segments: [{gr:"Ο βασιλιάς Μίνωας",heb:"המלך מינוס"},{gr:" ",heb:""},{gr:"δεν τους άφηνε",heb:"לא הניח להם"},{gr:" ",heb:""},{gr:"να φύγουν",heb:"לעזוב"},{gr:" ",heb:""},{gr:"από το νησί",heb:"מהאי"},{gr:".",heb:""}] },
+        { speaker: "Αφήγηση", text: "Τότε ο Δαίδαλος σκέφτηκε ένα έξυπνο σχέδιο.", segments: [{gr:"Τότε",heb:"אז"},{gr:" ",heb:""},{gr:"ο Δαίδαλος",heb:"דדאלוס"},{gr:" ",heb:""},{gr:"σκέφτηκε",heb:"חשב על"},{gr:" ",heb:""},{gr:"ένα έξυπνο σχέδιο",heb:"תוכנית חכמה"},{gr:".",heb:""}] },
+        { speaker: "Αφήγηση", text: "Έφτιαξε δύο ζευγάρια φτερά από πούπουλα και κερί.", segments: [{gr:"Έφτιαξε",heb:"הכין"},{gr:" ",heb:""},{gr:"δύο ζευγάρια φτερά",heb:"שני זוגות כנפיים"},{gr:" ",heb:""},{gr:"από πούπουλα και κερί",heb:"מנוצות ושעווה"},{gr:".",heb:""}] },
+        { speaker: "Αφήγηση", text: "Πριν πετάξουν, είπε στον Ίκαρο: «Μην πετάξεις πολύ χαμηλά, γιατί η θάλασσα θα βρέξει τα φτερά. Μην πετάξεις και πολύ ψηλά, γιατί ο ήλιος θα λιώσει το κερί».", segments: [{gr:"Πριν πετάξουν",heb:"לפני שעפו"},{gr:", ",heb:""},{gr:"είπε στον Ίκαρο",heb:"אמר לאיקרוס"},{gr:": ",heb:""},{gr:"«Μην πετάξεις πολύ χαμηλά,",heb:"«אל תעוף נמוך מדי,"},{gr:" ",heb:""},{gr:"γιατί η θάλασσα θα βρέξει τα φτερά.",heb:"כי הים ירטיב את הכנפיים."},{gr:" ",heb:""},{gr:"Μην πετάξεις και πολύ ψηλά,",heb:"ואל תעוף גם גבוה מדי,"},{gr:" ",heb:""},{gr:"γιατί ο ήλιος θα λιώσει το κερί».",heb:"כי השמש תמיס את השעווה»."}] },
+        { speaker: "Αφήγηση", text: "Στην αρχή ο Ίκαρος πετούσε προσεκτικά.", segments: [{gr:"Στην αρχή",heb:"בהתחלה"},{gr:" ",heb:""},{gr:"ο Ίκαρος",heb:"איקרוס"},{gr:" ",heb:""},{gr:"πετούσε προσεκτικά",heb:"עף בזהירות"},{gr:".",heb:""}] },
+        { speaker: "Αφήγηση", text: "Ύστερα όμως χάρηκε πολύ και άρχισε να ανεβαίνει όλο και πιο ψηλά.", segments: [{gr:"Ύστερα",heb:"אחר כך"},{gr:" ",heb:""},{gr:"όμως",heb:"אולם"},{gr:" ",heb:""},{gr:"χάρηκε πολύ",heb:"שמח מאוד"},{gr:" ",heb:""},{gr:"και",heb:"ו"},{gr:" ",heb:""},{gr:"άρχισε να ανεβαίνει όλο και πιο ψηλά",heb:"התחיל לעלות יותר ויותר גבוה"},{gr:".",heb:""}] },
+        { speaker: "Αφήγηση", text: "Ο ήλιος έκαιγε δυνατά, το κερί άρχισε να λιώνει και τα φτερά σκορπίστηκαν.", segments: [{gr:"Ο ήλιος έκαιγε δυνατά",heb:"השמש שרפה בעוצמה"},{gr:", ",heb:""},{gr:"το κερί άρχισε να λιώνει",heb:"השעווה החלה להימס"},{gr:" ",heb:""},{gr:"και τα φτερά σκορπίστηκαν",heb:"והכנפיים התפזרו"},{gr:".",heb:""}] },
+        { speaker: "Αφήγηση", text: "Ο Ίκαρος έπεσε στη θάλασσα.", segments: [{gr:"Ο Ίκαρος",heb:"איקרוס"},{gr:" ",heb:""},{gr:"έπεσε στη θάλασσα",heb:"נפל לים"},{gr:".",heb:""}] },
+        { speaker: "Αφήγηση", text: "Ο Δαίδαλος λυπήθηκε πολύ.", segments: [{gr:"Ο Δαίδαλος",heb:"דדאלוס"},{gr:" ",heb:""},{gr:"λυπήθηκε πολύ",heb:"הצטער מאוד"},{gr:".",heb:""}] },
+        { speaker: "Αφήγηση", text: "Η ιστορία μας θυμίζει ότι πρέπει να ακούμε τις καλές συμβουλές και να αποφεύγουμε τα επικίνδυνα πράγματα.", segments: [{gr:"Η ιστορία μας θυμίζει",heb:"הסיפור מזכיר לנו"},{gr:" ",heb:""},{gr:"ότι",heb:"ש"},{gr:" ",heb:""},{gr:"πρέπει να ακούμε τις καλές συμβουλές",heb:"צריך להקשיב לעצות טובות"},{gr:" ",heb:""},{gr:"και να αποφεύγουμε τα επικίνδυνα πράγματα",heb:"ולהימנע מדברים מסוכנים"},{gr:".",heb:""}] }
+    ];
     const STORY_ZOO_VISIT = [
         { speaker: "Αφήγηση", text: "Σήμερα η οικογένεια του Νίκου επισκέπτεται τον ζωολογικό κήπο. Ο ήλιος λάμπει και τα παιδιά ανυπομονούν να δουν τα ζώα.", segments: [{gr:"Σήμερα",heb:"היום"},{gr:" ",heb:""},{gr:"η οικογένεια του Νίκου",heb:"משפחתו של ניקוס"},{gr:" ",heb:""},{gr:"επισκέπτεται",heb:"מבקרת"},{gr:" ",heb:""},{gr:"τον ζωολογικό κήπο",heb:"את גן החיות"},{gr:". ",heb:""},{gr:"Ο ήλιος",heb:"השמש"},{gr:" ",heb:""},{gr:"λάμπει",heb:"זורחת"},{gr:" ",heb:""},{gr:"και",heb:"ו"},{gr:" ",heb:""},{gr:"τα παιδιά",heb:"הילדים"},{gr:" ",heb:""},{gr:"ανυπομονούν να δουν",heb:"מחכים בכיליון עיניים לראות"},{gr:" ",heb:""},{gr:"τα ζώα",heb:"את החיות"},{gr:".",heb:""}] },
         { speaker: "Αφήγηση", text: "Στην είσοδο, παίρνουν έναν χάρτη. Πρώτα, πηγαίνουν στα λιοντάρια. Το λιοντάρι είναι ο βασιλιάς του δάσους. Είναι μεγάλο, δυνατό και έχει μια πλούσια χαίτη.", segments: [{gr:"Στην είσοδο",heb:"בכניסה"},{gr:", ",heb:""},{gr:"παίρνουν",heb:"לוקחים"},{gr:" ",heb:""},{gr:"έναν χάρτη",heb:"מפה"},{gr:". ",heb:""},{gr:"Πρώτα",heb:"קודם"},{gr:", ",heb:""},{gr:"πηγαίνουν",heb:"הולכים"},{gr:" ",heb:""},{gr:"στα λιοντάρια",heb:"אל האריות"},{gr:". ",heb:""},{gr:"Το λιοντάρι",heb:"האריה"},{gr:" ",heb:""},{gr:"είναι ο βασιλιάς του δάσους",heb:"הוא מלך החיות"},{gr:". ",heb:""},{gr:"Είναι μεγάλο, δυνατό",heb:"הוא גדול, חזק"},{gr:" ",heb:""},{gr:"και",heb:"ו"},{gr:" ",heb:""},{gr:"έχει μια πλούσια χαίτη",heb:"יש לו רעמה שופעת"},{gr:".",heb:""}] },
@@ -4175,6 +4193,58 @@
             correctIndex: 0
         }
     ];
+    const STORY_DAEDALUS_ICARUS_TITLE = 'Ο Δαίδαλος και ο Ίκαρος – דדאלוס ואיקרוס';
+    const STORY_DAEDALUS_ICARUS_QUIZ_SCORE_KEY = 'קריאה - סיפורים - שאלות - ' + STORY_DAEDALUS_ICARUS_TITLE;
+    const STORY_DAEDALUS_ICARUS_QUIZ = [
+        {
+            questionText: 'Ποιος ήταν ο Δαίδαλος και πού ζούσε με τον γιο του;',
+            segments: [{gr:"Ποιος",heb:"מי"},{gr:" ",heb:""},{gr:"ήταν",heb:"היה"},{gr:" ",heb:""},{gr:"ο Δαίδαλος",heb:"דדאלוס"},{gr:" ",heb:""},{gr:"και πού ζούσε με τον γιο του",heb:"ואיפה גר עם בנו"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Ήταν πολύ έξυπνος τεχνίτης και ζούσε στην Κρήτη' }, { letter: 'Β', text: 'Ήταν βασιλιάς και ζούσε στην Αθήνα' }, { letter: 'Γ', text: 'Ήταν ναύτης και ζούσε στη Θεσσαλονίκη' }],
+            correctIndex: 0
+        },
+        {
+            questionText: 'Τι δεν επέτρεπε ο βασιλιάς Μίνωας στον Δαίδαλο και στον Ίκαρο;',
+            segments: [{gr:"Τι",heb:"מה"},{gr:" ",heb:""},{gr:"δεν επέτρεπε",heb:"לא איפשר"},{gr:" ",heb:""},{gr:"ο βασιλιάς Μίνωας",heb:"המלך מינוס"},{gr:" ",heb:""},{gr:"στον Δαίδαλο και στον Ίκαρο",heb:"לדדאלוס ולאיקרוס"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Να φύγουν από το νησί' }, { letter: 'Β', text: 'Να φάνε στο παλάτι' }, { letter: 'Γ', text: 'Να κολυμπήσουν στη θάλασσα' }],
+            correctIndex: 0
+        },
+        {
+            questionText: 'Τι έφτιαξε ο Δαίδαλος για να φύγουν;',
+            segments: [{gr:"Τι",heb:"מה"},{gr:" ",heb:""},{gr:"έφτιαξε",heb:"הכין"},{gr:" ",heb:""},{gr:"ο Δαίδαλος",heb:"דדאלוס"},{gr:" ",heb:""},{gr:"για να φύγουν",heb:"כדי לעזוב"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Δύο ζευγάρια φτερά από πούπουλα και κερί' }, { letter: 'Β', text: 'Ένα καράβι από ξύλο' }, { letter: 'Γ', text: 'Μια μεγάλη ομπρέλα' }],
+            correctIndex: 0
+        },
+        {
+            questionText: 'Τι τους προειδοποίησε ο Δαίδαλος για το πέταγμα;',
+            segments: [{gr:"Τι",heb:"מה"},{gr:" ",heb:""},{gr:"τους προειδοποίησε",heb:"הזהיר אותם"},{gr:" ",heb:""},{gr:"ο Δαίδαλος",heb:"דדאלוס"},{gr:" ",heb:""},{gr:"για το πέταγμα",heb:"לגבי העפה"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Να μην πετάνε πολύ χαμηλά ούτε πολύ ψηλά' }, { letter: 'Β', text: 'Να κλείνουν τα μάτια τους' }, { letter: 'Γ', text: 'Να τρώνε πριν πετάξουν' }],
+            correctIndex: 0
+        },
+        {
+            questionText: 'Γιατί δεν πρέπει να πετάει κανείς πολύ χαμηλά, σύμφωνα με τον Δαίδαλο;',
+            segments: [{gr:"Γιατί",heb:"למה"},{gr:" ",heb:""},{gr:"δεν πρέπει",heb:"לא צריך"},{gr:" ",heb:""},{gr:"να πετάει κανείς πολύ χαμηλά",heb:"לעוף נמוך מדי"},{gr:", ",heb:""},{gr:"σύμφωνα με τον Δαίδαλο",heb:"לפי דדאלוס"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Γιατί η θάλασσα θα βρέξει τα φτερά' }, { letter: 'Β', text: 'Γιατί θα χαθεί στο δάσος' }, { letter: 'Γ', text: 'Γιατί θα κρυώσει στον ήλιο' }],
+            correctIndex: 0
+        },
+        {
+            questionText: 'Γιατί δεν πρέπει να πετάει κανείς πολύ ψηλά;',
+            segments: [{gr:"Γιατί",heb:"למה"},{gr:" ",heb:""},{gr:"δεν πρέπει",heb:"לא צריך"},{gr:" ",heb:""},{gr:"να πετάει κανείς πολύ ψηλά",heb:"לעוף גבוה מדי"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Γιατί ο ήλιος θα λιώσει το κερί' }, { letter: 'Β', text: 'Γιατί θα βρέξει ο ουρανός' }, { letter: 'Γ', text: 'Γιατί θα φωνάξουν τα πουλιά' }],
+            correctIndex: 0
+        },
+        {
+            questionText: 'Τι συνέβη στον Ίκαρο όταν ανέβηκε πολύ ψηλά;',
+            segments: [{gr:"Τι",heb:"מה"},{gr:" ",heb:""},{gr:"συνέβη",heb:"קרה"},{gr:" ",heb:""},{gr:"στον Ίκαρο",heb:"לאיקרוס"},{gr:" ",heb:""},{gr:"όταν ανέβηκε πολύ ψηλά",heb:"כשעלה גבוה מדי"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Το κερί έλιωσε, τα φτερά σκορπίστηκαν και έπεσε στη θάλασσα' }, { letter: 'Β', text: 'Πέταξε μέχρι τον ουρανό χωρίς πρόβλημα' }, { letter: 'Γ', text: 'Γύρισε αμέσως στο σπίτι του' }],
+            correctIndex: 0
+        },
+        {
+            questionText: 'Τι μας θυμίζει η ιστορία στο τέλος;',
+            segments: [{gr:"Τι",heb:"מה"},{gr:" ",heb:""},{gr:"μας θυμίζει",heb:"מזכיר לנו"},{gr:" ",heb:""},{gr:"η ιστορία",heb:"הסיפור"},{gr:" ",heb:""},{gr:"στο τέλος",heb:"בסוף"},{gr:";",heb:""}],
+            choices: [{ letter: 'Α', text: 'Να ακούμε τις καλές συμβουλές και να αποφεύγουμε επικίνδυνα πράγματα' }, { letter: 'Β', text: 'Να πετάμε πάντα πολύ ψηλά' }, { letter: 'Γ', text: 'Να μην αγαπάμε τη θάλασσα' }],
+            correctIndex: 0
+        }
+    ];
     var currentStoryQuiz = null;
     var storyQuizIndex = 0;
     var storyQuizScore = 0;
@@ -4361,7 +4431,8 @@
             "אוצר מילים - Εκδρομή στο δάσος (טיול ביער)": extractConversationVocab(STORY_FOREST_TRIP),
             "אוצר מילים - Τα αγαπημένα μας κατοικίδια (חיות המחמד האהובות שלנו)": extractConversationVocab(STORY_BELOVED_PETS),
             "אוצר מילים - Η Αθηνά και η ελιά – אתנה והזית": extractConversationVocab(STORY_ATHENA_OLIVE),
-            "אוצר מילים - Ο Θησέας, ο Αιγέας και το Αιγαίο – תזאוס, אגיאוס והים האגאי": extractConversationVocab(STORY_THESEUS_AEGEUS)
+            "אוצר מילים - Ο Θησέας, ο Αιγέας και το Αιγαίο – תזאוס, אגיאוס והים האגאי": extractConversationVocab(STORY_THESEUS_AEGEUS),
+            "אוצר מילים - Ο Δαίδαλος και ο Ίκαρος – דדאלוס ואיקרוס": extractConversationVocab(STORY_DAEDALUS_ICARUS)
         }
     };
     function renderConversation(convData, conversationTitle, readingKind) {
@@ -4584,6 +4655,14 @@
                 quizBtnTh.onclick = function() { startStoryQuiz(STORY_THESEUS_AEGEUS_QUIZ, STORY_THESEUS_AEGEUS_QUIZ_SCORE_KEY, showStoryTheseusAegeus); };
                 actionsRow.appendChild(quizBtnTh);
             }
+            if (readingKind === 'סיפורים' && conversationTitle === STORY_DAEDALUS_ICARUS_TITLE) {
+                var quizBtnDaed = document.createElement('button');
+                quizBtnDaed.className = 'btn-main btn-vocab-conversation';
+                var highQuizDaed = getModeHighScore(STORY_DAEDALUS_ICARUS_QUIZ_SCORE_KEY, 'storyQuiz');
+                quizBtnDaed.innerHTML = '<span>שאלות ❓</span><small>שיא: ' + highQuizDaed + '%</small>';
+                quizBtnDaed.onclick = function() { startStoryQuiz(STORY_DAEDALUS_ICARUS_QUIZ, STORY_DAEDALUS_ICARUS_QUIZ_SCORE_KEY, showStoryDaedalusIcarus); };
+                actionsRow.appendChild(quizBtnDaed);
+            }
             wrap.appendChild(actionsRow);
             box.appendChild(wrap);
         }
@@ -4771,6 +4850,7 @@
     function showStoryBelovedPets() { renderConversation(STORY_BELOVED_PETS, STORY_BELOVED_PETS_TITLE, 'סיפורים'); }
     function showStoryAthenaOlive() { renderConversation(STORY_ATHENA_OLIVE, STORY_ATHENA_OLIVE_TITLE, 'סיפורים'); }
     function showStoryTheseusAegeus() { renderConversation(STORY_THESEUS_AEGEUS, STORY_THESEUS_AEGEUS_TITLE, 'סיפורים'); }
+    function showStoryDaedalusIcarus() { renderConversation(STORY_DAEDALUS_ICARUS, STORY_DAEDALUS_ICARUS_TITLE, 'סיפורים'); }
 
     // אותיות יווניות (אות קטנה, אות גדולה) וצירופים לדקדוק
     const GREEK_LETTERS = [
@@ -5014,8 +5094,8 @@
     function mergeStorySegmentsIntoLexicon() {
         if (!defArtGreekHebIndex) return;
         var blocks = [
-            STORY_KITTEN_BALL, STORY_MARIA_BIRTHDAY, STORY_ZOO_WALK, STORY_ZOO_VISIT, STORY_MATH_TEST, STORY_COOKING_PIZZA, STORY_SUMMER_VILLAGE, STORY_LAIKI_MARKET, STORY_FOREST_TRIP, STORY_BELOVED_PETS, STORY_ATHENA_OLIVE, STORY_THESEUS_AEGEUS,
-            STORY_KITTEN_BALL_QUIZ, STORY_MARIA_BIRTHDAY_QUIZ, STORY_ZOO_WALK_QUIZ, STORY_ZOO_VISIT_QUIZ, STORY_MATH_TEST_QUIZ, STORY_COOKING_PIZZA_QUIZ, STORY_SUMMER_VILLAGE_QUIZ, STORY_LAIKI_MARKET_QUIZ, STORY_FOREST_TRIP_QUIZ, STORY_BELOVED_PETS_QUIZ, STORY_ATHENA_OLIVE_QUIZ, STORY_THESEUS_AEGEUS_QUIZ,
+            STORY_KITTEN_BALL, STORY_MARIA_BIRTHDAY, STORY_ZOO_WALK, STORY_ZOO_VISIT, STORY_MATH_TEST, STORY_COOKING_PIZZA, STORY_SUMMER_VILLAGE, STORY_LAIKI_MARKET, STORY_FOREST_TRIP, STORY_BELOVED_PETS, STORY_ATHENA_OLIVE, STORY_THESEUS_AEGEUS, STORY_DAEDALUS_ICARUS,
+            STORY_KITTEN_BALL_QUIZ, STORY_MARIA_BIRTHDAY_QUIZ, STORY_ZOO_WALK_QUIZ, STORY_ZOO_VISIT_QUIZ, STORY_MATH_TEST_QUIZ, STORY_COOKING_PIZZA_QUIZ, STORY_SUMMER_VILLAGE_QUIZ, STORY_LAIKI_MARKET_QUIZ, STORY_FOREST_TRIP_QUIZ, STORY_BELOVED_PETS_QUIZ, STORY_ATHENA_OLIVE_QUIZ, STORY_THESEUS_AEGEUS_QUIZ, STORY_DAEDALUS_ICARUS_QUIZ,
             CONV_DIMITRIS_MAMA_ZOO, CONV_NIKOS_MARIA_EXAM, CONV_ALEXANDROS_SOFIA_HOBBIES, CONV_MAIA_NOA_WEEKEND
         ];
         blocks.forEach(function(block) {
@@ -10237,7 +10317,8 @@
             ['STORY_FOREST_TRIP', STORY_FOREST_TRIP],
             ['STORY_BELOVED_PETS', STORY_BELOVED_PETS],
             ['STORY_ATHENA_OLIVE', STORY_ATHENA_OLIVE],
-            ['STORY_THESEUS_AEGEUS', STORY_THESEUS_AEGEUS]
+            ['STORY_THESEUS_AEGEUS', STORY_THESEUS_AEGEUS],
+            ['STORY_DAEDALUS_ICARUS', STORY_DAEDALUS_ICARUS]
         ].forEach(function(pair) {
             walk(pair[1], pair[0]);
         });
@@ -10253,7 +10334,8 @@
             ['STORY_FOREST_TRIP_QUIZ', STORY_FOREST_TRIP_QUIZ],
             ['STORY_BELOVED_PETS_QUIZ', STORY_BELOVED_PETS_QUIZ],
             ['STORY_ATHENA_OLIVE_QUIZ', STORY_ATHENA_OLIVE_QUIZ],
-            ['STORY_THESEUS_AEGEUS_QUIZ', STORY_THESEUS_AEGEUS_QUIZ]
+            ['STORY_THESEUS_AEGEUS_QUIZ', STORY_THESEUS_AEGEUS_QUIZ],
+            ['STORY_DAEDALUS_ICARUS_QUIZ', STORY_DAEDALUS_ICARUS_QUIZ]
         ].forEach(function(pair) {
             walk(pair[1], pair[0]);
         });
