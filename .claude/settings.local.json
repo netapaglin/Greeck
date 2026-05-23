@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls \"C:\\\\Users\\\\Netta\\\\Pictures\\\\תיק עבודות\\\\דב קורן\\\\תיקיה חדשה\")",
+      "PowerShell(gh --version)"
+    ]
+  }
+}
