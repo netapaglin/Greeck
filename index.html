@@ -38,6 +38,8 @@
             --pastel-amber-border: #E6A84D;
             --pastel-lavender: #D4A5E9;
             --pastel-lavender-border: #B889CD;
+            --pastel-green: #B8E6BE;
+            --pastel-green-border: #7FC08A;
             --panel-white: #ffffff;
             --glass-fill: #ffffff;
             --glass-fill-hover: rgba(58, 46, 93, 0.06);
@@ -696,14 +698,26 @@
         }
         #grammar-verb-sent-line.story-sentence { flex-wrap: nowrap; text-align: center; }
         #grammar-verb-sent-line .conv-word-wrap { flex-shrink: 0; }
+        .grammar-verb-stem {
+            display: inline-block;
+            flex-shrink: 0;
+            font-size: clamp(18px, 5.2vw, 30px);
+            font-weight: bold;
+            color: var(--text-primary);
+            direction: ltr;
+            line-height: 1.2;
+            padding: 0;
+            margin: 0;
+            user-select: none;
+        }
         .grammar-verb-keyboard-wrap { margin-top: 14px; max-width: 100%; width: 100%; display: flex; flex-direction: column; gap: 8px; align-items: stretch; }
         .grammar-verb-keyboard-wrap .grammar-verb-kb-main { margin-top: 0; }
         .grammar-verb-keyboard-wrap .keyboard-row-extra { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; width: 100%; }
         .grammar-verb-keyboard-wrap .key.key-extra { min-width: 38px; font-size: 15px; }
         #grammar-verb-sent-input {
             box-sizing: border-box;
-            min-width: 3ch;
-            max-width: min(34vw, 118px);
+            min-width: 2.5ch;
+            max-width: min(22vw, 96px);
             width: auto;
             flex: 0 1 auto;
             flex-shrink: 1;
@@ -727,17 +741,32 @@
         }
         @media (min-width: 420px) {
             #grammar-verb-sent-input {
-                max-width: min(28vw, 155px);
+                max-width: min(18vw, 110px);
                 font-size: clamp(22px, 4vw, 32px);
                 letter-spacing: clamp(2px, 0.6vw, 5px);
             }
+            .grammar-verb-stem { font-size: clamp(22px, 4vw, 32px); }
         }
         @media (min-width: 600px) {
             #grammar-verb-sent-input {
-                max-width: 200px;
+                max-width: 120px;
             }
             #grammar-verb-sent-line {
                 justify-content: center;
+            }
+        }
+        #grammar-verb-sent-input.grammar-verb-full-input {
+            min-width: 4.5ch;
+            max-width: min(34vw, 160px);
+        }
+        @media (min-width: 420px) {
+            #grammar-verb-sent-input.grammar-verb-full-input {
+                max-width: min(28vw, 180px);
+            }
+        }
+        @media (min-width: 600px) {
+            #grammar-verb-sent-input.grammar-verb-full-input {
+                max-width: 200px;
             }
         }
         #grammar-verb-sent-input:focus { outline: none; border-bottom-color: var(--soft-purple); }
@@ -750,7 +779,97 @@
         }
         .grammar-verb-root-row strong { color: var(--hangman-color); }
         .grammar-verb-root-row #grammar-verb-sent-root-heb { color: #444; }
-        .grammar-verb-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 8px; }
+        .grammar-verb-actions {
+            display: grid;
+            grid-template-columns: 1fr auto auto 1fr;
+            align-items: center;
+            column-gap: 18px;
+            row-gap: 10px;
+            margin-top: 8px;
+            width: 100%;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+            direction: ltr;
+        }
+        .grammar-verb-actions #grammar-verb-sent-check {
+            grid-column: 2;
+            min-width: 120px;
+            justify-self: center;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.2;
+        }
+        .grammar-verb-actions #grammar-verb-sent-check small {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-greek-sub);
+            margin-top: 2px;
+        }
+        .grammar-verb-actions #grammar-verb-help-btn {
+            grid-column: 3;
+            justify-self: start;
+            min-width: 120px;
+            padding: 12px 18px;
+            font-size: 16px;
+            background: var(--pastel-lavender);
+            border: 2px solid var(--pastel-lavender-border);
+            color: var(--text-primary);
+            border-radius: 22px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: var(--shadow-pastel);
+            line-height: 1.2;
+            flex-direction: column;
+            align-items: center;
+        }
+        .grammar-verb-actions #grammar-verb-help-btn small {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-greek-sub);
+            margin-top: 2px;
+        }
+        .grammar-verb-help-overlay {
+            display: none; position: fixed; inset: 0; z-index: 1200;
+            align-items: center; justify-content: center;
+            padding: 20px; box-sizing: border-box;
+            background: rgba(58, 46, 93, 0.35);
+            backdrop-filter: blur(2px);
+        }
+        .grammar-verb-help-overlay.is-open { display: flex; }
+        .grammar-verb-help-popup {
+            position: relative;
+            width: min(100%, 380px); max-height: min(80vh, 520px);
+            overflow: auto; padding: 18px 18px 16px;
+            background: #fff; border: 2px solid var(--pastel-lavender-border);
+            border-radius: 18px; box-shadow: var(--shadow-pastel-hover);
+            text-align: center;
+        }
+        .grammar-verb-help-popup-title {
+            font-size: 16px; font-weight: bold; color: var(--primary-pink);
+            margin: 0 36px 12px 0; direction: rtl; text-align: right;
+        }
+        .grammar-verb-help-popup-list {
+            list-style: none; margin: 0; padding: 0; direction: ltr; text-align: left;
+        }
+        .grammar-verb-help-popup-list li {
+            display: flex; gap: 10px; align-items: baseline; justify-content: flex-start;
+            padding: 7px 4px; border-bottom: 1px solid rgba(58, 46, 93, 0.08);
+            font-size: clamp(15px, 3.4vw, 18px);
+        }
+        .grammar-verb-help-popup-list li:last-child { border-bottom: none; }
+        .grammar-verb-help-pronoun { color: #666; min-width: 9.5em; flex-shrink: 0; }
+        .grammar-verb-help-form { font-weight: bold; color: var(--hangman-color); }
+        .grammar-verb-help-close {
+            position: absolute; top: 10px; left: 10px;
+            width: 36px; height: 36px; padding: 0;
+            border-radius: 50%; border: 2px solid var(--pastel-pink-border);
+            background: var(--pastel-pink); color: var(--text-primary);
+            font-size: 22px; font-weight: bold; line-height: 1; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
         #grammar-verb-sent-complete {
             text-align: center; padding: 20px; margin-top: 16px; border-radius: 16px;
             background: linear-gradient(180deg, #e8f5e9 0%, #fff 100%); border: 3px solid var(--success-green);
@@ -764,6 +883,14 @@
         }
         .grammar-verb-reveal .grammar-verb-reveal-answer {
             font-size: clamp(20px, 4.5vw, 28px); color: var(--hangman-color); font-weight: bold; margin-inline-start: 0.35em;
+        }
+        .grammar-verb-reveal.grammar-verb-reveal-mistake {
+            color: #c62828; background: #ffebee; border-color: #e57373;
+        }
+        .grammar-verb-reveal-mistake-label { color: #c62828; font-weight: bold; }
+        .grammar-verb-blank-slot.grammar-verb-blank-correct {
+            color: #1b5e20; border-bottom-color: var(--success-green); font-weight: bold;
+            min-width: 0; padding: 0 2px;
         }
         #grammar-verb-sent-continue { margin: 8px auto 0; display: none; }
 
@@ -793,8 +920,10 @@
         .grammar-verb-mc-grid .grammar-verb-mc-option:nth-child(4n+4) { background: var(--pastel-lavender); border-color: var(--pastel-lavender-border); }
         .grammar-verb-mc-option:hover:not(:disabled) { filter: brightness(0.97); transform: translateY(-2px); }
         .grammar-verb-mc-option:disabled { cursor: default; opacity: 1; }
+        .grammar-verb-mc-grid .grammar-verb-mc-option.mc-wrong,
         .grammar-verb-mc-option.mc-wrong { border-color: #e57373; background: #ffebee; color: #c62828; }
-        .grammar-verb-mc-option.mc-correct { border-color: var(--success-green); background: #e8f5e9; color: #1b5e20; }
+        .grammar-verb-mc-grid .grammar-verb-mc-option.mc-correct,
+        .grammar-verb-mc-option.mc-correct { border-color: var(--pastel-green-border); background: var(--pastel-green); color: var(--text-primary); }
         .grammar-verb-blank-slot,
         #grammar-verb-blank-slot {
             display: inline-block; min-width: 2.5em; border-bottom: 3px solid var(--pastel-lavender-border);
@@ -869,12 +998,14 @@
             font-weight: 800;
         }
 
-        #grammar-sp-memory-view {
+        #grammar-sp-memory-view,
+        #grammar-pv-memory-view {
             width: 100%;
             max-width: 440px;
             margin: 0 auto;
         }
-        #grammar-sp-memory-view .grammar-sp-memory-score {
+        #grammar-sp-memory-view .grammar-sp-memory-score,
+        #grammar-pv-memory-view .grammar-sp-memory-score {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
@@ -889,13 +1020,15 @@
             font-weight: bold;
             box-sizing: border-box;
         }
-        #grammar-sp-memory-view .grammar-sp-memory-grid {
+        #grammar-sp-memory-view .grammar-sp-memory-grid,
+        #grammar-pv-memory-view .grammar-sp-memory-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
             width: 100%;
         }
-        #grammar-sp-memory-view .grammar-sp-mem-card {
+        #grammar-sp-memory-view .grammar-sp-mem-card,
+        #grammar-pv-memory-view .grammar-sp-mem-card {
             aspect-ratio: 1;
             background: var(--soft-purple);
             border-radius: 12px;
@@ -914,17 +1047,35 @@
             border: 2px solid transparent;
             transition: transform 0.15s, box-shadow 0.15s;
         }
-        #grammar-sp-memory-view .grammar-sp-mem-card:hover {
+        #grammar-pv-memory-view .grammar-sp-mem-card.is-pronoun {
+            font-size: clamp(10px, 2.8vw, 13px);
+        }
+        #grammar-sp-memory-view .grammar-sp-mem-card:hover,
+        #grammar-pv-memory-view .grammar-sp-mem-card:hover {
             transform: scale(1.02);
             box-shadow: 0 4px 12px rgba(106, 90, 205, 0.35);
         }
-        #grammar-sp-memory-view .grammar-sp-mem-card.flipped {
+        #grammar-sp-memory-view .grammar-sp-mem-card.flipped,
+        #grammar-pv-memory-view .grammar-sp-mem-card.flipped {
             background: #fff;
             color: #6a5acd;
             border: 2px solid var(--soft-purple);
         }
-        #grammar-sp-memory-view .grammar-sp-mem-card.matched {
+        #grammar-sp-memory-view .grammar-sp-mem-card.matched,
+        #grammar-pv-memory-view .grammar-sp-mem-card.matched {
             visibility: hidden;
+        }
+        #grammar-pv-memory-view .grammar-pv-mem-verb-hint {
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 14px;
+            text-align: center;
+            line-height: 1.45;
+        }
+        #grammar-pv-memory-view .grammar-pv-mem-verb-hint strong {
+            color: var(--hangman-color);
+            direction: ltr;
+            unicode-bidi: isolate;
         }
 
         /* איש תלוי — יחיד/רבים (דקדוק): מציג את ציור האיש */
@@ -1974,8 +2125,8 @@
                     </button>
                     <button type="button" class="btn-main main-choice-btn grammar-menu-topic-btn" id="grammar-btn-pronouns-with-verbs">
                         <span class="grammar-menu-topic-body">
-                            <span>פעלים בהווה</span>
-                            <small>είμαι · διαβάζω · τρώω</small>
+                            <span>הווה</span>
+                            <small>ενεστώτας</small>
                         </span>
                         <span class="grammar-menu-topic-pct">0%</span>
                     </button>
@@ -2159,22 +2310,45 @@
             </div>
             <div id="grammar-pronouns-verbs-submenu-view" style="display: none;">
                 <button type="button" class="back-btn" style="margin-bottom: 15px;" id="grammar-pronouns-verbs-submenu-back">← חזרה לדקדוק</button>
-                <p style="font-size: 18px; color: var(--primary-pink); margin-bottom: 20px;">פעלים בהווה</p>
+                <p style="font-size: 18px; color: var(--primary-pink); margin-bottom: 20px;">הווה · ενεστώτας</p>
                 <div class="grammar-pv-two-btns">
                     <button type="button" class="btn-main main-choice-btn" id="grammar-btn-pronouns-verbs-wordlist">
                         <span>רשימת מילים</span>
                         <small>משפטים עם כינוי גוף</small>
                     </button>
+                    <button type="button" class="btn-main main-choice-btn" id="grammar-btn-pronouns-verbs-memory">
+                        <span>זיכרון</span>
+                        <small>שיא: 0%</small>
+                    </button>
                 </div>
                 <div class="grammar-pv-game-btns" style="margin-top: 4px;">
                     <button type="button" class="btn-main main-choice-btn" id="grammar-btn-pronouns-verbs-sentences">
-                        <span>השלמת משפטים</span>
+                        <span>השלמת משפטים שלב 2</span>
+                        <small>שיא: 0%</small>
+                    </button>
+                    <button type="button" class="btn-main main-choice-btn" id="grammar-btn-pronouns-verbs-sentences-stage3">
+                        <span>השלמת משפטים שלב 3</span>
                         <small>שיא: 0%</small>
                     </button>
                     <button type="button" class="btn-main main-choice-btn" id="grammar-btn-pronouns-verbs-sentences-easy">
-                        <span>השלמת משפטים — קל</span>
+                        <span>השלמת משפטים שלב 1</span>
                         <small>שיא: 0%</small>
                     </button>
+                </div>
+            </div>
+            <div id="grammar-pv-memory-view" style="display: none;">
+                <button type="button" class="back-btn" style="margin-bottom: 12px;" id="grammar-pv-memory-back">← חזרה</button>
+                <p style="font-size: 18px; color: var(--primary-pink); margin-bottom: 8px; text-align: center; font-weight: bold;">זיכרון: כינוי גוף ⟷ פועל</p>
+                <p class="grammar-pv-mem-verb-hint" id="grammar-pv-mem-verb-hint">התאימי כל כינוי גוף להטיה המתאימה.</p>
+                <div class="grammar-sp-memory-score">
+                    <div>🔄 מהלכים: <span id="gram-pv-mem-moves">0</span></div>
+                    <div>🧩 זוגות: <span id="gram-pv-mem-pairs">0</span>/<span id="gram-pv-mem-pairs-total">6</span></div>
+                </div>
+                <div id="grammar-pv-memory-grid" class="grammar-sp-memory-grid"></div>
+                <div id="grammar-pv-memory-results" style="display: none; text-align: center; margin-top: 16px;">
+                    <div id="gram-pv-mem-stars" style="font-size: 30px; margin-bottom: 10px;"></div>
+                    <div id="gram-pv-mem-res-msg" style="font-size: 22px; font-weight: bold; margin-bottom: 16px;"></div>
+                    <button type="button" class="btn-main" id="grammar-pv-memory-replay">שוב 🔄</button>
                 </div>
             </div>
             <div id="grammar-pronouns-verbs-sentence-view" style="display: none;">
@@ -2185,7 +2359,14 @@
                 <div class="grammar-verb-root-row"><strong id="grammar-verb-sent-root"></strong><span id="grammar-verb-sent-root-heb" dir="rtl"></span></div>
                 <div class="grammar-verb-actions" id="grammar-verb-fill-actions">
                     <input type="text" id="grammar-verb-sent-input" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="" dir="ltr" />
-                    <button type="button" class="btn-main" id="grammar-verb-sent-check" style="min-width: 120px;">בדיקה ✓</button>
+                    <button type="button" class="btn-main" id="grammar-verb-sent-check" style="min-width: 120px;">
+                        בדיקה ✓
+                        <small>έλεγχος</small>
+                    </button>
+                    <button type="button" class="btn-main" id="grammar-verb-help-btn" style="display: none;">
+                        עזרה
+                        <small>βοήθεια</small>
+                    </button>
                 </div>
                 <div id="grammar-verb-mc-wrap" style="display: none;">
                     <p class="grammar-verb-mc-hint">בחרי את ההטיה הנכונה לאותו פועל:</p>
@@ -2199,10 +2380,17 @@
                     <p id="grammar-verb-sent-complete-stats" class="grammar-verb-complete-stats" style="margin: 10px 0 16px; font-size: 18px; color: #444;"></p>
                     <button type="button" class="btn-main" id="grammar-verb-sent-replay">שחקי שוב 🔄</button>
                 </div>
+                <div id="grammar-verb-help-overlay" class="grammar-verb-help-overlay" hidden>
+                    <div id="grammar-verb-help-popup" class="grammar-verb-help-popup" role="dialog" aria-modal="true" aria-label="הטיות הפועל">
+                        <button type="button" class="grammar-verb-help-close" id="grammar-verb-help-close" aria-label="סגור">×</button>
+                        <p class="grammar-verb-help-popup-title">הטיות בהווה · ενεστώτας</p>
+                        <ul class="grammar-verb-help-popup-list" id="grammar-verb-help-list"></ul>
+                    </div>
+                </div>
             </div>
             <div id="grammar-pronouns-verbs-list-view" style="display: none;">
                 <button type="button" class="back-btn" style="margin-bottom: 15px;" id="grammar-pronouns-verbs-list-back">← חזרה</button>
-                <p style="font-size: 16px; color: #666; margin-bottom: 12px;">פעלים בהווה — לחצי 🔊 לשמוע</p>
+                <p style="font-size: 16px; color: #666; margin-bottom: 12px;">הווה · ενεστώτας — לחצי 🔊 לשמוע</p>
                 <div id="grammar-pronouns-verbs-list-container"></div>
             </div>
         </div>
@@ -3031,6 +3219,8 @@
     let memFlipped = [], memMoves = 0, memPairs = 0, isLock = false;
     let gramSpMemFlipped = [], gramSpMemMoves = 0, gramSpMemPairs = 0, gramSpMemLock = false;
     let gramSpMemPairCount = 6;
+    let gramPvMemFlipped = [], gramPvMemMoves = 0, gramPvMemPairs = 0, gramPvMemLock = false;
+    let gramPvMemPairCount = 6;
 
     /** זוגות יחיד–רבים (עם ה' הידיעה) למשחק זיכרון בדקדוק */
     var GRAMMAR_SINGULAR_PLURAL_MEMORY_PAIRS = [
@@ -4991,11 +5181,134 @@
         { sentence: "Η Μαρία ____ ένα βιβλίο.", root: "διαβάζω", rootHeb: "לקרוא", answer: "διαβάζει", mcChoices: ["διαβάζω", "διαβάζεις", "διαβάζει", "διαβάζουμε"], translations: { "Η": "ה- (בנקבה)", "Μαρία": "מריה", "ένα": "אחד", "βιβλίο": "ספר" } },
         { sentence: "Ο Νίκος και εγώ ____ τένις.", root: "παίζω", rootHeb: "לשחק", answer: "παίζουμε", mcChoices: ["παίζω", "παίζεις", "παίζει", "παίζουμε"], translations: { "Ο": "ה- (בזכר)", "Νίκος": "ניקוס", "και": "ו-", "εγώ": "אני", "τένις": "טניס" } },
         { sentence: "Εσύ ____ καφέ;", root: "θέλω", rootHeb: "לרצות", answer: "θέλεις", mcChoices: ["θέλω", "θέλεις", "θέλει", "θέλουμε"], translations: { "Εσύ": "אתה", "καφέ": "קפה" } },
-        { sentence: "Τα παιδιά ____ στο πάρκο.", root: "τρέχω", rootHeb: "לרוץ", answer: "τρέχουν", mcChoices: ["τρέχω", "τρέχεις", "τρέχει", "τρέχουν"], translations: { "Τα": "ה- (ברבים)", "παιδιά": "ילדים", "στο": "בתוך ה", "πάρκο": "פארק" } }
+        { sentence: "Τα παιδιά ____ στο πάρκο.", root: "τρέχω", rootHeb: "לרוץ", answer: "τρέχουν", mcChoices: ["τρέχω", "τρέχεις", "τρέχει", "τρέχουν"], translations: { "Τα": "ה- (ברבים)", "παιδιά": "ילדים", "στο": "בתוך ה", "πάρκο": "פארק" } },
+        { sentence: "Εγώ ____ στην αυλή.", root: "παίζω", rootHeb: "לשחק", answer: "παίζω", mcChoices: ["παίζω", "παίζεις", "παίζει", "παίζουμε"], translations: { "Εγώ": "אני", "στην": "ב-", "αυλή": "חצר" } },
+        { sentence: "Η Μαρία ____ ένα παραμύθι.", root: "διαβάζω", rootHeb: "לקרוא", answer: "διαβάζει", mcChoices: ["διαβάζω", "διαβάζεις", "διαβάζει", "διαβάζουμε"], translations: { "Η": "ה- (בנקבה)", "Μαρία": "מריה", "ένα": "אחד", "παραμύθι": "סיפור אגדה" } },
+        { sentence: "Εμείς ____ την εργασία μας.", root: "γράφω", rootHeb: "לכתוב", answer: "γράφουμε", mcChoices: ["γράφω", "γράφεις", "γράφει", "γράφουμε"], translations: { "Εμείς": "אנחנו", "την": "את ה-", "εργασία": "עבודה", "μας": "שלנו" } },
+        { sentence: "Εσύ ____ ένα μήλο.", root: "τρώω", rootHeb: "לאכול", answer: "τρως", mcChoices: ["τρώω", "τρως", "τρώει", "τρώμε"], translations: { "Εσύ": "אתה / את", "ένα": "אחד", "μήλο": "תפוח" } },
+        { sentence: "Τα παιδιά ____ τηλεόραση.", root: "βλέπω", rootHeb: "לראות", answer: "βλέπουν", mcChoices: ["βλέπω", "βλέπεις", "βλέπει", "βλέπουν"], translations: { "Τα": "ה- (ברבים)", "παιδιά": "ילדים", "τηλεόραση": "טלוויזיה" } },
+        { sentence: "Εσείς ____ στο σχολείο.", root: "πηγαίνω", rootHeb: "ללכת", answer: "πηγαίνετε", mcChoices: ["πηγαίνω", "πηγαίνεις", "πηγαίνει", "πηγαίνετε"], translations: { "Εσείς": "אתם / אתן", "στο": "ל-", "σχολείο": "בית ספר" } },
+        { sentence: "Εγώ ____ ελληνικά στο σχολείο.", root: "μιλάω", rootHeb: "לדבר", answer: "μιλάω", mcChoices: ["μιλάω", "μιλάς", "μιλά", "μιλάμε"], translations: { "Εγώ": "אני", "ελληνικά": "יוונית", "στο": "ב-", "σχολείο": "בית ספר" } },
+        { sentence: "Εσείς ____ πολύ ωραία.", root: "τραγουδάω", rootHeb: "לשיר", answer: "τραγουδάτε", mcChoices: ["τραγουδάω", "τραγουδάς", "τραγουδά", "τραγουδάτε"], translations: { "Εσείς": "אתם / אתן", "πολύ": "מאוד", "ωραία": "יפה" } },
+        { sentence: "Αυτός ____ στο πάρκο.", root: "παίζω", rootHeb: "לשחק", answer: "παίζει", mcChoices: ["παίζω", "παίζεις", "παίζει", "παίζουμε"], translations: { "Αυτός": "הוא", "στο": "ב-", "πάρκο": "פארק" } },
+        { sentence: "Εμείς ____ την ελληνική μουσική;", root: "αγαπάω", rootHeb: "לאהוב", answer: "αγαπάμε", mcChoices: ["αγαπάω", "αγαπάς", "αγαπά", "αγαπάμε"], translations: { "Εμείς": "אנחנו", "την": "את ה-", "ελληνική": "יוונית", "μουσική": "מוזיקה" } },
+        { sentence: "Αυτές ____ στην Αθήνα.", root: "μένω", rootHeb: "לגור / להישאר", answer: "μένουν", mcChoices: ["μένω", "μένεις", "μένει", "μένουν"], translations: { "Αυτές": "הן", "στην": "ב-", "Αθήνα": "אתונה" } },
+        { sentence: "Εσύ ____ ελληνικά βιβλία;", root: "διαβάζω", rootHeb: "לקרוא", answer: "διαβάζεις", mcChoices: ["διαβάζω", "διαβάζεις", "διαβάζει", "διαβάζουμε"], translations: { "Εσύ": "אתה / את", "ελληνικά": "יווניים", "βιβλία": "ספרים" } },
+        { sentence: "Αυτοί ____ με το λεωφορείο.", root: "ταξιδεύω", rootHeb: "לנסוע", answer: "ταξιδεύουν", mcChoices: ["ταξιδεύω", "ταξιδεύεις", "ταξιδεύει", "ταξιδεύουν"], translations: { "Αυτοί": "הם", "με": "עם", "το": "ה-", "λεωφορείο": "אוטובוס" } },
+        { sentence: "Αυτή ____ τι ώρα είναι;", root: "ξέρω", rootHeb: "לדעת", answer: "ξέρει", mcChoices: ["ξέρω", "ξέρεις", "ξέρει", "ξέρουμε"], translations: { "Αυτή": "היא", "τι": "מה", "ώρα": "שעה", "είναι": "היא" } },
+        { sentence: "Εσείς ____ μια ωραία εικόνα.", root: "ζωγραφίζω", rootHeb: "לצייר", answer: "ζωγραφίζετε", mcChoices: ["ζωγραφίζω", "ζωγραφίζεις", "ζωγραφίζει", "ζωγραφίζετε"], translations: { "Εσείς": "אתם / אתן", "μια": "אחת", "ωραία": "יפה", "εικόνα": "תמונה" } },
+        { sentence: "Εμείς ____ στο σχολείο κάθε πρωί.", root: "πηγαίνω", rootHeb: "ללכת", answer: "πηγαίνουμε", mcChoices: ["πηγαίνω", "πηγαίνεις", "πηγαίνει", "πηγαίνουμε"], translations: { "Εμείς": "אנחנו", "στο": "ל-", "σχολείο": "בית ספר", "κάθε": "כל", "πρωί": "בוקר" } },
+        { sentence: "Εγώ ____ στην κουζίνα.", root: "μαγειρεύω", rootHeb: "לבשל", answer: "μαγειρεύω", mcChoices: ["μαγειρεύω", "μαγειρεύεις", "μαγειρεύει", "μαγειρεύουμε"], translations: { "Εγώ": "אני", "στην": "ב-", "κουζίνα": "מטבח" } },
+        { sentence: "Εσύ ____ το σκύλο.", root: "βγάζω", rootHeb: "להוציא", answer: "βγάζεις", mcChoices: ["βγάζω", "βγάζεις", "βγάζει", "βγάζουμε"], translations: { "Εσύ": "אתה / את", "το": "את ה-", "σκύλο": "כלב" } },
+        { sentence: "Αυτός ____ το αυτοκίνητο.", root: "πλένω", rootHeb: "לשטוף", answer: "πλένει", mcChoices: ["πλένω", "πλένεις", "πλένει", "πλένουμε"], translations: { "Αυτός": "הוא", "το": "את ה-", "αυτοκίνητο": "מכונית" } },
+        { sentence: "Εμείς ____ καφέ το πρωί.", root: "πίνω", rootHeb: "לשתות", answer: "πίνουμε", mcChoices: ["πίνω", "πίνεις", "πίνει", "πίνουμε"], translations: { "Εμείς": "אנחנו", "καφέ": "קפה", "το": "ב-", "πρωί": "בוקר" } },
+        { sentence: "Εσείς ____ στο πιάνο.", root: "παίζω", rootHeb: "לשחק / לנגן", answer: "παίζετε", mcChoices: ["παίζω", "παίζεις", "παίζει", "παίζετε"], translations: { "Εσείς": "אתם / אתן", "στο": "ב-", "πιάνο": "פסנתר" } },
+        { sentence: "Αυτοί ____ μια ταινία.", root: "βλέπω", rootHeb: "לראות", answer: "βλέπουν", mcChoices: ["βλέπω", "βλέπεις", "βλέπει", "βλέπουν"], translations: { "Αυτοί": "הם", "μια": "אחת", "ταινία": "סרט" } },
+        { sentence: "Αυτή ____ ψωμί.", root: "αγοράζω", rootHeb: "לקנות", answer: "αγοράζει", mcChoices: ["αγοράζω", "αγοράζεις", "αγοράζει", "αγοράζουμε"], translations: { "Αυτή": "היא", "ψωμί": "לחם" } },
+        { sentence: "Εγώ ____ τα ρούχα.", root: "πλύνω", rootHeb: "לכבס", answer: "πλύνω", mcChoices: ["πλύνω", "πλύνεις", "πλύνει", "πλύνουμε"], translations: { "Εγώ": "אני", "τα": "את ה-", "ρούχα": "בגדים" } },
+        { sentence: "Εσύ ____ με την φίλη σου.", root: "μιλώ", rootHeb: "לדבר", answer: "μιλάς", mcChoices: ["μιλώ", "μιλάς", "μιλά", "μιλάμε"], translations: { "Εσύ": "אתה / את", "με": "עם", "την": "את ה-", "φίλη": "חברה", "σου": "שלך" } },
+        { sentence: "Εγώ ____ στη θάλασσα.", root: "κολυμπώ", rootHeb: "לשחות", answer: "κολυμπώ", mcChoices: ["κολυμπώ", "κολυμπάς", "κολυμπά", "κολυμπάμε"], translations: { "Εγώ": "אני", "στη": "ב-", "θάλασσα": "ים" } },
+        { sentence: "Αυτός ____ το ποδήλατο.", root: "οδηγώ", rootHeb: "לרכוב / לנהוג", answer: "οδηγεί", mcChoices: ["οδηγώ", "οδηγείς", "οδηγεί", "οδηγούμε"], translations: { "Αυτός": "הוא", "το": "את ה-", "ποδήλατο": "אופניים" } },
+        { sentence: "Εμείς ____ τραγούδια.", root: "ακούω", rootHeb: "לשמוע", answer: "ακούμε", mcChoices: ["ακούω", "ακούς", "ακούει", "ακούμε"], translations: { "Εμείς": "אנחנו", "τραγούδια": "שירים" } },
+        { sentence: "Εσείς ____ στο πάρκο.", root: "περπατώ", rootHeb: "ללכת / לטייל", answer: "περπατάτε", mcChoices: ["περπατώ", "περπατάς", "περπατά", "περπατάτε"], translations: { "Εσείς": "אתם / אתן", "στο": "ב-", "πάρκο": "פארק" } },
+        { sentence: "Αυτοί ____ τα μαθήματα.", root: "διαβάζω", rootHeb: "לקרוא / ללמוד", answer: "διαβάζουν", mcChoices: ["διαβάζω", "διαβάζεις", "διαβάζει", "διαβάζουν"], translations: { "Αυτοί": "הם", "τα": "את ה-", "μαθήματα": "שיעורים" } }
     ];
+
+    // שלב 1 (בחירה מרובה): מאגר משלים — יחד עם GRAMMAR_VERB_SENTENCE_GAME נותן 50 ייחודיים
+    const GRAMMAR_VERB_SENTENCE_EASY_EXTRA = [
+        { sentence: "Αυτή ____ ένα δώρο.", root: "χαρίζω", rootHeb: "להעניק במתנה", answer: "χαρίζει", mcChoices: ["χαρίζω", "χαρίζεις", "χαρίζει", "χαρίζουμε"], translations: { "Αυτή": "היא", "ένα": "אחת", "δώρο": "מתנה" } },
+        { sentence: "Εγώ ____ τη μουσική.", root: "αγαπώ", rootHeb: "לאהוב", answer: "αγαπώ", mcChoices: ["αγαπώ", "αγαπάς", "αγαπά", "αγαπάμε"], translations: { "Εγώ": "אני", "τη": "את ה-", "μουσική": "מוזיקה" } },
+        { sentence: "Εσύ ____ στο τηλέφωνο.", root: "τηλεφωνώ", rootHeb: "להתקשר", answer: "τηλεφωνείς", mcChoices: ["τηλεφωνώ", "τηλεφωνείς", "τηλεφωνεί", "τηλεφωνούμε"], translations: { "Εσύ": "אתה / את", "στο": "ב-", "τηλέφωνο": "טלפון" } },
+        { sentence: "Αυτοί ____ στο γήπεδο.", root: "αθλούμαι", rootHeb: "להתאמן / לעשות ספורט", answer: "αθλούνται", mcChoices: ["αθλούμαι", "αθλείσαι", "αθλείται", "αθλούνται"], translations: { "Αυτοί": "הם", "στο": "ב-", "γήπεδο": "מגרש" } },
+        { sentence: "Εγώ ____ γράμμα στη γιαγιά.", root: "γράφω", rootHeb: "לכתוב", answer: "γράφω", mcChoices: ["γράφω", "γράφεις", "γράφει", "γράφουμε"], translations: { "Εγώ": "אני", "γράμμα": "מכתב", "στη": "ל-", "γιαγιά": "סבתא" } },
+        { sentence: "Εσύ ____ το δωμάτιό σου;", root: "καθαρίζω", rootHeb: "לנקות", answer: "καθαρίζεις", mcChoices: ["καθαρίζω", "καθαρίζεις", "καθαρίζει", "καθαρίζουμε"], translations: { "Εσύ": "אתה / את", "το": "את ה-", "δωμάτιό": "חדר", "σου": "שלך" } },
+        { sentence: "Ο Νίκος ____ στις έξι.", root: "ξυπνώ", rootHeb: "להתעורר", answer: "ξυπνά", mcChoices: ["ξυπνώ", "ξυπνάς", "ξυπνά", "ξυπνάμε"], translations: { "Ο": "ה- (בזכר)", "Νίκος": "ניקוס", "στις": "ב-", "έξι": "שש" } },
+        { sentence: "Εμείς ____ μαζί το απόγευμα.", root: "δουλεύω", rootHeb: "לעבוד", answer: "δουλεύουμε", mcChoices: ["δουλεύω", "δουλεύεις", "δουλεύει", "δουλεύουμε"], translations: { "Εμείς": "אנחנו", "μαζί": "ביחד", "το": "ב-", "απόγευμα": "אחר הצהריים" } },
+        { sentence: "Αυτή ____ φωτογραφίες.", root: "βγάζω", rootHeb: "לצלם / להוציא", answer: "βγάζει", mcChoices: ["βγάζω", "βγάζεις", "βγάζει", "βγάζουμε"], translations: { "Αυτή": "היא", "φωτογραφίες": "תמונות" } },
+        { sentence: "Εσείς ____ τα κλειδιά;", root: "ψάχνω", rootHeb: "לחפש", answer: "ψάχνετε", mcChoices: ["ψάχνω", "ψάχνεις", "ψάχνει", "ψάχνετε"], translations: { "Εσείς": "אתם / אתן", "τα": "את ה-", "κλειδιά": "מפתחות" } }
+    ];
+
+    // שלב 3 (הקלדת פועל מלא): 40 משפטים שונים משלב 2
+    const GRAMMAR_VERB_SENTENCE_STAGE3 = [
+        { sentence: "Εγώ ____ το ποδήλατο κάθε μέρα.", root: "οδηγώ", rootHeb: "לרכוב / לנהוג", answer: "οδηγώ", translations: { "Εγώ": "אני", "το": "את ה-", "ποδήλατο": "אופניים", "κάθε": "כל", "μέρα": "יום" } },
+        { sentence: "Εσύ ____ γρήγορα το πρωί;", root: "τρέχω", rootHeb: "לרוץ", answer: "τρέχεις", translations: { "Εσύ": "אתה / את", "γρήγορα": "מהר", "το": "ב-", "πρωί": "בוקר" } },
+        { sentence: "Αυτή ____ τα λουλούδια.", root: "ποτίζω", rootHeb: "להשקות", answer: "ποτίζει", translations: { "Αυτή": "היא", "τα": "את ה-", "λουλούδια": "פרחים" } },
+        { sentence: "Εμείς ____ στην παραλία.", root: "κάθομαι", rootHeb: "לשבת", answer: "καθόμαστε", translations: { "Εμείς": "אנחנו", "στην": "ב-", "παραλία": "חוף" } },
+        { sentence: "Ο μπαμπάς ____ στην πόλη.", root: "δουλεύω", rootHeb: "לעבוד", answer: "δουλεύει", translations: { "Ο": "ה-", "μπαμπάς": "אבא", "στην": "ב-", "πόλη": "עיר" } },
+        { sentence: "Εσείς ____ το παράθυρο;", root: "ανοίγω", rootHeb: "לפתוח", answer: "ανοίγετε", translations: { "Εσείς": "אתם / אתן", "το": "את ה-", "παράθυρο": "חלון" } },
+        { sentence: "Τα παιδιά ____ δυνατά.", root: "γελάω", rootHeb: "לצחוק", answer: "γελάνε", translations: { "Τα": "ה-", "παιδιά": "ילדים", "δυνατά": "חזק" } },
+        { sentence: "Εγώ ____ το γάλα.", root: "πίνω", rootHeb: "לשתות", answer: "πίνω", translations: { "Εγώ": "אני", "το": "את ה-", "γάλα": "חלב" } },
+        { sentence: "Αυτός ____ την πόρτα.", root: "κλείνω", rootHeb: "לסגור", answer: "κλείνει", translations: { "Αυτός": "הוא", "την": "את ה-", "πόρτα": "דלת" } },
+        { sentence: "Εσύ ____ καλά ελληνικά.", root: "καταλαβαίνω", rootHeb: "להבין", answer: "καταλαβαίνεις", translations: { "Εσύ": "אתה / את", "καλά": "טוב", "ελληνικά": "יוונית" } },
+        { sentence: "Εμείς ____ μια πίτσα.", root: "παραγγέλνω", rootHeb: "להזמין", answer: "παραγγέλνουμε", translations: { "Εμείς": "אנחנו", "μια": "אחת", "πίτσα": "פיצה" } },
+        { sentence: "Η Ελένη ____ στο λεωφορείο.", root: "ανεβαίνω", rootHeb: "לעלות", answer: "ανεβαίνει", translations: { "Η": "ה-", "Ελένη": "אלני", "στο": "ל-", "λεωφορείο": "אוטובוס" } },
+        { sentence: "Αυτοί ____ το τραπέζι.", root: "στρώνω", rootHeb: "לערוך", answer: "στρώνουν", translations: { "Αυτοί": "הם", "το": "את ה-", "τραπέζι": "שולחן" } },
+        { sentence: "Εσείς ____ το κρεβάτι;", root: "φτιάχνω", rootHeb: "לתקן / לסדר", answer: "φτιάχνετε", translations: { "Εσείς": "אתם / אתן", "το": "את ה-", "κρεβάτι": "מיטה" } },
+        { sentence: "Εγώ ____ το πρωινό.", root: "ετοιμάζω", rootHeb: "להכין", answer: "ετοιμάζω", translations: { "Εγώ": "אני", "το": "את ה-", "πρωινό": "ארוחת בוקר" } },
+        { sentence: "Αυτή ____ τα χέρια της.", root: "πλένω", rootHeb: "לשטוף", answer: "πλένει", translations: { "Αυτή": "היא", "τα": "את ה-", "χέρια": "ידיים", "της": "שלה" } },
+        { sentence: "Ο Νίκος ____ μπάσκετ.", root: "παίζω", rootHeb: "לשחק", answer: "παίζει", translations: { "Ο": "ה-", "Νίκος": "ניקוס", "μπάσκετ": "כדורסל" } },
+        { sentence: "Εσύ ____ την τσάντα σου;", root: "παίρνω", rootHeb: "לקחת", answer: "παίρνεις", translations: { "Εσύ": "אתה / את", "την": "את ה-", "τσάντα": "תיק", "σου": "שלך" } },
+        { sentence: "Εμείς ____ στο σπίτι στις εννιά.", root: "γυρίζω", rootHeb: "לחזור", answer: "γυρίζουμε", translations: { "Εμείς": "אנחנו", "στο": "ל-", "σπίτι": "בית", "στις": "ב-", "εννιά": "תשע" } },
+        { sentence: "Αυτοί ____ στην τηλεόραση.", root: "κοιτάζω", rootHeb: "להסתכל", answer: "κοιτάζουν", translations: { "Αυτοί": "הם", "στην": "ב-", "τηλεόραση": "טלוויזיה" } },
+        { sentence: "Εγώ ____ το όνομά μου.", root: "γράφω", rootHeb: "לכתוב", answer: "γράφω", translations: { "Εγώ": "אני", "το": "את ה-", "όνομά": "שם", "μου": "שלי" } },
+        { sentence: "Η μαμά ____ σούπα.", root: "μαγειρεύω", rootHeb: "לבשל", answer: "μαγειρεύει", translations: { "Η": "ה-", "μαμά": "אמא", "σούπα": "מרק" } },
+        { sentence: "Εσύ ____ το κινητό σου;", root: "χρησιμοποιώ", rootHeb: "להשתמש", answer: "χρησιμοποιείς", translations: { "Εσύ": "אתה / את", "το": "את ה-", "κινητό": "נייד", "σου": "שלך" } },
+        { sentence: "Εσείς ____ στην καρέκλα.", root: "κάθομαι", rootHeb: "לשבת", answer: "κάθεστε", translations: { "Εσείς": "אתם / אתן", "στην": "ב-", "καρέκλα": "כיסא" } },
+        { sentence: "Αυτή ____ ένα μήνυμα.", root: "στέλνω", rootHeb: "לשלוח", answer: "στέλνει", translations: { "Αυτή": "היא", "ένα": "אחד", "μήνυμα": "הודעה" } },
+        { sentence: "Εμείς ____ τα δώρα.", root: "ανοίγω", rootHeb: "לפתוח", answer: "ανοίγουμε", translations: { "Εμείς": "אנחנו", "τα": "את ה-", "δώρα": "מתנות" } },
+        { sentence: "Ο Γιώργος ____ ποδόσφαιρο.", root: "βλέπω", rootHeb: "לראות", answer: "βλέπει", translations: { "Ο": "ה-", "Γιώργος": "יורגוס", "ποδόσφαιρο": "כדורגל" } },
+        { sentence: "Εγώ ____ το δόντι μου.", root: "πονάω", rootHeb: "לכאוב", answer: "πονάω", translations: { "Εγώ": "אני", "το": "את ה-", "δόντι": "שן", "μου": "שלי" } },
+        { sentence: "Τα παιδιά ____ το μάθημα.", root: "αρχίζω", rootHeb: "להתחיל", answer: "αρχίζουν", translations: { "Τα": "ה-", "παιδιά": "ילדים", "το": "את ה-", "μάθημα": "שיעור" } },
+        { sentence: "Εσύ ____ το φως;", root: "ανάβω", rootHeb: "להדליק", answer: "ανάβεις", translations: { "Εσύ": "אתה / את", "το": "את ה-", "φως": "אור" } },
+        { sentence: "Αυτοί ____ από το αυτοκίνητο.", root: "κατεβαίνω", rootHeb: "לרדת", answer: "κατεβαίνουν", translations: { "Αυτοί": "הם", "από": "מ-", "το": "ה-", "αυτοκίνητο": "מכונית" } },
+        { sentence: "Εσείς ____ την ερώτηση;", root: "απαντάω", rootHeb: "לענות", answer: "απαντάτε", translations: { "Εσείς": "אתם / אתן", "την": "את ה-", "ερώτηση": "שאלה" } },
+        { sentence: "Εγώ ____ το σκυλί μου.", root: "αγαπάω", rootHeb: "לאהוב", answer: "αγαπάω", translations: { "Εγώ": "אני", "το": "את ה-", "σκυλί": "כלב", "μου": "שלי" } },
+        { sentence: "Η Σοφία ____ στο πάρκο.", root: "περπατώ", rootHeb: "ללכת / לטייל", answer: "περπατά", translations: { "Η": "ה-", "Σοφία": "סופיה", "στο": "ב-", "πάρκο": "פארק" } },
+        { sentence: "Εμείς ____ τα πιάτα.", root: "πλένω", rootHeb: "לשטוף", answer: "πλένουμε", translations: { "Εμείς": "אנחנו", "τα": "את ה-", "πιάτα": "צלחות" } },
+        { sentence: "Αυτή ____ το τραγούδι.", root: "τραγουδάω", rootHeb: "לשיר", answer: "τραγουδάει", translations: { "Αυτή": "היא", "το": "את ה-", "τραγούδι": "שיר" } },
+        { sentence: "Εσύ ____ το βιβλίο στη βιβλιοθήκη;", root: "αφήνω", rootHeb: "להשאיר", answer: "αφήνεις", translations: { "Εσύ": "אתה / את", "το": "את ה-", "βιβλίο": "ספר", "στη": "ב-", "βιβλιοθήκη": "ספרייה" } },
+        { sentence: "Ο δάσκαλος ____ στον πίνακα.", root: "γράφω", rootHeb: "לכתוב", answer: "γράφει", translations: { "Ο": "ה-", "δάσκαλος": "מורה", "στον": "ב-", "πίνακα": "לוח" } },
+        { sentence: "Εγώ ____ την τσάντα στο πάτωμα.", root: "βάζω", rootHeb: "לשים", answer: "βάζω", translations: { "Εγώ": "אני", "την": "את ה-", "τσάντα": "תיק", "στο": "ב-", "πάτωμα": "רצפה" } },
+        { sentence: "Αυτοί ____ το παιχνίδι.", root: "κερδίζω", rootHeb: "לנצח", answer: "κερδίζουν", translations: { "Αυτοί": "הם", "το": "את ה-", "παιχνίδι": "משחק" } }
+    ];
+
+    function isGrammarVerbTypingMode() {
+        return grammarVerbGameMode === 'fill' || grammarVerbGameMode === 'fillFull';
+    }
+
+    function getGrammarVerbSentenceDeck() {
+        var source;
+        if (grammarVerbGameMode === 'mc') {
+            source = GRAMMAR_VERB_SENTENCE_GAME.concat(GRAMMAR_VERB_SENTENCE_EASY_EXTRA);
+        } else if (grammarVerbGameMode === 'fillFull') {
+            source = GRAMMAR_VERB_SENTENCE_STAGE3.slice();
+        } else {
+            source = GRAMMAR_VERB_SENTENCE_GAME.slice();
+        }
+        var seen = {};
+        var unique = [];
+        source.forEach(function(item) {
+            if (!item || !item.sentence) return;
+            if (seen[item.sentence]) return;
+            seen[item.sentence] = true;
+            unique.push(item);
+        });
+        return unique;
+    }
+
+    const GRAMMAR_VERB_ROUND_SIZE = 15;
+    function buildGrammarVerbDeck() {
+        var deck = shuffle(getGrammarVerbSentenceDeck());
+        if (deck.length > GRAMMAR_VERB_ROUND_SIZE) {
+            deck = deck.slice(0, GRAMMAR_VERB_ROUND_SIZE);
+        }
+        return deck;
+    }
 
     const GRAMMAR_VERB_SENT_SCORE_KEY = 'דקדוק - השלמת משפטים פעלים';
     const GRAMMAR_VERB_SENT_MC_KEY = 'דקדוק - השלמת משפטים קל';
+    const GRAMMAR_VERB_SENT_STAGE3_KEY = 'דקדוק - השלמת משפטים שלב 3';
+    const GRAMMAR_VERB_MEMORY_KEY = 'דקדוק - זיכרון הווה';
     const GRAMMAR_SP_SCORE_KEY = 'דקדוק - יחיד רבים';
     const GRAMMAR_DEFINITE_ARTICLE_SCORE_KEY = 'דקדוק - ה הידיעה';
     const GRAMMAR_PRESENT_PRONOUNS_SCORE_KEY = 'כינויי גוף הווה';
@@ -5003,6 +5316,7 @@
     let grammarVerbGameDeck = [];
     let grammarVerbGameMode = 'fill';
     let grammarVerbMcLocked = false;
+    let grammarVerbFillStem = '';
 
     function initGrammarLetters() {
         const lettersGrid = document.getElementById('grammar-letters-grid');
@@ -5208,6 +5522,8 @@
         document.getElementById('grammar-singular-plural-submenu-view').style.display = 'none';
         document.getElementById('grammar-singular-plural-view').style.display = 'none';
         document.getElementById('grammar-sp-memory-view').style.display = 'none';
+        var grammarPvMemHide = document.getElementById('grammar-pv-memory-view');
+        if (grammarPvMemHide) grammarPvMemHide.style.display = 'none';
         document.getElementById('grammar-sp-hangman-view').style.display = 'none';
         document.getElementById('grammar-sp-match-view').style.display = 'none';
         document.getElementById('grammar-pronouns-verbs-submenu-view').style.display = 'none';
@@ -5324,6 +5640,8 @@
         document.getElementById('grammar-singular-plural-submenu-view').style.display = 'none';
         document.getElementById('grammar-singular-plural-view').style.display = 'none';
         document.getElementById('grammar-sp-memory-view').style.display = 'none';
+        var grammarPvMemHide = document.getElementById('grammar-pv-memory-view');
+        if (grammarPvMemHide) grammarPvMemHide.style.display = 'none';
         document.getElementById('grammar-sp-hangman-view').style.display = 'none';
         document.getElementById('grammar-sp-match-view').style.display = 'none';
         document.getElementById('grammar-pronouns-verbs-submenu-view').style.display = 'none';
@@ -5337,6 +5655,8 @@
         document.getElementById('grammar-letters-view').style.display = 'none';
         document.getElementById('grammar-singular-plural-view').style.display = 'none';
         document.getElementById('grammar-sp-memory-view').style.display = 'none';
+        var grammarPvMemHide = document.getElementById('grammar-pv-memory-view');
+        if (grammarPvMemHide) grammarPvMemHide.style.display = 'none';
         document.getElementById('grammar-sp-hangman-view').style.display = 'none';
         document.getElementById('grammar-sp-match-view').style.display = 'none';
         document.getElementById('grammar-definite-article-view').style.display = 'none';
@@ -5355,6 +5675,8 @@
         document.getElementById('grammar-pronouns-verbs-list-view').style.display = 'none';
         document.getElementById('grammar-pronouns-verbs-sentence-view').style.display = 'none';
         document.getElementById('grammar-sp-memory-view').style.display = 'none';
+        var grammarPvMemHide = document.getElementById('grammar-pv-memory-view');
+        if (grammarPvMemHide) grammarPvMemHide.style.display = 'none';
         document.getElementById('grammar-sp-hangman-view').style.display = 'none';
         document.getElementById('grammar-sp-match-view').style.display = 'none';
         document.getElementById('grammar-singular-plural-view').style.display = 'block';
@@ -5370,6 +5692,8 @@
         document.getElementById('grammar-pronouns-verbs-sentence-view').style.display = 'none';
         document.getElementById('grammar-sp-hangman-view').style.display = 'none';
         document.getElementById('grammar-sp-match-view').style.display = 'none';
+        var grammarPvMemHide = document.getElementById('grammar-pv-memory-view');
+        if (grammarPvMemHide) grammarPvMemHide.style.display = 'none';
         document.getElementById('grammar-sp-memory-view').style.display = 'block';
         initGrammarSingularPluralMemory();
     }
@@ -5379,6 +5703,8 @@
         document.getElementById('grammar-singular-plural-submenu-view').style.display = 'none';
         document.getElementById('grammar-singular-plural-view').style.display = 'none';
         document.getElementById('grammar-sp-memory-view').style.display = 'none';
+        var grammarPvMemHide = document.getElementById('grammar-pv-memory-view');
+        if (grammarPvMemHide) grammarPvMemHide.style.display = 'none';
         document.getElementById('grammar-sp-hangman-view').style.display = 'none';
         document.getElementById('grammar-sp-match-view').style.display = 'none';
         document.getElementById('grammar-pronouns-verbs-submenu-view').style.display = 'none';
@@ -5388,11 +5714,14 @@
         initGrammarLetters();
     }
     function showGrammarPronounsVerbsSubmenu() {
+        closeGrammarVerbHelpPopup();
         document.getElementById('grammar-menu').style.display = 'none';
         document.getElementById('grammar-letters-view').style.display = 'none';
         document.getElementById('grammar-singular-plural-submenu-view').style.display = 'none';
         document.getElementById('grammar-singular-plural-view').style.display = 'none';
         document.getElementById('grammar-sp-memory-view').style.display = 'none';
+        var grammarPvMemHide = document.getElementById('grammar-pv-memory-view');
+        if (grammarPvMemHide) grammarPvMemHide.style.display = 'none';
         document.getElementById('grammar-sp-hangman-view').style.display = 'none';
         document.getElementById('grammar-sp-match-view').style.display = 'none';
         document.getElementById('grammar-definite-article-view').style.display = 'none';
@@ -5401,6 +5730,8 @@
         document.getElementById('grammar-pronouns-verbs-submenu-view').style.display = 'block';
         refreshGrammarVerbSentencesButtonHigh();
         refreshGrammarVerbMcButtonHigh();
+        refreshGrammarVerbStage3ButtonHigh();
+        refreshGrammarVerbMemoryButtonHigh();
     }
     function initGrammarPronounsVerbsList() {
         var container = document.getElementById('grammar-pronouns-verbs-list-container');
@@ -5433,6 +5764,8 @@
         document.getElementById('grammar-singular-plural-submenu-view').style.display = 'none';
         document.getElementById('grammar-singular-plural-view').style.display = 'none';
         document.getElementById('grammar-sp-memory-view').style.display = 'none';
+        var grammarPvMemHide = document.getElementById('grammar-pv-memory-view');
+        if (grammarPvMemHide) grammarPvMemHide.style.display = 'none';
         document.getElementById('grammar-sp-hangman-view').style.display = 'none';
         document.getElementById('grammar-sp-match-view').style.display = 'none';
         document.getElementById('grammar-definite-article-view').style.display = 'none';
@@ -5560,6 +5893,164 @@
         }
     }
 
+    // זיכרון הווה: כינוי גוף ⟷ הטיה של פועל אקראי בכל סיבוב
+    var GRAMMAR_PV_MEMORY_VERBS = [
+        { root: 'μιλάω', heb: 'לדבר' },
+        { root: 'τρέχω', heb: 'לרוץ' },
+        { root: 'τραγουδάω', heb: 'לשיר' },
+        { root: 'πίνω', heb: 'לשתות' },
+        { root: 'τρώω', heb: 'לאכול' },
+        { root: 'μένω', heb: 'לגור' }
+    ];
+
+    function refreshGrammarVerbMemoryButtonHigh() {
+        var btn = document.getElementById('grammar-btn-pronouns-verbs-memory');
+        if (!btn) return;
+        var h = getModeHighScore(GRAMMAR_VERB_MEMORY_KEY, 'verbMemory');
+        var small = btn.querySelector('small');
+        if (small) small.textContent = 'שיא: ' + h + '%';
+    }
+
+    function showGrammarPronounsVerbsMemory() {
+        document.getElementById('grammar-menu').style.display = 'none';
+        document.getElementById('grammar-letters-view').style.display = 'none';
+        document.getElementById('grammar-singular-plural-submenu-view').style.display = 'none';
+        document.getElementById('grammar-singular-plural-view').style.display = 'none';
+        document.getElementById('grammar-definite-article-view').style.display = 'none';
+        document.getElementById('grammar-pronouns-verbs-submenu-view').style.display = 'none';
+        document.getElementById('grammar-pronouns-verbs-list-view').style.display = 'none';
+        document.getElementById('grammar-pronouns-verbs-sentence-view').style.display = 'none';
+        document.getElementById('grammar-sp-memory-view').style.display = 'none';
+        document.getElementById('grammar-sp-hangman-view').style.display = 'none';
+        document.getElementById('grammar-sp-match-view').style.display = 'none';
+        document.getElementById('grammar-pv-memory-view').style.display = 'block';
+        initGrammarPronounsVerbsMemory();
+    }
+
+    function initGrammarPronounsVerbsMemory() {
+        gramPvMemMoves = 0;
+        gramPvMemPairs = 0;
+        gramPvMemFlipped = [];
+        gramPvMemLock = false;
+        var verb = shuffle(GRAMMAR_PV_MEMORY_VERBS.slice())[0] || GRAMMAR_PV_MEMORY_VERBS[0];
+        var rows = grammarVerbConjugatePresent(verb.root);
+        gramPvMemPairCount = rows.length;
+        var hint = document.getElementById('grammar-pv-mem-verb-hint');
+        if (hint) {
+            hint.innerHTML = 'התאימי כל כינוי גוף להטיה המתאימה.<br>פועל הסיבוב: <strong>' +
+                verb.root + '</strong> · ' + verb.heb;
+        }
+        var cards = shuffle(rows.flatMap(function(row, i) {
+            return [
+                { text: row.pronoun, id: 'p' + i, kind: 'pronoun', speak: row.pronoun.split('/')[0].trim() },
+                { text: row.form, id: 'p' + i, kind: 'verb', speak: row.form }
+            ];
+        }));
+        var grid = document.getElementById('grammar-pv-memory-grid');
+        var results = document.getElementById('grammar-pv-memory-results');
+        var totalEl = document.getElementById('gram-pv-mem-pairs-total');
+        if (totalEl) totalEl.textContent = String(gramPvMemPairCount);
+        document.getElementById('gram-pv-mem-moves').textContent = '0';
+        document.getElementById('gram-pv-mem-pairs').textContent = '0';
+        if (grid) {
+            grid.style.display = 'grid';
+            grid.innerHTML = '';
+            cards.forEach(function(c, i) {
+                var div = document.createElement('div');
+                div.className = 'grammar-sp-mem-card' + (c.kind === 'pronoun' ? ' is-pronoun' : '');
+                div.id = 'gram-pv-mem-' + i;
+                div.textContent = '?';
+                div.addEventListener('click', function() {
+                    flipGramPvMem(i, c.id, c.text, c.speak);
+                });
+                grid.appendChild(div);
+            });
+        }
+        if (results) results.style.display = 'none';
+    }
+
+    function flipGramPvMem(idx, pairId, displayText, speakText) {
+        var el = document.getElementById('gram-pv-mem-' + idx);
+        if (!el || gramPvMemLock || el.classList.contains('flipped')) return;
+        el.textContent = displayText;
+        el.classList.add('flipped');
+        try {
+            playAudio(speakText || displayText);
+        } catch (e) {}
+        gramPvMemFlipped.push({ idx: idx, id: pairId });
+        if (gramPvMemFlipped.length === 2) {
+            gramPvMemMoves++;
+            var movesEl = document.getElementById('gram-pv-mem-moves');
+            if (movesEl) movesEl.textContent = String(gramPvMemMoves);
+            gramPvMemLock = true;
+            if (gramPvMemFlipped[0].id === gramPvMemFlipped[1].id) {
+                setTimeout(function() {
+                    var a = document.getElementById('gram-pv-mem-' + gramPvMemFlipped[0].idx);
+                    var b = document.getElementById('gram-pv-mem-' + gramPvMemFlipped[1].idx);
+                    if (a) a.classList.add('matched');
+                    if (b) b.classList.add('matched');
+                    gramPvMemPairs++;
+                    var pEl = document.getElementById('gram-pv-mem-pairs');
+                    if (pEl) pEl.textContent = String(gramPvMemPairs);
+                    gramPvMemFlipped = [];
+                    gramPvMemLock = false;
+                    if (gramPvMemPairs >= gramPvMemPairCount) {
+                        var gridEl = document.getElementById('grammar-pv-memory-grid');
+                        if (gridEl) gridEl.style.display = 'none';
+                        var res = document.getElementById('grammar-pv-memory-results');
+                        if (res) res.style.display = 'block';
+                        var n = gramPvMemPairCount;
+                        var perfect = n * 2;
+                        var good = Math.round(n * 3);
+                        var ok = Math.round(n * 3.67);
+                        var msg = '';
+                        var stars = '';
+                        if (gramPvMemMoves <= perfect) {
+                            msg = 'גאון של אמא';
+                            stars = '⭐⭐⭐';
+                            celebrate();
+                        } else if (gramPvMemMoves <= good) {
+                            msg = 'חיים שלי בלב! לנסות שוב';
+                            stars = '⭐⭐⭐';
+                        } else if (gramPvMemMoves <= ok) {
+                            msg = 'כפרה עליך לחזור על ההטיות';
+                            stars = '⭐⭐';
+                        } else {
+                            msg = 'לנסות שוב — ככה משתפרים';
+                            stars = '⭐';
+                        }
+                        var sm = document.getElementById('gram-pv-mem-stars');
+                        var rm = document.getElementById('gram-pv-mem-res-msg');
+                        if (sm) sm.textContent = stars;
+                        if (rm) rm.textContent = msg + ' · מהלכים: ' + gramPvMemMoves;
+                        var memPct = 50;
+                        if (gramPvMemMoves <= perfect) memPct = 100;
+                        else if (gramPvMemMoves <= good) memPct = 85;
+                        else if (gramPvMemMoves <= ok) memPct = 70;
+                        saveModeHighScore(GRAMMAR_VERB_MEMORY_KEY, 'verbMemory', memPct);
+                        refreshGrammarVerbMemoryButtonHigh();
+                        if (typeof refreshGrammarMainMenuScores === 'function') refreshGrammarMainMenuScores();
+                    }
+                }, 700);
+            } else {
+                setTimeout(function() {
+                    var e0 = document.getElementById('gram-pv-mem-' + gramPvMemFlipped[0].idx);
+                    var e1 = document.getElementById('gram-pv-mem-' + gramPvMemFlipped[1].idx);
+                    if (e0) {
+                        e0.classList.remove('flipped');
+                        e0.textContent = '?';
+                    }
+                    if (e1) {
+                        e1.classList.remove('flipped');
+                        e1.textContent = '?';
+                    }
+                    gramPvMemFlipped = [];
+                    gramPvMemLock = false;
+                }, 1000);
+            }
+        }
+    }
+
     function resetGrammarSpHangSvg() {
         for (var i = 0; i < GRAMMAR_SP_HANG_MAX_WRONG; i++) {
             var el = document.getElementById('gram-sp-hang-' + i);
@@ -5578,6 +6069,8 @@
         document.getElementById('grammar-singular-plural-submenu-view').style.display = 'none';
         document.getElementById('grammar-singular-plural-view').style.display = 'none';
         document.getElementById('grammar-sp-memory-view').style.display = 'none';
+        var grammarPvMemHide = document.getElementById('grammar-pv-memory-view');
+        if (grammarPvMemHide) grammarPvMemHide.style.display = 'none';
         document.getElementById('grammar-definite-article-view').style.display = 'none';
         document.getElementById('grammar-pronouns-verbs-submenu-view').style.display = 'none';
         document.getElementById('grammar-pronouns-verbs-list-view').style.display = 'none';
@@ -5838,6 +6331,8 @@
         document.getElementById('grammar-singular-plural-submenu-view').style.display = 'none';
         document.getElementById('grammar-singular-plural-view').style.display = 'none';
         document.getElementById('grammar-sp-memory-view').style.display = 'none';
+        var grammarPvMemHide = document.getElementById('grammar-pv-memory-view');
+        if (grammarPvMemHide) grammarPvMemHide.style.display = 'none';
         document.getElementById('grammar-sp-hangman-view').style.display = 'none';
         document.getElementById('grammar-definite-article-view').style.display = 'none';
         document.getElementById('grammar-pronouns-verbs-submenu-view').style.display = 'none';
@@ -6047,6 +6542,117 @@
     function grammarVerbNormalizeCompare(s) {
         if (s == null) return '';
         return String(s).trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+    function grammarVerbPeelFirstPersonEnding(root) {
+        var r = String(root || '');
+        var endings = ['ούμαι', 'ομαι', 'άω', 'ώ', 'ω'];
+        for (var i = 0; i < endings.length; i++) {
+            var end = endings[i];
+            if (r.length > end.length && r.slice(-end.length) === end) {
+                return r.slice(0, -end.length);
+            }
+        }
+        return r.length > 1 ? r.slice(0, -1) : r;
+    }
+    function grammarVerbSplitStemEnding(root, answer) {
+        var r = String(root || '');
+        var a = String(answer || '');
+        var i = 0;
+        var n = Math.min(r.length, a.length);
+        while (i < n && r.charAt(i) === a.charAt(i)) i++;
+        var stem = r.slice(0, i);
+        var ending = a.slice(i);
+        if (!ending) {
+            var peeled = grammarVerbPeelFirstPersonEnding(r);
+            if (peeled && a.indexOf(peeled) === 0) {
+                stem = peeled;
+                ending = a.slice(peeled.length);
+            }
+        }
+        if (!ending && a.length) {
+            stem = a.slice(0, Math.max(1, a.length - 1));
+            ending = a.slice(stem.length);
+        }
+        return { stem: stem, ending: ending };
+    }
+    function grammarVerbConjugatePresent(root) {
+        var r = String(root || '').trim();
+        var rows = [];
+        function pack(egw, esy, autos, emeis, eseis, autoi) {
+            return [
+                { pronoun: 'εγώ', form: egw },
+                { pronoun: 'εσύ', form: esy },
+                { pronoun: 'αυτός / αυτή / αυτό', form: autos },
+                { pronoun: 'εμείς', form: emeis },
+                { pronoun: 'εσείς', form: eseis },
+                { pronoun: 'αυτοί / αυτές / αυτά', form: autoi }
+            ];
+        }
+        var irregular = {
+            'τρώω': pack('τρώω', 'τρως', 'τρώει', 'τρώμε', 'τρώτε', 'τρώνε'),
+            'ακούω': pack('ακούω', 'ακούς', 'ακούει', 'ακούμε', 'ακούτε', 'ακούνε'),
+            'λέω': pack('λέω', 'λες', 'λέει', 'λέμε', 'λέτε', 'λένε'),
+            'πάω': pack('πάω', 'πας', 'πάει', 'πάμε', 'πάτε', 'πάνε'),
+            'κάθομαι': pack('κάθομαι', 'κάθεσαι', 'κάθεται', 'καθόμαστε', 'κάθεστε', 'κάθονται')
+        };
+        if (irregular[r]) return irregular[r];
+        if (/ούμαι$/.test(r)) {
+            var sm = r.slice(0, -5);
+            return pack(sm + 'ούμαι', sm + 'είσαι', sm + 'είται', sm + 'ούμαστε', sm + 'είστε', sm + 'ούνται');
+        }
+        if (/ομαι$/.test(r)) {
+            var so = r.slice(0, -4);
+            return pack(so + 'ομαι', so + 'εσαι', so + 'εται', so + 'όμαστε', so + 'εστε', so + 'ονται');
+        }
+        if (/άω$/.test(r)) {
+            var sa = r.slice(0, -2);
+            return pack(sa + 'άω', sa + 'άς', sa + 'άει', sa + 'άμε', sa + 'άτε', sa + 'άνε');
+        }
+        var typeC = { 'οδηγώ': 1, 'τηλεφωνώ': 1, 'μπορώ': 1, 'θεωρώ': 1, 'χρησιμοποιώ': 1 };
+        if (typeC[r] || (/γώ$/.test(r) && !/άω$/.test(r))) {
+            var sc = r.slice(0, -1);
+            return pack(sc + 'ώ', sc + 'είς', sc + 'εί', sc + 'ούμε', sc + 'είτε', sc + 'ούν');
+        }
+        if (/ώ$/.test(r)) {
+            var sb = r.slice(0, -1);
+            return pack(r, sb + 'άς', sb + 'άει', sb + 'άμε', sb + 'άτε', sb + 'άνε');
+        }
+        if (/ω$/.test(r)) {
+            var s = r.slice(0, -1);
+            return pack(s + 'ω', s + 'εις', s + 'ει', s + 'ουμε', s + 'ετε', s + 'ουν');
+        }
+        return pack(r, r, r, r, r, r);
+    }
+    function closeGrammarVerbHelpPopup() {
+        var overlay = document.getElementById('grammar-verb-help-overlay');
+        if (!overlay) return;
+        overlay.classList.remove('is-open');
+        overlay.hidden = true;
+    }
+    function openGrammarVerbHelpPopup() {
+        if (!isGrammarVerbTypingMode()) return;
+        if (grammarVerbGameIndex >= grammarVerbGameDeck.length) return;
+        var item = grammarVerbGameDeck[grammarVerbGameIndex];
+        if (!item || !item.root) return;
+        var list = document.getElementById('grammar-verb-help-list');
+        var overlay = document.getElementById('grammar-verb-help-overlay');
+        if (!list || !overlay) return;
+        var rows = grammarVerbConjugatePresent(item.root);
+        list.innerHTML = '';
+        rows.forEach(function(row) {
+            var li = document.createElement('li');
+            var p = document.createElement('span');
+            p.className = 'grammar-verb-help-pronoun';
+            p.textContent = row.pronoun;
+            var f = document.createElement('span');
+            f.className = 'grammar-verb-help-form';
+            f.textContent = row.form;
+            li.appendChild(p);
+            li.appendChild(f);
+            list.appendChild(li);
+        });
+        overlay.hidden = false;
+        overlay.classList.add('is-open');
     }
     function refreshPresentToBeMcButtonHigh() {
         var btn = document.getElementById('btn-mode-present-tobe-mc');
@@ -6298,16 +6904,33 @@
         if (h > 100) h = 100;
         if (sm) sm.textContent = 'שיא: ' + h + '%';
     }
+    function refreshGrammarVerbStage3ButtonHigh() {
+        var btn = document.getElementById('grammar-btn-pronouns-verbs-sentences-stage3');
+        if (!btn) return;
+        var h = getModeHighScore(GRAMMAR_VERB_SENT_STAGE3_KEY, 'verbSentencesStage3');
+        var sm = btn.querySelector('small');
+        if (!Number.isFinite(h) || h < 0) h = 0;
+        if (h > 100) h = 100;
+        if (sm) sm.textContent = 'שיא: ' + h + '%';
+    }
     function grammarVerbFinalizeRunScore() {
         if (grammarVerbScoreSavedForRun) return;
-        var n = grammarVerbGameDeck.length || GRAMMAR_VERB_SENTENCE_GAME.length;
+        var n = grammarVerbGameDeck.length || GRAMMAR_VERB_ROUND_SIZE;
         if (!n) return;
         var pct = Math.round((grammarVerbRunCorrectCount / n) * 100);
-        var sk = grammarVerbGameMode === 'mc' ? GRAMMAR_VERB_SENT_MC_KEY : GRAMMAR_VERB_SENT_SCORE_KEY;
-        var smode = grammarVerbGameMode === 'mc' ? 'verbSentencesMc' : 'verbSentences';
+        var sk = GRAMMAR_VERB_SENT_SCORE_KEY;
+        var smode = 'verbSentences';
+        if (grammarVerbGameMode === 'mc') {
+            sk = GRAMMAR_VERB_SENT_MC_KEY;
+            smode = 'verbSentencesMc';
+        } else if (grammarVerbGameMode === 'fillFull') {
+            sk = GRAMMAR_VERB_SENT_STAGE3_KEY;
+            smode = 'verbSentencesStage3';
+        }
         saveModeHighScore(sk, smode, pct);
         refreshGrammarVerbSentencesButtonHigh();
         refreshGrammarVerbMcButtonHigh();
+        refreshGrammarVerbStage3ButtonHigh();
         if (typeof refreshGrammarMainMenuScores === 'function') refreshGrammarMainMenuScores();
         grammarVerbScoreSavedForRun = true;
     }
@@ -6341,13 +6964,23 @@
                     b.classList.add('mc-correct');
                 }
             });
+            var revealEl = document.getElementById('grammar-verb-sent-reveal');
+            if (revealEl) {
+                revealEl.className = 'grammar-verb-reveal grammar-verb-reveal-mistake';
+                revealEl.textContent = '';
+                var wrongLabel = document.createElement('span');
+                wrongLabel.className = 'grammar-verb-reveal-mistake-label';
+                wrongLabel.textContent = 'טעות';
+                revealEl.appendChild(wrongLabel);
+                revealEl.style.display = 'block';
+            }
             setTimeout(function() {
                 grammarVerbGameIndex++;
                 if (grammarVerbGameIndex >= grammarVerbGameDeck.length) {
                     celebrate();
                 }
                 renderGrammarVerbSentenceRound();
-            }, 1000);
+            }, 1400);
         }
     }
     function renderGrammarVerbSentenceRound() {
@@ -6372,6 +7005,7 @@
         }
         if (revealEl) {
             revealEl.style.display = 'none';
+            revealEl.className = 'grammar-verb-reveal';
             revealEl.textContent = '';
         }
         if (contBtn) contBtn.style.display = 'none';
@@ -6402,6 +7036,9 @@
             if (mcWrapEnd) mcWrapEnd.style.display = 'none';
             if (mcGridEnd) mcGridEnd.innerHTML = '';
             if (fillActEnd) fillActEnd.style.display = '';
+            var helpBtnEnd = document.getElementById('grammar-verb-help-btn');
+            if (helpBtnEnd) helpBtnEnd.style.display = 'none';
+            closeGrammarVerbHelpPopup();
             if (rootEl) rootEl.textContent = '';
             if (rootHebEl) rootHebEl.textContent = '';
             input.classList.remove('grammar-verb-ok', 'grammar-verb-bad');
@@ -6414,6 +7051,8 @@
         var fillActions = document.getElementById('grammar-verb-fill-actions');
         var mcWrap = document.getElementById('grammar-verb-mc-wrap');
         var mcGrid = document.getElementById('grammar-verb-mc-grid');
+        var helpBtn = document.getElementById('grammar-verb-help-btn');
+        closeGrammarVerbHelpPopup();
         var item = grammarVerbGameDeck[grammarVerbGameIndex];
         var prog = document.getElementById('grammar-verb-sent-progress');
         if (prog) prog.textContent = (grammarVerbGameIndex + 1) + ' / ' + grammarVerbGameDeck.length;
@@ -6423,8 +7062,10 @@
         if (parts.length < 2) parts = [parts[0] || '', ''];
         if (grammarVerbGameMode === 'mc') {
             grammarVerbMcLocked = false;
-            if (titleEl) titleEl.textContent = 'השלמת משפטים — קל';
+            grammarVerbFillStem = '';
+            if (titleEl) titleEl.textContent = 'השלמת משפטים שלב 1';
             if (fillActions) fillActions.style.display = 'none';
+            if (helpBtn) helpBtn.style.display = 'none';
             if (mcWrap) mcWrap.style.display = 'block';
             if (kb) kb.style.display = 'none';
             if (mcGrid) {
@@ -6448,8 +7089,10 @@
             grammarVerbAppendTokens(line, parts[1] || '', item.translations);
             if (fillActions && checkBtn) fillActions.insertBefore(input, checkBtn);
         } else {
-            if (titleEl) titleEl.textContent = 'השלמת משפטים — פעלים ביוונית';
-            if (fillActions) fillActions.style.display = '';
+            var isStage3 = grammarVerbGameMode === 'fillFull';
+            if (titleEl) titleEl.textContent = isStage3 ? 'השלמת משפטים שלב 3' : 'השלמת משפטים שלב 2';
+            if (fillActions) fillActions.style.display = 'grid';
+            if (helpBtn) helpBtn.style.display = '';
             if (mcWrap) {
                 mcWrap.style.display = 'none';
                 if (mcGrid) mcGrid.innerHTML = '';
@@ -6457,7 +7100,28 @@
             if (kb) kb.style.display = 'flex';
             renderGrammarVerbKeyboard();
             grammarVerbAppendTokens(line, parts[0], item.translations);
-            line.appendChild(input);
+            if (isStage3) {
+                grammarVerbFillStem = '';
+                line.appendChild(input);
+                input.style.minWidth = '';
+                input.style.maxWidth = '';
+                input.classList.remove('grammar-verb-ending-only');
+                input.classList.add('grammar-verb-full-input');
+            } else {
+                var split = grammarVerbSplitStemEnding(item.root, item.answer);
+                grammarVerbFillStem = split.stem || '';
+                var stemEl = document.createElement('span');
+                stemEl.className = 'grammar-verb-stem';
+                stemEl.id = 'grammar-verb-stem';
+                stemEl.dir = 'ltr';
+                stemEl.textContent = grammarVerbFillStem;
+                line.appendChild(stemEl);
+                line.appendChild(input);
+                input.classList.remove('grammar-verb-full-input');
+                input.classList.add('grammar-verb-ending-only');
+                var endLen = (split.ending || '').length || 2;
+                input.style.minWidth = Math.max(2.5, endLen + 0.5) + 'ch';
+            }
             grammarVerbAppendTokens(line, parts[1] || '', item.translations);
             input.classList.remove('grammar-verb-ok', 'grammar-verb-bad');
             input.value = '';
@@ -6480,12 +7144,15 @@
         renderGrammarVerbSentenceRound();
     }
     function checkGrammarVerbAnswer() {
-        if (grammarVerbGameMode !== 'fill') return;
+        if (!isGrammarVerbTypingMode()) return;
         var input = document.getElementById('grammar-verb-sent-input');
         if (!input || input.disabled || grammarVerbGameIndex >= grammarVerbGameDeck.length) return;
         var item = grammarVerbGameDeck[grammarVerbGameIndex];
         if (!item) return;
-        var ok = grammarVerbNormalizeCompare(input.value) === grammarVerbNormalizeCompare(item.answer);
+        var typed = input.value || '';
+        var fullGuess = grammarVerbGameMode === 'fillFull' ? typed : ((grammarVerbFillStem || '') + typed);
+        var ok = grammarVerbNormalizeCompare(fullGuess) === grammarVerbNormalizeCompare(item.answer)
+            || grammarVerbNormalizeCompare(typed) === grammarVerbNormalizeCompare(item.answer);
         if (ok) {
             grammarVerbRunCorrectCount++;
             input.classList.remove('grammar-verb-bad');
@@ -6545,6 +7212,8 @@
         document.getElementById('grammar-singular-plural-submenu-view').style.display = 'none';
         document.getElementById('grammar-singular-plural-view').style.display = 'none';
         document.getElementById('grammar-sp-memory-view').style.display = 'none';
+        var grammarPvMemHide = document.getElementById('grammar-pv-memory-view');
+        if (grammarPvMemHide) grammarPvMemHide.style.display = 'none';
         document.getElementById('grammar-sp-hangman-view').style.display = 'none';
         document.getElementById('grammar-sp-match-view').style.display = 'none';
         document.getElementById('grammar-definite-article-view').style.display = 'none';
@@ -6557,7 +7226,30 @@
         grammarVerbGameIndex = 0;
         grammarVerbRunCorrectCount = 0;
         grammarVerbScoreSavedForRun = false;
-        grammarVerbGameDeck = shuffle(GRAMMAR_VERB_SENTENCE_GAME.slice());
+        grammarVerbGameDeck = buildGrammarVerbDeck();
+        renderGrammarVerbSentenceRound();
+    }
+    function showGrammarVerbSentenceGameStage3() {
+        document.getElementById('grammar-menu').style.display = 'none';
+        document.getElementById('grammar-letters-view').style.display = 'none';
+        document.getElementById('grammar-singular-plural-submenu-view').style.display = 'none';
+        document.getElementById('grammar-singular-plural-view').style.display = 'none';
+        document.getElementById('grammar-sp-memory-view').style.display = 'none';
+        var grammarPvMemHide = document.getElementById('grammar-pv-memory-view');
+        if (grammarPvMemHide) grammarPvMemHide.style.display = 'none';
+        document.getElementById('grammar-sp-hangman-view').style.display = 'none';
+        document.getElementById('grammar-sp-match-view').style.display = 'none';
+        document.getElementById('grammar-definite-article-view').style.display = 'none';
+        document.getElementById('grammar-pronouns-verbs-submenu-view').style.display = 'none';
+        document.getElementById('grammar-pronouns-verbs-list-view').style.display = 'none';
+        document.getElementById('grammar-pronouns-verbs-sentence-view').style.display = 'block';
+        var completeEl = document.getElementById('grammar-verb-sent-complete');
+        if (completeEl) completeEl.style.display = 'none';
+        grammarVerbGameMode = 'fillFull';
+        grammarVerbGameIndex = 0;
+        grammarVerbRunCorrectCount = 0;
+        grammarVerbScoreSavedForRun = false;
+        grammarVerbGameDeck = buildGrammarVerbDeck();
         renderGrammarVerbSentenceRound();
     }
     function showGrammarVerbSentenceGameMc() {
@@ -6566,6 +7258,8 @@
         document.getElementById('grammar-singular-plural-submenu-view').style.display = 'none';
         document.getElementById('grammar-singular-plural-view').style.display = 'none';
         document.getElementById('grammar-sp-memory-view').style.display = 'none';
+        var grammarPvMemHide = document.getElementById('grammar-pv-memory-view');
+        if (grammarPvMemHide) grammarPvMemHide.style.display = 'none';
         document.getElementById('grammar-sp-hangman-view').style.display = 'none';
         document.getElementById('grammar-sp-match-view').style.display = 'none';
         document.getElementById('grammar-definite-article-view').style.display = 'none';
@@ -6578,7 +7272,7 @@
         grammarVerbGameIndex = 0;
         grammarVerbRunCorrectCount = 0;
         grammarVerbScoreSavedForRun = false;
-        grammarVerbGameDeck = shuffle(GRAMMAR_VERB_SENTENCE_GAME.slice());
+        grammarVerbGameDeck = buildGrammarVerbDeck();
         renderGrammarVerbSentenceRound();
     }
     function showCategoryScreen() {
@@ -6776,7 +7470,9 @@
     function getGrammarPronounsVerbsMenuHigh() {
         var a = getModeHighScore(GRAMMAR_VERB_SENT_SCORE_KEY, 'verbSentences');
         var b = getModeHighScore(GRAMMAR_VERB_SENT_MC_KEY, 'verbSentencesMc');
-        return clampMenuPct((a + b) / 2);
+        var c = getModeHighScore(GRAMMAR_VERB_SENT_STAGE3_KEY, 'verbSentencesStage3');
+        var d = getModeHighScore(GRAMMAR_VERB_MEMORY_KEY, 'verbMemory');
+        return clampMenuPct((a + b + c + d) / 4);
     }
     function getGrammarSingularPluralMenuHigh() {
         var k = GRAMMAR_SP_SCORE_KEY;
@@ -7064,6 +7760,8 @@
     buildMenu();
     refreshGrammarVerbSentencesButtonHigh();
     refreshGrammarVerbMcButtonHigh();
+    refreshGrammarVerbStage3ButtonHigh();
+    refreshGrammarVerbMemoryButtonHigh();
     refreshPresentToBeMcButtonHigh();
     refreshGrammarMainMenuScores();
 
@@ -7185,16 +7883,38 @@
         if (subBack) subBack.addEventListener('click', showGrammarMenu);
         var listBtn = document.getElementById('grammar-btn-pronouns-verbs-wordlist');
         if (listBtn) listBtn.addEventListener('click', showGrammarPronounsVerbsList);
+        var memBtn = document.getElementById('grammar-btn-pronouns-verbs-memory');
+        if (memBtn) memBtn.addEventListener('click', showGrammarPronounsVerbsMemory);
+        var memBack = document.getElementById('grammar-pv-memory-back');
+        if (memBack) memBack.addEventListener('click', showGrammarPronounsVerbsSubmenu);
+        var memReplay = document.getElementById('grammar-pv-memory-replay');
+        if (memReplay) memReplay.addEventListener('click', initGrammarPronounsVerbsMemory);
         var listBack = document.getElementById('grammar-pronouns-verbs-list-back');
         if (listBack) listBack.addEventListener('click', showGrammarPronounsVerbsSubmenu);
         var sentBtn = document.getElementById('grammar-btn-pronouns-verbs-sentences');
         if (sentBtn) sentBtn.addEventListener('click', showGrammarVerbSentenceGame);
+        var sentStage3Btn = document.getElementById('grammar-btn-pronouns-verbs-sentences-stage3');
+        if (sentStage3Btn) sentStage3Btn.addEventListener('click', showGrammarVerbSentenceGameStage3);
         var sentMcBtn = document.getElementById('grammar-btn-pronouns-verbs-sentences-easy');
         if (sentMcBtn) sentMcBtn.addEventListener('click', showGrammarVerbSentenceGameMc);
         var sentBack = document.getElementById('grammar-verb-sent-back');
         if (sentBack) sentBack.addEventListener('click', showGrammarPronounsVerbsSubmenu);
         var checkBtn = document.getElementById('grammar-verb-sent-check');
         if (checkBtn) checkBtn.addEventListener('click', checkGrammarVerbAnswer);
+        var helpBtn = document.getElementById('grammar-verb-help-btn');
+        if (helpBtn) helpBtn.addEventListener('click', openGrammarVerbHelpPopup);
+        var helpClose = document.getElementById('grammar-verb-help-close');
+        if (helpClose) helpClose.addEventListener('click', closeGrammarVerbHelpPopup);
+        var helpOverlay = document.getElementById('grammar-verb-help-overlay');
+        if (helpOverlay && !helpOverlay._grammarVerbHelpWired) {
+            helpOverlay._grammarVerbHelpWired = true;
+            helpOverlay.addEventListener('click', function(ev) {
+                if (ev.target === helpOverlay) closeGrammarVerbHelpPopup();
+            });
+            document.addEventListener('keydown', function(ev) {
+                if (ev.key === 'Escape') closeGrammarVerbHelpPopup();
+            });
+        }
         var contVerb = document.getElementById('grammar-verb-sent-continue');
         if (contVerb) contVerb.addEventListener('click', grammarVerbContinueAfterWrong);
         var replayBtn = document.getElementById('grammar-verb-sent-replay');
@@ -7202,7 +7922,7 @@
             grammarVerbGameIndex = 0;
             grammarVerbRunCorrectCount = 0;
             grammarVerbScoreSavedForRun = false;
-            grammarVerbGameDeck = shuffle(GRAMMAR_VERB_SENTENCE_GAME.slice());
+            grammarVerbGameDeck = buildGrammarVerbDeck();
             var c = document.getElementById('grammar-verb-sent-complete');
             if (c) c.style.display = 'none';
             renderGrammarVerbSentenceRound();
@@ -10405,6 +11125,7 @@
         walk(GRAMMAR_PRESENT_TO_BE_MC, 'GRAMMAR_PRESENT_TO_BE_MC');
         walk(GRAMMAR_PRONOUNS_WITH_VERBS_LIST, 'GRAMMAR_PRONOUNS_WITH_VERBS_LIST');
         walk(GRAMMAR_VERB_SENTENCE_GAME, 'GRAMMAR_VERB_SENTENCE_GAME');
+        walk(GRAMMAR_VERB_SENTENCE_STAGE3, 'GRAMMAR_VERB_SENTENCE_STAGE3');
         walk(LAIKI_ITEMS, 'LAIKI_ITEMS');
         walk(PET_CARE_ACTIONS, 'PET_CARE_ACTIONS');
         walk(WHOAMI_BANK, 'WHOAMI_BANK');
