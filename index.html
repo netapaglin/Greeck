@@ -1078,6 +1078,463 @@
             unicode-bidi: isolate;
         }
 
+        /* —— הסבר עבר (αόριστος) —— */
+        #grammar-past-explain-view {
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto;
+            display: none;
+            flex-direction: column;
+            align-items: stretch;
+            min-height: min(100dvh - 40px, 720px);
+            box-sizing: border-box;
+        }
+        #grammar-past-explain-view.is-open {
+            display: flex;
+        }
+        #grammar-past-explain-view .past-explain-back {
+            margin-bottom: 6px;
+            align-self: flex-start;
+        }
+        .past-explain-progress {
+            text-align: center;
+            font-weight: 800;
+            font-size: 14px;
+            color: var(--text-greek-sub);
+            letter-spacing: 0.04em;
+            margin-bottom: 8px;
+        }
+        .past-explain-stage {
+            position: relative;
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow: hidden;
+        }
+        .past-explain-slide {
+            display: none;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 10px;
+            height: 100%;
+            padding: 4px 2px 8px;
+            box-sizing: border-box;
+            border-radius: 20px;
+            opacity: 0;
+            transform: translateX(28px);
+        }
+        .past-explain-slide.is-active {
+            display: flex;
+            animation: pastSlideIn 0.38s ease forwards;
+        }
+        .past-explain-slide.is-leaving {
+            display: flex;
+            position: absolute;
+            inset: 0;
+            animation: pastSlideOut 0.28s ease forwards;
+            pointer-events: none;
+        }
+        @keyframes pastSlideIn {
+            from { opacity: 0; transform: translateX(28px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes pastSlideOut {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(-24px); }
+        }
+        @keyframes pastPopIn {
+            0% { opacity: 0; transform: scale(0.86); }
+            70% { transform: scale(1.04); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .past-explain-slide.is-active .past-explain-pop {
+            animation: pastPopIn 0.45s cubic-bezier(0.22, 1.2, 0.36, 1) both;
+        }
+        .past-explain-title {
+            margin: 0;
+            text-align: center;
+            font-size: clamp(20px, 5.2vw, 26px);
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+        .past-explain-lead {
+            margin: 0;
+            text-align: center;
+            font-size: clamp(15px, 3.8vw, 17px);
+            color: #555;
+            line-height: 1.4;
+        }
+        .past-gr, .past-gr-inline {
+            direction: ltr;
+            unicode-bidi: isolate;
+            font-weight: 800;
+            letter-spacing: 0.01em;
+        }
+        .past-gr {
+            font-size: clamp(22px, 5.5vw, 28px);
+            color: var(--hangman-color);
+            line-height: 1.15;
+        }
+        .past-gr-inline {
+            font-size: 0.92em;
+            color: var(--text-greek-sub);
+        }
+        .past-gr-past { color: #2e7d32; }
+        .past-gr-accent { color: #c62828; }
+        .past-speak-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
+            width: 1.5em;
+            height: 1.5em;
+            margin-inline-start: 0.28em;
+            padding: 0;
+            border: none;
+            border-radius: 50%;
+            background: rgba(184, 137, 205, 0.18);
+            color: inherit;
+            font-size: 0.62em;
+            line-height: 1;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.12s, background 0.12s;
+        }
+        .past-speak-btn:hover { background: rgba(184, 137, 205, 0.34); }
+        .past-speak-btn:active { transform: scale(0.9); }
+        #grammar-past-explain-view .past-word-wrap {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            vertical-align: middle;
+            max-width: 100%;
+        }
+        #grammar-past-explain-view .past-word-wrap .past-gr.conv-word {
+            cursor: pointer;
+        }
+        #grammar-past-explain-view .past-word-wrap .conv-word-meaning {
+            position: absolute;
+            bottom: calc(100% + 2px);
+            left: 50%;
+            transform: translateX(-50%);
+            margin: 0;
+            padding: 4px 9px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #6a1b9a;
+            direction: rtl;
+            text-align: center;
+            line-height: 1.25;
+            white-space: nowrap;
+            z-index: 25;
+            background: rgba(255, 255, 255, 0.97);
+            border: 1px solid rgba(179, 157, 219, 0.55);
+            border-radius: 8px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+            pointer-events: none;
+        }
+        #grammar-past-explain-view .past-person-chips .past-word-wrap {
+            display: inline-flex;
+        }
+        #grammar-past-explain-view .past-person-chips .past-gr.conv-word {
+            background: var(--key-bg);
+            border-radius: 999px;
+            padding: 4px 10px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .past-heb {
+            font-size: clamp(13px, 3.2vw, 15px);
+            color: #666;
+            margin-top: 2px;
+        }
+        .past-card {
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: 0 8px 22px rgba(58, 46, 93, 0.1);
+            border: 1px solid rgba(58, 46, 93, 0.08);
+            padding: 14px 14px 12px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .past-explain-pair-row .past-ex-steps {
+            background: transparent;
+            padding: 4px 0;
+            gap: 2px 4px;
+        }
+        .past-explain-pair-row .past-ex-steps .past-gr {
+            font-size: clamp(16px, 4vw, 20px);
+        }
+        .past-explain-pair-row .past-heb {
+            margin-top: 6px;
+        }
+        .past-conj-head.past-ex-steps {
+            background: transparent;
+            padding: 0 0 6px;
+        }
+        .past-card-ico {
+            font-size: 28px;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .past-arrow {
+            font-size: 18px;
+            color: var(--soft-purple);
+            margin: 4px 0;
+            font-weight: 700;
+        }
+        .past-arrow-sm {
+            color: var(--soft-purple);
+            font-weight: 700;
+            margin: 0 4px;
+        }
+        .past-tip {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 18px;
+            padding: 10px 12px;
+            font-size: clamp(14px, 3.5vw, 16px);
+            color: var(--text-primary);
+            border: 1.5px dashed var(--pastel-amber-border);
+            margin-top: auto;
+            text-align: center;
+            line-height: 1.35;
+        }
+        .past-tip-ico { font-size: 22px; flex-shrink: 0; }
+        .past-step-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            text-align: right;
+            padding: 10px 12px;
+        }
+        .past-step-num {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--soft-purple);
+            line-height: 1;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .past-step-label {
+            font-size: clamp(14px, 3.6vw, 16px);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .past-step-detail {
+            margin: 0;
+            font-size: clamp(12px, 3.1vw, 14px);
+            color: #555;
+            line-height: 1.35;
+        }
+        .past-step-detail .past-gr {
+            font-size: 1.05em;
+        }
+        .past-big-arrow {
+            text-align: center;
+            font-size: 20px;
+            color: var(--soft-purple);
+            font-weight: 800;
+            line-height: 1;
+            margin: -2px 0;
+        }
+        .past-ex-steps {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4px 6px;
+            background: rgba(255, 255, 255, 0.72);
+            border-radius: 16px;
+            padding: 8px 10px;
+        }
+        .past-ex-steps .past-gr { font-size: clamp(16px, 4.2vw, 20px); }
+        .past-ex-aug {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: rgba(255, 196, 102, 0.35);
+            border: 1px dashed var(--pastel-amber-border);
+            font-weight: 800;
+            direction: ltr;
+            unicode-bidi: isolate;
+            opacity: 0;
+            transform: scale(0.85);
+        }
+        .past-explain-slide.is-active .past-ex-aug {
+            animation: pastPopIn 0.4s cubic-bezier(0.22, 1.2, 0.36, 1) 0.18s both;
+        }
+        .past-ex-aug .past-gr { font-size: clamp(15px, 3.8vw, 18px); color: #c62828; }
+        .past-ex-note {
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: 2px;
+        }
+        .past-ending-chips, .past-person-chips, .past-letter-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+        .past-person-chips span {
+            background: var(--key-bg);
+            border-radius: 999px;
+            padding: 4px 10px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+            direction: ltr;
+            unicode-bidi: isolate;
+        }
+        .past-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 52px;
+            padding: 6px 12px;
+            border-radius: 14px;
+            font-size: 20px;
+            font-weight: 800;
+            direction: ltr;
+            color: #fff;
+        }
+        .past-chip-sa { background: #5cb87a; }
+        .past-chip-psa { background: #5a9fd4; }
+        .past-chip-ksa { background: #9b7bc9; }
+        .past-rule-line {
+            margin: 0 0 6px;
+            font-size: clamp(14px, 3.6vw, 16px);
+            color: #444;
+        }
+        .past-letter {
+            display: inline-flex;
+            width: 42px;
+            height: 42px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: rgba(58, 46, 93, 0.06);
+            font-size: 26px !important;
+        }
+        .past-examples {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .past-ex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.72);
+            border-radius: 16px;
+            padding: 8px 10px;
+        }
+        .past-ex .past-gr { font-size: clamp(18px, 4.5vw, 22px); }
+        .past-fuse-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-top: 8px;
+        }
+        .past-fuse {
+            font-size: clamp(15px, 3.8vw, 17px);
+            font-weight: 700;
+            opacity: 0;
+            transform: translateY(6px);
+        }
+        .past-explain-slide.is-active .past-fuse {
+            animation: pastFuseIn 0.4s ease forwards;
+        }
+        .past-explain-slide.is-active .past-fuse:nth-child(1) { animation-delay: 0.15s; }
+        .past-explain-slide.is-active .past-fuse:nth-child(2) { animation-delay: 0.3s; }
+        .past-explain-slide.is-active .past-fuse:nth-child(3) { animation-delay: 0.45s; }
+        .past-explain-slide.is-active .past-fuse:nth-child(4) { animation-delay: 0.6s; }
+        @keyframes pastFuseIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .past-theme-sa {
+            background: linear-gradient(180deg, #e8f7ec 0%, transparent 70%);
+            padding: 8px 6px 10px;
+        }
+        .past-theme-psa {
+            background: linear-gradient(180deg, #e3f0fb 0%, transparent 70%);
+            padding: 8px 6px 10px;
+        }
+        .past-theme-ksa {
+            background: linear-gradient(180deg, #f0e8f8 0%, transparent 70%);
+            padding: 8px 6px 10px;
+        }
+        .past-ending-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: clamp(13px, 3.3vw, 15px);
+        }
+        .past-ending-table th,
+        .past-ending-table td {
+            padding: 5px 8px;
+            border-bottom: 1px solid rgba(58, 46, 93, 0.08);
+            text-align: center;
+        }
+        .past-ending-table th {
+            color: var(--text-greek-sub);
+            font-size: 12px;
+        }
+        .past-ending-table .past-gr {
+            font-size: clamp(16px, 4vw, 20px);
+        }
+        .past-ending-table tbody tr:nth-child(odd) {
+            background: rgba(184, 230, 190, 0.28);
+        }
+        .past-ending-table tbody tr:nth-child(even) {
+            background: rgba(212, 165, 233, 0.18);
+        }
+        .past-endings-card { padding: 8px 6px; }
+        .past-conj-card { padding: 10px 8px; }
+        .past-conj-head {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 6px;
+        }
+        .past-conj-head .past-gr { font-size: clamp(18px, 4.5vw, 22px); }
+        .past-conj-table tbody tr:nth-child(odd) {
+            background: rgba(114, 196, 196, 0.18);
+        }
+        .past-conj-table tbody tr:nth-child(even) {
+            background: rgba(255, 196, 102, 0.16);
+        }
+        .past-explain-next {
+            width: 100%;
+            margin-top: 8px;
+            border-radius: 999px !important;
+            font-size: 18px !important;
+            padding: 14px 18px !important;
+            flex-shrink: 0;
+        }
+        @media (max-height: 700px) {
+            .past-card { padding: 10px 10px 8px; border-radius: 18px; }
+            .past-card-ico { font-size: 22px; }
+            .past-gr { font-size: clamp(18px, 4.8vw, 24px); }
+            .past-explain-title { font-size: clamp(18px, 4.6vw, 22px); }
+            .past-letter { width: 36px; height: 36px; font-size: 22px !important; }
+            .past-tip { padding: 8px 10px; font-size: 13px; }
+            .past-ending-table th, .past-ending-table td { padding: 3px 6px; }
+            .past-step-num { font-size: 26px; }
+        }
+
         /* איש תלוי — יחיד/רבים (דקדוק): מציג את ציור האיש */
         #grammar-sp-hangman-view {
             width: 100%;
@@ -2130,6 +2587,13 @@
                         </span>
                         <span class="grammar-menu-topic-pct">0%</span>
                     </button>
+                    <button type="button" class="btn-main main-choice-btn grammar-menu-topic-btn" id="grammar-btn-past">
+                        <span class="grammar-menu-topic-body">
+                            <span>עבר</span>
+                            <small>αόριστος</small>
+                        </span>
+                        <span class="grammar-menu-topic-pct">0%</span>
+                    </button>
                     <button type="button" class="btn-main main-choice-btn grammar-menu-topic-btn" id="grammar-btn-singular-plural-menu" onclick="showGrammarSingularPluralSubmenu()">
                         <span class="grammar-menu-topic-body">
                             <span>יחיד - רבים</span>
@@ -2307,6 +2771,194 @@
                     <div id="gram-sp-mem-res-msg" style="font-size: 22px; font-weight: bold; margin-bottom: 16px;"></div>
                     <button type="button" class="btn-main" onclick="initGrammarSingularPluralMemory()">שוב 🔄</button>
                 </div>
+            </div>
+            <div id="grammar-past-submenu-view" style="display: none;">
+                <button type="button" class="back-btn" style="margin-bottom: 15px;" id="grammar-past-submenu-back">← חזרה לדקדוק</button>
+                <p style="font-size: 18px; color: var(--primary-pink); margin-bottom: 20px;">עבר · αόριστος</p>
+                <div class="menu-container" style="flex-direction: column; gap: 15px; max-width: 320px; margin: 0 auto;">
+                    <button type="button" class="btn-main main-choice-btn" id="grammar-btn-past-explain">
+                        <span>הסבר</span>
+                        <small>πώς σχηματίζεται</small>
+                    </button>
+                    <button type="button" class="btn-main main-choice-btn" id="grammar-btn-imperfect">
+                        <span>מילות תיאור עבר</span>
+                        <small>παρατατικός</small>
+                    </button>
+                    <button type="button" class="btn-main main-choice-btn" id="grammar-btn-past-irregular">
+                        <span>פעלים יוצאי דופן</span>
+                        <small>ανώμαλα ρήματα</small>
+                    </button>
+                    <button type="button" class="btn-main main-choice-btn" id="grammar-btn-past-sentences">
+                        <span>השלמת משפטים</span>
+                        <small>0%</small>
+                    </button>
+                </div>
+            </div>
+            <div id="grammar-past-explain-view" style="display: none;">
+                <button type="button" class="back-btn past-explain-back" id="grammar-past-explain-back">← חזרה</button>
+                <div class="past-explain-progress" id="past-explain-progress" aria-live="polite">1 / 6</div>
+                <div class="past-explain-stage" id="past-explain-stage">
+                    <!-- slides injected / static below -->
+                    <div class="past-explain-slide is-active" data-past-slide="0">
+                        <h2 class="past-explain-title">🇬🇷 עבר פשוט <span class="past-gr-inline">(Αόριστος)</span></h2>
+                        <p class="past-explain-lead">עבר פשוט מספר על פעולה שכבר קרתה והסתיימה.</p>
+                        <div class="past-explain-pair-row">
+                            <div class="past-card past-explain-pop">
+                                <div class="past-card-ico" aria-hidden="true">🏃</div>
+                                <div class="past-ex-steps" data-past-present="Παίζω" data-past-form="Έπαιξα" data-past-compact="1"></div>
+                                <div class="past-heb">אני משחק ← שיחקתי</div>
+                            </div>
+                            <div class="past-card past-explain-pop" style="animation-delay: 0.12s;">
+                                <div class="past-card-ico" aria-hidden="true">✍️</div>
+                                <div class="past-ex-steps" data-past-present="Γράφω" data-past-form="Έγραψα" data-past-compact="1"></div>
+                                <div class="past-heb">אני כותב ← כתבתי</div>
+                            </div>
+                        </div>
+                        <div class="past-tip past-explain-pop" style="animation-delay: 0.22s;">
+                            <span class="past-tip-ico" aria-hidden="true">💡</span>
+                            <span><strong>משהו כבר קרה?</strong> משתמשים בעבר פשוט.</span>
+                        </div>
+                    </div>
+                    <div class="past-explain-slide" data-past-slide="1">
+                        <h2 class="past-explain-title">איך יוצרים עבר?</h2>
+                        <div class="past-card past-step-card past-explain-pop">
+                            <div class="past-step-num">①</div>
+                            <div class="past-step-body">
+                                <div class="past-step-label">בדוק האם צריך להוסיף <span class="past-gr" style="font-size:1.1em;">ε</span></div>
+                                <p class="past-step-detail">אם הפועל מתחיל בעיצור ויש לו שתי הברות או יותר — הוסף <span class="past-gr" style="font-size:1em;">ε</span>. אם לא — המשך לשלב הבא.</p>
+                            </div>
+                        </div>
+                        <div class="past-big-arrow" aria-hidden="true">↓</div>
+                        <div class="past-card past-step-card past-explain-pop" style="animation-delay: 0.1s;">
+                            <div class="past-step-num">②</div>
+                            <div class="past-step-body">
+                                <div class="past-step-label">בחר את קבוצת הפועל</div>
+                                <div class="past-ending-chips">
+                                    <span class="past-chip past-chip-sa">-σα</span>
+                                    <span class="past-chip past-chip-psa">-ψα</span>
+                                    <span class="past-chip past-chip-ksa">-ξα</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="past-big-arrow" aria-hidden="true">↓</div>
+                        <div class="past-card past-step-card past-explain-pop" style="animation-delay: 0.18s;">
+                            <div class="past-step-num">③</div>
+                            <div class="past-step-body">
+                                <div class="past-step-label">החלף את הסיומת לפי הגוף</div>
+                                <div class="past-person-chips">
+                                    <span>εγώ</span>
+                                    <span>εσύ</span>
+                                    <span>αυτός</span>
+                                    <span>εμείς</span>
+                                    <span>…</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="past-explain-slide past-theme-sa" data-past-slide="2">
+                        <h2 class="past-explain-title">🟢 קבוצת <span class="past-gr-inline">-σα</span></h2>
+                        <div class="past-card past-explain-pop">
+                            <p class="past-rule-line">אם השורש מסתיים ב:</p>
+                            <div class="past-letter-row">
+                                <span class="past-gr past-letter">ν</span>
+                                <span class="past-gr past-letter">λ</span>
+                                <span class="past-gr past-letter">ρ</span>
+                            </div>
+                            <div class="past-arrow" aria-hidden="true">↓</div>
+                            <p class="past-rule-line">מוסיפים <span class="past-gr past-gr-accent">-σα</span></p>
+                        </div>
+                        <div class="past-examples">
+                            <div class="past-ex past-ex-steps" data-past-present="κλείνω" data-past-form="έκλεισα"></div>
+                            <div class="past-ex past-ex-steps" data-past-present="δένω" data-past-form="έδεσα"></div>
+                        </div>
+                        <div class="past-tip past-explain-pop" style="animation-delay: 0.18s;">
+                            <span class="past-tip-ico" aria-hidden="true">⭐</span>
+                            <span><strong>זו הקבוצה הכי פשוטה.</strong></span>
+                        </div>
+                    </div>
+                    <div class="past-explain-slide past-theme-psa" data-past-slide="3">
+                        <h2 class="past-explain-title">🔵 קבוצת <span class="past-gr-inline">-ψα</span></h2>
+                        <div class="past-card past-explain-pop">
+                            <p class="past-rule-line">אם השורש מסתיים ב</p>
+                            <div class="past-letter-row">
+                                <span class="past-gr past-letter">π</span>
+                                <span class="past-gr past-letter">β</span>
+                                <span class="past-gr past-letter">φ</span>
+                            </div>
+                            <div class="past-arrow" aria-hidden="true">↓</div>
+                            <p class="past-rule-line">מוסיפים <span class="past-gr">σ</span> ← נוצר <span class="past-gr past-gr-accent">ψ</span></p>
+                            <div class="past-fuse-list" data-past-fuse>
+                                <div class="past-fuse"><span class="past-gr">π</span> + <span class="past-gr">σ</span> → <span class="past-gr past-gr-accent">ψ</span></div>
+                                <div class="past-fuse"><span class="past-gr">β</span> + <span class="past-gr">σ</span> → <span class="past-gr past-gr-accent">ψ</span></div>
+                                <div class="past-fuse"><span class="past-gr">φ</span> + <span class="past-gr">σ</span> → <span class="past-gr past-gr-accent">ψ</span></div>
+                            </div>
+                        </div>
+                        <div class="past-examples">
+                            <div class="past-ex past-ex-steps" data-past-present="γράφω" data-past-form="έγραψα"></div>
+                            <div class="past-ex past-ex-steps" data-past-present="κόβω" data-past-form="έκοψα"></div>
+                            <div class="past-ex past-ex-steps" data-past-present="κρύβω" data-past-form="έκρυψα"></div>
+                        </div>
+                    </div>
+                    <div class="past-explain-slide past-theme-ksa" data-past-slide="4">
+                        <h2 class="past-explain-title">🟣 קבוצת <span class="past-gr-inline">-ξα</span></h2>
+                        <div class="past-card past-explain-pop">
+                            <p class="past-rule-line">אם השורש מסתיים ב</p>
+                            <div class="past-letter-row">
+                                <span class="past-gr past-letter">κ</span>
+                                <span class="past-gr past-letter">γ</span>
+                                <span class="past-gr past-letter">χ</span>
+                                <span class="past-gr past-letter">ζ</span>
+                            </div>
+                            <div class="past-arrow" aria-hidden="true">↓</div>
+                            <p class="past-rule-line">מוסיפים <span class="past-gr">σ</span> ← נוצר <span class="past-gr past-gr-accent">ξ</span></p>
+                            <div class="past-fuse-list" data-past-fuse>
+                                <div class="past-fuse"><span class="past-gr">κ</span> + <span class="past-gr">σ</span> → <span class="past-gr past-gr-accent">ξ</span></div>
+                                <div class="past-fuse"><span class="past-gr">γ</span> + <span class="past-gr">σ</span> → <span class="past-gr past-gr-accent">ξ</span></div>
+                                <div class="past-fuse"><span class="past-gr">χ</span> + <span class="past-gr">σ</span> → <span class="past-gr past-gr-accent">ξ</span></div>
+                                <div class="past-fuse"><span class="past-gr">ζ</span> + <span class="past-gr">σ</span> → <span class="past-gr past-gr-accent">ξ</span></div>
+                            </div>
+                        </div>
+                        <div class="past-examples">
+                            <div class="past-ex past-ex-steps" data-past-present="ανοίγω" data-past-form="άνοιξα"></div>
+                            <div class="past-ex past-ex-steps" data-past-present="παίζω" data-past-form="έπαιξα"></div>
+                            <div class="past-ex past-ex-steps" data-past-present="τρέχω" data-past-form="έτρεξα"></div>
+                        </div>
+                    </div>
+                    <div class="past-explain-slide" data-past-slide="5">
+                        <h2 class="past-explain-title">סיומות העבר</h2>
+                        <div class="past-card past-explain-pop past-endings-card">
+                            <table class="past-ending-table" aria-label="סיומות העבר לפי גוף">
+                                <thead><tr><th>גוף</th><th>סיום</th></tr></thead>
+                                <tbody>
+                                    <tr><td>👧 אני · <span class="past-gr-inline">εγώ</span></td><td class="past-gr">α</td></tr>
+                                    <tr><td>👦 אתה · <span class="past-gr-inline">εσύ</span></td><td class="past-gr">ες</td></tr>
+                                    <tr><td>👨 הוא · <span class="past-gr-inline">αυτός</span></td><td class="past-gr">ε</td></tr>
+                                    <tr><td>👨‍👩‍👧 אנחנו · <span class="past-gr-inline">εμείς</span></td><td class="past-gr">αμε</td></tr>
+                                    <tr><td>👦👦 אתם · <span class="past-gr-inline">εσείς</span></td><td class="past-gr">ατε</td></tr>
+                                    <tr><td>👨‍👩‍👧‍👦 הם · <span class="past-gr-inline">αυτοί</span></td><td class="past-gr">αν</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="past-card past-explain-pop past-conj-card" style="animation-delay: 0.12s;">
+                            <div class="past-conj-head past-ex-steps" data-past-present="Παίζω" data-past-form="Έπαιξα"></div>
+                            <table class="past-ending-table past-conj-table" aria-label="הטיית παίζω בעבר">
+                                <tbody>
+                                    <tr><td>אני · <span class="past-gr-inline">εγώ</span></td><td class="past-gr">έπαιξα</td></tr>
+                                    <tr><td>אתה · <span class="past-gr-inline">εσύ</span></td><td class="past-gr">έπαιξες</td></tr>
+                                    <tr><td>הוא · <span class="past-gr-inline">αυτός</span></td><td class="past-gr">έπαιξε</td></tr>
+                                    <tr><td>אנחנו · <span class="past-gr-inline">εμείς</span></td><td class="past-gr">παίξαμε</td></tr>
+                                    <tr><td>אתם · <span class="past-gr-inline">εσείς</span></td><td class="past-gr">παίξατε</td></tr>
+                                    <tr><td>הם · <span class="past-gr-inline">αυτοί</span></td><td class="past-gr">έπαιξαν</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="past-tip past-explain-pop" style="animation-delay: 0.22s;">
+                            <span class="past-tip-ico" aria-hidden="true">🎉</span>
+                            <span><strong>עכשיו אפשר להטות כמעט כל פועל רגיל בעבר!</strong></span>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn-main past-explain-next" id="past-explain-next">המשך →</button>
             </div>
             <div id="grammar-pronouns-verbs-submenu-view" style="display: none;">
                 <button type="button" class="back-btn" style="margin-bottom: 15px;" id="grammar-pronouns-verbs-submenu-back">← חזרה לדקדוק</button>
@@ -3209,6 +3861,8 @@
     let currentConversationVocab = [];
     let gamesLaikiOnlyMenu = false;
     let isGrammarPresentVocabMode = false;
+    let isGrammarPastTimeVocabMode = false;
+    let isGrammarPastIrregularVocabMode = false;
     let grammarVerbGameIndex = 0;
     let grammarVerbGameMeaningTimer = null;
     let grammarVerbWrongRevealTimer = null;
@@ -5111,6 +5765,62 @@
         'αϊ', 'οϊ', 'εϊ', 'άι', 'όι', 'έι'
     ];
 
+    /** מילות תיאור עבר (παρατατικός) — נפתחות עם פעילויות אוצר המילים */
+    const GRAMMAR_PAST_TIME_WORDS = [
+        { gr: "χθες", heb: "אתמול" },
+        { gr: "προχθές", heb: "שלשום" },
+        { gr: "πριν από λίγο", heb: "לפני זמן קצר" },
+        { gr: "την περασμένη εβδομάδα", heb: "בשבוע שעבר" },
+        { gr: "πέρσι", heb: "אשתקד / בשנה שעברה" },
+        { gr: "το Σάββατο", heb: "בשבת" },
+        { gr: "μια φορά", heb: "פעם אחת" },
+        { gr: "ξαφνικά", heb: "פתאום" },
+        { gr: "μετά", heb: "אחר כך" },
+        { gr: "τότε", heb: "אז" },
+        { gr: "παλιά", heb: "פעם / מזמן" },
+        { gr: "κάποτε", heb: "פעם, לפני זמן רב" },
+        { gr: "εκείνη τη μέρα", heb: "באותו יום" },
+        { gr: "εκείνο το βράδυ", heb: "באותו ערב" },
+        { gr: "εκείνη τη νύχτα", heb: "באותו לילה" },
+        { gr: "εκείνο το πρωί", heb: "באותו בוקר" },
+        { gr: "πριν", heb: "לפני / קודם" },
+        { gr: "πριν από έναν μήνα", heb: "לפני חודש" },
+        { gr: "πριν από έναν χρόνο", heb: "לפני שנה" },
+        { gr: "την προηγούμενη φορά", heb: "בפעם הקודמת" },
+        { gr: "την περασμένη Κυριακή", heb: "ביום ראשון שעבר" },
+        { gr: "την περασμένη Δευτέρα", heb: "ביום שני שעבר" },
+        { gr: "την περασμένη χρονιά", heb: "בשנה שעברה" },
+        { gr: "τον περασμένο μήνα", heb: "בחודש שעבר" },
+        { gr: "πριν από πολλές μέρες", heb: "לפני הרבה ימים" },
+        { gr: "μόλις", heb: "זה עתה / הרגע" },
+        { gr: "αμέσως", heb: "מיד" },
+        { gr: "στο τέλος", heb: "בסוף" },
+        { gr: "τελικά", heb: "לבסוף / בסופו של דבר" },
+        { gr: "ξανά", heb: "שוב" },
+        { gr: "για πρώτη φορά", heb: "בפעם הראשונה" }
+    ];
+
+    /** פעלים יוצאי דופן בעבר — זוגות הווה ⟷ עבר */
+    const GRAMMAR_PAST_IRREGULAR_PAIRS = [
+        { id: 'eimai', present: 'είμαι', past: 'ήμουν', hebPresent: 'להיות (הווה)', hebPast: 'הייתי' },
+        { id: 'vlepo', present: 'βλέπω', past: 'είδα', hebPresent: 'לראות (הווה)', hebPast: 'ראיתי' },
+        { id: 'echo', present: 'έχω', past: 'είχα', hebPresent: 'יש לי (הווה)', hebPast: 'היה לי' },
+        { id: 'leo', present: 'λέω', past: 'είπα', hebPresent: 'להגיד (הווה)', hebPast: 'אמרתי' },
+        { id: 'pao', present: 'πάω', past: 'πήγα', hebPresent: 'ללכת (הווה)', hebPast: 'הלכתי' },
+        { id: 'troo', present: 'τρώω', past: 'έφαγα', hebPresent: 'לאכול (הווה)', hebPast: 'אכלתי' },
+        { id: 'erchomai', present: 'έρχομαι', past: 'ήρθα', hebPresent: 'לבוא (הווה)', hebPast: 'באתי' },
+        { id: 'pino', present: 'πίνω', past: 'ήπια', hebPresent: 'לשתות (הווה)', hebPast: 'שתיתי' },
+        { id: 'kano', present: 'κάνω', past: 'έκανα', hebPresent: 'לעשות (הווה)', hebPast: 'עשיתי' },
+        { id: 'pairno', present: 'παίρνω', past: 'πήρα', hebPresent: 'לקחת (הווה)', hebPast: 'לקחתי' },
+        { id: 'vrisko', present: 'βρίσκω', past: 'βρήκα', hebPresent: 'למצוא (הווה)', hebPast: 'מצאתי' },
+        { id: 'dino', present: 'δίνω', past: 'έδωσα', hebPresent: 'לתת (הווה)', hebPast: 'נתתי' }
+    ];
+    const GRAMMAR_PAST_IRREGULAR_VERBS = GRAMMAR_PAST_IRREGULAR_PAIRS.reduce(function(acc, p) {
+        acc.push({ gr: p.present, heb: p.hebPresent });
+        acc.push({ gr: p.past, heb: p.hebPast });
+        return acc;
+    }, []);
+
     const GRAMMAR_PRESENT_TO_BE = [
         { gr: "Εγώ είμαι", heb: "אני" },
         { gr: "Εσύ είσαι", heb: "אתה / את" },
@@ -5272,13 +5982,72 @@
         { sentence: "Αυτοί ____ το παιχνίδι.", root: "κερδίζω", rootHeb: "לנצח", answer: "κερδίζουν", translations: { "Αυτοί": "הם", "το": "את ה-", "παιχνίδι": "משחק" } }
     ];
 
+    /** השלמת משפטים בעבר — בחירה בין 4 הטיות (בסגנון שלב 1) */
+    const GRAMMAR_PAST_SENTENCE_GAME = [
+        { sentence: "Χθες εγώ ____ στην αυλή.", root: "παίζω", rootHeb: "לשחק", answer: "έπαιξα", mcChoices: ["έπαιξα", "έπαιξες", "έπαιξε", "παίξαμε"], translations: { "Χθες": "אתמול", "εγώ": "אני", "στην": "ב-", "αυλή": "חצר" } },
+        { sentence: "Η Μαρία ____ ένα γράμμα.", root: "γράφω", rootHeb: "לכתוב", answer: "έγραψε", mcChoices: ["έγραψα", "έγραψες", "έγραψε", "έγραψαν"], translations: { "Η": "ה-", "Μαρία": "מריה", "ένα": "אחד", "γράμμα": "מכתב" } },
+        { sentence: "Εμείς ____ μια ωραία ταινία.", root: "βλέπω", rootHeb: "לראות", answer: "είδαμε", mcChoices: ["είδα", "είδες", "είδαμε", "είδαν"], translations: { "Εμείς": "אנחנו", "μια": "אחת", "ωραία": "יפה", "ταινία": "סרט" } },
+        { sentence: "Τα παιδιά ____ παγωτό.", root: "τρώω", rootHeb: "לאכול", answer: "έφαγαν", mcChoices: ["έφαγα", "έφαγε", "φάγαμε", "έφαγαν"], translations: { "Τα": "ה-", "παιδιά": "ילדים", "παγωτό": "גלידה" } },
+        { sentence: "Εσύ ____ την πόρτα;", root: "κλείνω", rootHeb: "לסגור", answer: "έκλεισες", mcChoices: ["έκλεισα", "έκλεισες", "έκλεισε", "κλείσατε"], translations: { "Εσύ": "אתה / את", "την": "את ה-", "πόρτα": "דלת" } },
+        { sentence: "Ο μπαμπάς ____ στο σούπερ μάρκετ.", root: "πηγαίνω", rootHeb: "ללכת", answer: "πήγε", mcChoices: ["πήγα", "πήγες", "πήγε", "πήγαν"], translations: { "Ο": "ה-", "μπαμπάς": "אבא", "στο": "ל-", "σούπερ": "סופר", "μάρκετ": "מרקט" } },
+        { sentence: "Εγώ ____ ένα ωραίο βιβλίο.", root: "διαβάζω", rootHeb: "לקרוא", answer: "διάβασα", mcChoices: ["διάβασα", "διάβασες", "διάβασε", "διαβάσαμε"], translations: { "Εγώ": "אני", "ένα": "אחד", "ωραίο": "יפה", "βιβλίο": "ספר" } },
+        { sentence: "Η γιαγιά ____ ψωμί.", root: "αγοράζω", rootHeb: "לקנות", answer: "αγόρασε", mcChoices: ["αγόρασα", "αγόρασες", "αγόρασε", "αγόρασαν"], translations: { "Η": "ה-", "γιαγιά": "סבתא", "ψωμί": "לחם" } },
+        { sentence: "Εμείς ____ τα παράθυρα.", root: "ανοίγω", rootHeb: "לפתוח", answer: "ανοίξαμε", mcChoices: ["άνοιξα", "άνοιξε", "ανοίξαμε", "άνοιξαν"], translations: { "Εμείς": "אנחנו", "τα": "את ה-", "παράθυρα": "חלונות" } },
+        { sentence: "Ο σκύλος ____ στον κήπο.", root: "τρέχω", rootHeb: "לרוץ", answer: "έτρεξε", mcChoices: ["έτρεξα", "έτρεξες", "έτρεξε", "έτρεξαν"], translations: { "Ο": "ה-", "σκύλος": "כלב", "στον": "ב-", "κήπο": "גינה" } },
+        { sentence: "Εγώ ____ πορτοκαλάδα.", root: "πίνω", rootHeb: "לשתות", answer: "ήπια", mcChoices: ["ήπια", "ήπιες", "ήπιε", "ήπιαμε"], translations: { "Εγώ": "אני", "πορτοκαλάδα": "מיץ תפוזים" } },
+        { sentence: "Η μαμά ____ μακαρόνια.", root: "μαγειρεύω", rootHeb: "לבשל", answer: "μαγείρεψε", mcChoices: ["μαγείρεψα", "μαγείρεψες", "μαγείρεψε", "μαγείρεψαν"], translations: { "Η": "ה-", "μαμά": "אמא", "μακαρόνια": "פסטה" } },
+        { sentence: "Εσείς ____ ένα ωραίο τραγούδι.", root: "ακούω", rootHeb: "לשמוע", answer: "ακούσατε", mcChoices: ["άκουσα", "άκουσες", "ακούσαμε", "ακούσατε"], translations: { "Εσείς": "אתם / אתן", "ένα": "אחד", "ωραίο": "יפה", "τραγούδι": "שיר" } },
+        { sentence: "Εγώ ____ με τον δάσκαλο.", root: "μιλάω", rootHeb: "לדבר", answer: "μίλησα", mcChoices: ["μίλησα", "μίλησες", "μίλησε", "μιλήσαμε"], translations: { "Εγώ": "אני", "με": "עם", "τον": "ה-", "δάσκαλο": "מורה" } },
+        { sentence: "Τα κορίτσια ____ στη γιορτή.", root: "τραγουδάω", rootHeb: "לשיר", answer: "τραγούδησαν", mcChoices: ["τραγούδησα", "τραγούδησε", "τραγουδήσαμε", "τραγούδησαν"], translations: { "Τα": "ה-", "κορίτσια": "בנות", "στη": "ב-", "γιορτή": "חגיגה" } },
+        { sentence: "Εσύ ____ νωρίς το πρωί.", root: "ξυπνάω", rootHeb: "להתעורר", answer: "ξύπνησες", mcChoices: ["ξύπνησα", "ξύπνησες", "ξύπνησε", "ξύπνησαν"], translations: { "Εσύ": "אתה / את", "νωρίς": "מוקדם", "το": "ה-", "πρωί": "בוקר" } },
+        { sentence: "Εμείς ____ τα μαθήματά μας.", root: "κάνω", rootHeb: "לעשות", answer: "κάναμε", mcChoices: ["έκανα", "έκανες", "κάναμε", "έκαναν"], translations: { "Εμείς": "אנחנו", "τα": "את ה-", "μαθήματά": "שיעורים", "μας": "שלנו" } },
+        { sentence: "Ο Γιάννης ____ την μπάλα του.", root: "παίρνω", rootHeb: "לקחת", answer: "πήρε", mcChoices: ["πήρα", "πήρες", "πήρε", "πήραν"], translations: { "Ο": "ה-", "Γιάννης": "יאניס", "την": "את ה-", "μπάλα": "כדור", "του": "שלו" } },
+        { sentence: "Η δασκάλα ____ ένα δώρο.", root: "δίνω", rootHeb: "לתת", answer: "έδωσε", mcChoices: ["έδωσα", "έδωσες", "έδωσε", "έδωσαν"], translations: { "Η": "ה-", "δασκάλα": "מורה", "ένα": "אחת", "δώρο": "מתנה" } },
+        { sentence: "Εγώ ____ τα κλειδιά μου.", root: "βρίσκω", rootHeb: "למצוא", answer: "βρήκα", mcChoices: ["βρήκα", "βρήκες", "βρήκε", "βρήκαμε"], translations: { "Εγώ": "אני", "τα": "את ה-", "κλειδιά": "מפתחות", "μου": "שלי" } },
+        { sentence: "Εσύ ____ ένα μήνυμα στη φίλη σου.", root: "στέλνω", rootHeb: "לשלוח", answer: "έστειλες", mcChoices: ["έστειλα", "έστειλες", "έστειλε", "στείλαμε"], translations: { "Εσύ": "אתה / את", "ένα": "אחת", "μήνυμα": "הודעה", "στη": "ל-", "φίλη": "חברה", "σου": "שלך" } },
+        { sentence: "Η αδερφή μου ____ τα πιάτα.", root: "πλένω", rootHeb: "לשטוף", answer: "έπλυνε", mcChoices: ["έπλυνα", "έπλυνες", "έπλυνε", "έπλυναν"], translations: { "Η": "ה-", "αδερφή": "אחות", "μου": "שלי", "τα": "את ה-", "πιάτα": "צלחות" } },
+        { sentence: "Ο παππούς ____ μια ιστορία.", root: "λέω", rootHeb: "להגיד / לספר", answer: "είπε", mcChoices: ["είπα", "είπες", "είπε", "είπαν"], translations: { "Ο": "ה-", "παππούς": "סבא", "μια": "אחת", "ιστορία": "סיפור" } },
+        { sentence: "Χθες εμείς ____ στη θάλασσα.", root: "πηγαίνω", rootHeb: "ללכת / לנסוע", answer: "πήγαμε", mcChoices: ["πήγα", "πήγες", "πήγαμε", "πήγαν"], translations: { "Χθες": "אתמול", "εμείς": "אנחנו", "στη": "ל-", "θάλασσα": "ים" } },
+        { sentence: "Εγώ ____ άρρωστος χθες.", root: "είμαι", rootHeb: "להיות", answer: "ήμουν", mcChoices: ["ήμουν", "ήσουν", "ήταν", "ήμασταν"], translations: { "Εγώ": "אני", "άρρωστος": "חולה", "χθες": "אתמול" } },
+        { sentence: "Εσείς ____ πολλή δουλειά.", root: "έχω", rootHeb: "להיות ל- / יש", answer: "είχατε", mcChoices: ["είχα", "είχαμε", "είχατε", "είχαν"], translations: { "Εσείς": "אתם / אתן", "πολλή": "הרבה", "δουλειά": "עבודה" } },
+        { sentence: "Οι φίλοι μου ____ στο πάρτι.", root: "έρχομαι", rootHeb: "לבוא", answer: "ήρθαν", mcChoices: ["ήρθα", "ήρθες", "ήρθαμε", "ήρθαν"], translations: { "Οι": "ה-", "φίλοι": "חברים", "μου": "שלי", "στο": "ל-", "πάρτι": "מסיבה" } },
+        { sentence: "Εμείς ____ έναν ωραίο πίνακα.", root: "ζωγραφίζω", rootHeb: "לצייר", answer: "ζωγραφίσαμε", mcChoices: ["ζωγράφισα", "ζωγράφισες", "ζωγραφίσαμε", "ζωγράφισαν"], translations: { "Εμείς": "אנחנו", "έναν": "אחד", "ωραίο": "יפה", "πίνακα": "ציור" } },
+        { sentence: "Εγώ ____ το δωμάτιό μου.", root: "καθαρίζω", rootHeb: "לנקות", answer: "καθάρισα", mcChoices: ["καθάρισα", "καθάρισες", "καθάρισε", "καθαρίσαμε"], translations: { "Εγώ": "אני", "το": "את ה-", "δωμάτιό": "חדר", "μου": "שלי" } },
+        { sentence: "Ο μπαμπάς ____ πολύ χθες.", root: "δουλεύω", rootHeb: "לעבוד", answer: "δούλεψε", mcChoices: ["δούλεψα", "δούλεψες", "δούλεψε", "δούλεψαν"], translations: { "Ο": "ה-", "μπαμπάς": "אבא", "πολύ": "הרבה", "χθες": "אתמול" } },
+        { sentence: "Εμείς ____ στη γιορτή.", root: "χορεύω", rootHeb: "לרקוד", answer: "χορέψαμε", mcChoices: ["χόρεψα", "χόρεψες", "χορέψαμε", "χόρεψαν"], translations: { "Εμείς": "אנחנו", "στη": "ב-", "γιορτή": "חגיגה" } },
+        { sentence: "Τα παιδιά ____ με το αστείο.", root: "γελάω", rootHeb: "לצחוק", answer: "γέλασαν", mcChoices: ["γέλασα", "γέλασες", "γελάσαμε", "γέλασαν"], translations: { "Τα": "ה-", "παιδιά": "ילדים", "με": "עם / מ-", "το": "ה-", "αστείο": "בדיחה" } },
+        { sentence: "Εγώ ____ στη θάλασσα.", root: "κολυμπάω", rootHeb: "לשחות", answer: "κολύμπησα", mcChoices: ["κολύμπησα", "κολύμπησες", "κολύμπησε", "κολυμπήσαμε"], translations: { "Εγώ": "אני", "στη": "ב-", "θάλασσα": "ים" } },
+        { sentence: "Εμείς ____ στο δάσος.", root: "περπατάω", rootHeb: "ללכת ברגל", answer: "περπατήσαμε", mcChoices: ["περπάτησα", "περπάτησες", "περπατήσαμε", "περπάτησαν"], translations: { "Εμείς": "אנחנו", "στο": "ב-", "δάσος": "יער" } },
+        { sentence: "Το λεωφορείο ____ στη στάση.", root: "σταματάω", rootHeb: "לעצור", answer: "σταμάτησε", mcChoices: ["σταμάτησα", "σταμάτησες", "σταμάτησε", "σταμάτησαν"], translations: { "Το": "ה-", "λεωφορείο": "אוטובוס", "στη": "ב-", "στάση": "תחנה" } },
+        { sentence: "Ο αγώνας ____ στις πέντε.", root: "αρχίζω", rootHeb: "להתחיל", answer: "άρχισε", mcChoices: ["άρχισα", "άρχισες", "άρχισε", "άρχισαν"], translations: { "Ο": "ה-", "αγώνας": "משחק / תחרות", "στις": "ב-", "πέντε": "חמש" } },
+        { sentence: "Εσύ ____ την εργασία σου;", root: "τελειώνω", rootHeb: "לסיים", answer: "τελείωσες", mcChoices: ["τελείωσα", "τελείωσες", "τελείωσε", "τελειώσαμε"], translations: { "Εσύ": "אתה / את", "την": "את ה-", "εργασία": "עבודה", "σου": "שלך" } },
+        { sentence: "Εγώ ____ τα ρούχα μου.", root: "αλλάζω", rootHeb: "להחליף", answer: "άλλαξα", mcChoices: ["άλλαξα", "άλλαξες", "άλλαξε", "αλλάξαμε"], translations: { "Εγώ": "אני", "τα": "את ה-", "ρούχα": "בגדים", "μου": "שלי" } },
+        { sentence: "Η Ελένη ____ ένα ωραίο φόρεμα.", root: "διαλέγω", rootHeb: "לבחור", answer: "διάλεξε", mcChoices: ["διάλεξα", "διάλεξες", "διάλεξε", "διάλεξαν"], translations: { "Η": "ה-", "Ελένη": "אלני", "ένα": "אחת", "ωραίο": "יפה", "φόρεμα": "שמלה" } },
+        { sentence: "Η μαμά ____ από το μπαλκόνι.", root: "φωνάζω", rootHeb: "לקרוא / לצעוק", answer: "φώναξε", mcChoices: ["φώναξα", "φώναξες", "φώναξε", "φώναξαν"], translations: { "Η": "ה-", "μαμά": "אמא", "από": "מ-", "το": "ה-", "μπαλκόνι": "מרפסת" } },
+        { sentence: "Εμείς ____ στο κατάστημα.", root: "ψωνίζω", rootHeb: "לעשות קניות", answer: "ψωνίσαμε", mcChoices: ["ψώνισα", "ψώνισες", "ψωνίσαμε", "ψώνισαν"], translations: { "Εμείς": "אנחנו", "στο": "ב-", "κατάστημα": "חנות" } },
+        { sentence: "Εγώ ____ ένα νέο τραγούδι.", root: "μαθαίνω", rootHeb: "ללמוד", answer: "έμαθα", mcChoices: ["έμαθα", "έμαθες", "έμαθε", "μάθαμε"], translations: { "Εγώ": "אני", "ένα": "אחד", "νέο": "חדש", "τραγούδι": "שיר" } },
+        { sentence: "Το τρένο ____ στις οκτώ.", root: "φεύγω", rootHeb: "לעזוב / לצאת", answer: "έφυγε", mcChoices: ["έφυγα", "έφυγες", "έφυγε", "έφυγαν"], translations: { "Το": "ה-", "τρένο": "רכבת", "στις": "ב-", "οκτώ": "שמונה" } },
+        { sentence: "Εμείς ____ στο ξενοδοχείο.", root: "μένω", rootHeb: "להישאר / לגור", answer: "μείναμε", mcChoices: ["έμεινα", "έμεινες", "μείναμε", "έμειναν"], translations: { "Εμείς": "אנחנו", "στο": "ב-", "ξενοδοχείο": "מלון" } },
+        { sentence: "Το ποτήρι ____ από το τραπέζι.", root: "πέφτω", rootHeb: "ליפול", answer: "έπεσε", mcChoices: ["έπεσα", "έπεσες", "έπεσε", "έπεσαν"], translations: { "Το": "ה-", "ποτήρι": "כוס", "από": "מ-", "τραπέζι": "שולחן" } },
+        { sentence: "Εγώ ____ το βιβλίο στην τσάντα.", root: "βάζω", rootHeb: "לשים", answer: "έβαλα", mcChoices: ["έβαλα", "έβαλες", "έβαλε", "βάλαμε"], translations: { "Εγώ": "אני", "το": "את ה-", "βιβλίο": "ספר", "στην": "ב-", "τσάντα": "תיק" } },
+        { sentence: "Ο θείος ____ γλυκά.", root: "φέρνω", rootHeb: "להביא", answer: "έφερε", mcChoices: ["έφερα", "έφερες", "έφερε", "έφεραν"], translations: { "Ο": "ה-", "θείος": "דוד", "γλυκά": "ממתקים" } },
+        { sentence: "Εσύ ____ τον δρόμο στον τουρίστα.", root: "δείχνω", rootHeb: "להראות", answer: "έδειξες", mcChoices: ["έδειξα", "έδειξες", "έδειξε", "δείξαμε"], translations: { "Εσύ": "אתה / את", "τον": "את ה-", "δρόμο": "דרך", "στον": "ל-", "τουρίστα": "תייר" } },
+        { sentence: "Εγώ ____ τη δασκάλα.", root: "ρωτάω", rootHeb: "לשאול", answer: "ρώτησα", mcChoices: ["ρώτησα", "ρώτησες", "ρώτησε", "ρωτήσαμε"], translations: { "Εγώ": "אני", "τη": "את ה-", "δασκάλα": "מורה" } },
+        { sentence: "Η ομάδα μας ____ τον αγώνα.", root: "κερδίζω", rootHeb: "לנצח", answer: "κέρδισε", mcChoices: ["κέρδισα", "κέρδισες", "κέρδισε", "κέρδισαν"], translations: { "Η": "ה-", "ομάδα": "קבוצה", "μας": "שלנו", "τον": "את ה-", "αγώνα": "משחק / תחרות" } }
+    ];
+
     function isGrammarVerbTypingMode() {
         return grammarVerbGameMode === 'fill' || grammarVerbGameMode === 'fillFull';
+    }
+    function isGrammarVerbMcMode() {
+        return grammarVerbGameMode === 'mc' || grammarVerbGameMode === 'mcPast';
     }
 
     function getGrammarVerbSentenceDeck() {
         var source;
-        if (grammarVerbGameMode === 'mc') {
+        if (grammarVerbGameMode === 'mcPast') {
+            source = GRAMMAR_PAST_SENTENCE_GAME.slice();
+        } else if (grammarVerbGameMode === 'mc') {
             source = GRAMMAR_VERB_SENTENCE_GAME.concat(GRAMMAR_VERB_SENTENCE_EASY_EXTRA);
         } else if (grammarVerbGameMode === 'fillFull') {
             source = GRAMMAR_VERB_SENTENCE_STAGE3.slice();
@@ -5309,6 +6078,7 @@
     const GRAMMAR_VERB_SENT_MC_KEY = 'דקדוק - השלמת משפטים קל';
     const GRAMMAR_VERB_SENT_STAGE3_KEY = 'דקדוק - השלמת משפטים שלב 3';
     const GRAMMAR_VERB_MEMORY_KEY = 'דקדוק - זיכרון הווה';
+    const GRAMMAR_PAST_SENT_KEY = 'דקדוק - השלמת משפטים עבר';
     const GRAMMAR_SP_SCORE_KEY = 'דקדוק - יחיד רבים';
     const GRAMMAR_DEFINITE_ARTICLE_SCORE_KEY = 'דקדוק - ה הידיעה';
     const GRAMMAR_PRESENT_PRONOUNS_SCORE_KEY = 'כינויי גוף הווה';
@@ -5448,6 +6218,12 @@
             });
         });
         GRAMMAR_PRESENT_TO_BE.forEach(function(item) {
+            if (item && item.gr && item.heb) addGreekLexiconPair(item.gr, item.heb);
+        });
+        GRAMMAR_PAST_TIME_WORDS.forEach(function(item) {
+            if (item && item.gr && item.heb) addGreekLexiconPair(item.gr, item.heb);
+        });
+        GRAMMAR_PAST_IRREGULAR_VERBS.forEach(function(item) {
             if (item && item.gr && item.heb) addGreekLexiconPair(item.gr, item.heb);
         });
         GRAMMAR_PRONOUNS_WITH_VERBS_LIST.forEach(function(item) {
@@ -5634,6 +6410,20 @@
         selectedReadingVocabSub = "";
         showModeSelectionScreen();
     }
+    function openGrammarPastTimeVocab() {
+        isGrammarPastTimeVocabMode = true;
+        selectedCategory = "מילות תיאור עבר";
+        selectedSubcategory = "";
+        selectedReadingVocabSub = "";
+        showModeSelectionScreen();
+    }
+    function openGrammarPastIrregularVocab() {
+        isGrammarPastIrregularVocabMode = true;
+        selectedCategory = "פעלים יוצאי דופן";
+        selectedSubcategory = "";
+        selectedReadingVocabSub = "";
+        showModeSelectionScreen();
+    }
     function showGrammarMenu() {
         document.getElementById('grammar-menu').style.display = 'block';
         document.getElementById('grammar-letters-view').style.display = 'none';
@@ -5645,6 +6435,11 @@
         document.getElementById('grammar-sp-hangman-view').style.display = 'none';
         document.getElementById('grammar-sp-match-view').style.display = 'none';
         document.getElementById('grammar-pronouns-verbs-submenu-view').style.display = 'none';
+        var grammarPastHide = document.getElementById('grammar-past-submenu-view');
+        if (grammarPastHide) grammarPastHide.style.display = 'none';
+        var grammarImperfectHide = document.getElementById('grammar-imperfect-submenu-view');
+        if (grammarImperfectHide) grammarImperfectHide.style.display = 'none';
+        hideGrammarPastExplainView();
         document.getElementById('grammar-pronouns-verbs-list-view').style.display = 'none';
         document.getElementById('grammar-pronouns-verbs-sentence-view').style.display = 'none';
         document.getElementById('grammar-definite-article-view').style.display = 'none';
@@ -5727,11 +6522,359 @@
         document.getElementById('grammar-definite-article-view').style.display = 'none';
         document.getElementById('grammar-pronouns-verbs-list-view').style.display = 'none';
         document.getElementById('grammar-pronouns-verbs-sentence-view').style.display = 'none';
+        var grammarPastHide = document.getElementById('grammar-past-submenu-view');
+        if (grammarPastHide) grammarPastHide.style.display = 'none';
+        var grammarImperfectHide = document.getElementById('grammar-imperfect-submenu-view');
+        if (grammarImperfectHide) grammarImperfectHide.style.display = 'none';
+        hideGrammarPastExplainView();
         document.getElementById('grammar-pronouns-verbs-submenu-view').style.display = 'block';
         refreshGrammarVerbSentencesButtonHigh();
         refreshGrammarVerbMcButtonHigh();
         refreshGrammarVerbStage3ButtonHigh();
         refreshGrammarVerbMemoryButtonHigh();
+    }
+    function hideGrammarPastExplainView() {
+        var el = document.getElementById('grammar-past-explain-view');
+        if (!el) return;
+        el.classList.remove('is-open');
+        el.style.display = 'none';
+    }
+    function showGrammarPastSubmenu() {
+        closeGrammarVerbHelpPopup();
+        document.getElementById('grammar-menu').style.display = 'none';
+        document.getElementById('grammar-letters-view').style.display = 'none';
+        document.getElementById('grammar-singular-plural-submenu-view').style.display = 'none';
+        document.getElementById('grammar-singular-plural-view').style.display = 'none';
+        document.getElementById('grammar-sp-memory-view').style.display = 'none';
+        var grammarPvMemHide = document.getElementById('grammar-pv-memory-view');
+        if (grammarPvMemHide) grammarPvMemHide.style.display = 'none';
+        document.getElementById('grammar-sp-hangman-view').style.display = 'none';
+        document.getElementById('grammar-sp-match-view').style.display = 'none';
+        document.getElementById('grammar-definite-article-view').style.display = 'none';
+        document.getElementById('grammar-pronouns-verbs-submenu-view').style.display = 'none';
+        document.getElementById('grammar-pronouns-verbs-list-view').style.display = 'none';
+        document.getElementById('grammar-pronouns-verbs-sentence-view').style.display = 'none';
+        hideGrammarPastExplainView();
+        var grammarImperfectHide = document.getElementById('grammar-imperfect-submenu-view');
+        if (grammarImperfectHide) grammarImperfectHide.style.display = 'none';
+        document.getElementById('grammar-past-submenu-view').style.display = 'block';
+        refreshGrammarPastSentButtonHigh();
+    }
+    var pastExplainIndex = 0;
+    var PAST_EXPLAIN_TOTAL = 6;
+    var pastExplainAnimating = false;
+    var pastExplainSpeakersReady = false;
+    var pastExplainMeaningTimer = null;
+
+    /** תרגומים למילים בהסבר העבר (לחיצה כמו בשאר האפליקציה) */
+    var PAST_EXPLAIN_GLOSS = {
+        'παίζω': 'לשחק',
+        'έπαιξα': 'שיחקתי',
+        'έπαιξες': 'שיחקת',
+        'έπαιξε': 'שיחק / שיחקה',
+        'παίξαμε': 'שיחקנו',
+        'παίξατε': 'שיחקתם / שיחקתן',
+        'έπαιξαν': 'שיחקו',
+        'γράφω': 'לכתוב',
+        'έγραψα': 'כתבתי',
+        'κλείνω': 'לסגור',
+        'έκλεισα': 'סגרתי',
+        'δένω': 'לקשור',
+        'έδεσα': 'קשרתי',
+        'κόβω': 'לחתוך',
+        'έκοψα': 'חתכתי',
+        'κρύβω': 'להסתיר',
+        'έκρυψα': 'הסתרתי',
+        'ανοίγω': 'לפתוח',
+        'άνοιξα': 'פתחתי',
+        'τρέχω': 'לרוץ',
+        'έτρεξα': 'רצתי',
+        'εγώ': 'אני',
+        'εσύ': 'אתה / את',
+        'αυτός': 'הוא',
+        'εμείς': 'אנחנו',
+        'εσείς': 'אתם / אתן',
+        'αυτοί': 'הם'
+    };
+
+    function pastExplainLookupHeb(word) {
+        var cleaned = greekTokenForLexiconLookup(word);
+        if (!cleaned) return '';
+        var key = normGreekWord(cleaned);
+        for (var k in PAST_EXPLAIN_GLOSS) {
+            if (Object.prototype.hasOwnProperty.call(PAST_EXPLAIN_GLOSS, k) && normGreekWord(k) === key) {
+                return PAST_EXPLAIN_GLOSS[k];
+            }
+        }
+        try {
+            var fromLex = getHebMeaningForGreekWord(cleaned);
+            if (fromLex) return fromLex;
+        } catch (e) {}
+        return '';
+    }
+
+    function pastExplainClearMeanings() {
+        document.querySelectorAll('#grammar-past-explain-view .conv-word-meaning').forEach(function(el) {
+            el.textContent = '';
+            el.style.display = 'none';
+        });
+    }
+
+    function pastExplainShowMeaning(meaningSpan, heb) {
+        if (pastExplainMeaningTimer) clearTimeout(pastExplainMeaningTimer);
+        pastExplainClearMeanings();
+        if (!heb) return;
+        meaningSpan.textContent = heb;
+        meaningSpan.style.display = 'block';
+        pastExplainMeaningTimer = setTimeout(function() {
+            meaningSpan.textContent = '';
+            meaningSpan.style.display = 'none';
+            pastExplainMeaningTimer = null;
+        }, 3000);
+    }
+
+    function pastExplainBuildInteractiveWrap(word, className) {
+        var heb = pastExplainLookupHeb(word);
+        if (!heb) return null;
+        var wrap = document.createElement('span');
+        wrap.className = 'past-word-wrap conv-word-wrap';
+        var meaningSpan = document.createElement('span');
+        meaningSpan.className = 'conv-word-meaning';
+        meaningSpan.style.display = 'none';
+        var wordSpan = document.createElement('span');
+        wordSpan.className = (className || 'past-gr') + ' conv-word';
+        wordSpan.textContent = word;
+        wordSpan.title = heb;
+        wordSpan.addEventListener('click', function(ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            pastExplainShowMeaning(meaningSpan, heb);
+        });
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'past-speak-btn';
+        btn.setAttribute('aria-label', 'השמעה');
+        btn.textContent = '🔊';
+        btn.addEventListener('click', function(ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            try { playAudio(word); } catch (e) {}
+        });
+        wrap.appendChild(meaningSpan);
+        wrap.appendChild(wordSpan);
+        wrap.appendChild(btn);
+        return wrap;
+    }
+
+    function pastExplainMakeWordInteractive(el, wordOverride) {
+        if (!el || el.closest('.past-word-wrap')) return;
+        if (el.classList.contains('past-gr-inline')) return;
+        if (el.classList.contains('past-letter')) return;
+        if (el.closest('.past-fuse')) return;
+        if (el.closest('.past-endings-card')) return;
+        if (el.closest('.past-ex-aug')) return;
+        var existingBtn = el.querySelector && el.querySelector('.past-speak-btn');
+        if (existingBtn) existingBtn.remove();
+        var word = (wordOverride != null ? wordOverride : (el.textContent || '')).trim();
+        word = word.replace(/\s*🔊\s*$/, '').trim();
+        if (word.length < 3 && !pastExplainLookupHeb(word)) return;
+        if (word.length < 2) return;
+        if (/[+\-→]/.test(word)) return;
+        var wrap = pastExplainBuildInteractiveWrap(word, el.className || 'past-gr');
+        if (!wrap) return;
+        var tag = (el.tagName || '').toUpperCase();
+        if (tag === 'TD' || tag === 'TH') {
+            el.textContent = '';
+            el.classList.remove('past-gr');
+            el.appendChild(wrap);
+        } else if (el.parentNode) {
+            el.parentNode.replaceChild(wrap, el);
+        }
+    }
+
+    /**
+     * Augment (αύξηση) — מנוע מותנה להוספת ε בעבר.
+     * כרגע: αύξηση συλλαβική בסיסית (ε לפני עיצור).
+     * בעתיד אפשר להרחיב ל־internal augment לפעלים המתחילים בתנועה בלי לשנות את מבנה המערכת.
+     */
+    var PAST_AUGMENT = {
+        vowels: /[αεηιουωάέήίόύώϊϋΐΰΑΕΗΙΟΥΩΆΈΉΊΌΎΏ]/,
+        stripDiacritics: function(ch) {
+            var map = {
+                'ά': 'α', 'έ': 'ε', 'ή': 'η', 'ί': 'ι', 'ό': 'ο', 'ύ': 'υ', 'ώ': 'ω',
+                'ϊ': 'ι', 'ϋ': 'υ', 'ΐ': 'ι', 'ΰ': 'υ',
+                'Ά': 'α', 'Έ': 'ε', 'Ή': 'η', 'Ί': 'ι', 'Ό': 'ο', 'Ύ': 'υ', 'Ώ': 'ω'
+            };
+            return map[ch] || String(ch || '').toLowerCase();
+        },
+        firstLetter: function(word) {
+            var s = String(word || '').trim();
+            return s ? s.charAt(0) : '';
+        },
+        isVowel: function(ch) {
+            return this.vowels.test(ch || '');
+        },
+        startsWithConsonant: function(word) {
+            var ch = this.firstLetter(word);
+            return !!ch && !this.isVowel(ch);
+        },
+        /** ספירת הברות פשוטה לפי תנועות (מספיק לכלל הלימודי הבסיסי) */
+        syllableCount: function(word) {
+            var s = String(word || '');
+            var n = 0;
+            for (var i = 0; i < s.length; i++) {
+                if (this.isVowel(s.charAt(i))) n++;
+            }
+            return n;
+        },
+        /**
+         * @returns {{ needed: boolean, type: 'none'|'syllabic'|'internal', reason: string }}
+         * type 'internal' שמור לכללים מתקדמים בעתיד (פעלים המתחילים בתנועה).
+         */
+        analyze: function(presentForm) {
+            var word = String(presentForm || '').trim();
+            if (!word) {
+                return { needed: false, type: 'none', reason: 'empty' };
+            }
+            if (!this.startsWithConsonant(word)) {
+                // בעתיד: כאן אפשר להפעיל αύξηση פנימית לפי תנועה ראשונה
+                return { needed: false, type: 'none', reason: 'vowel-initial' };
+            }
+            if (this.syllableCount(word) < 2) {
+                return { needed: false, type: 'none', reason: 'fewer-than-two-syllables' };
+            }
+            return { needed: true, type: 'syllabic', reason: 'consonant-and-multisyllabic' };
+        },
+        needsSyllabicE: function(presentForm) {
+            var d = this.analyze(presentForm);
+            return d.needed === true && d.type === 'syllabic';
+        }
+    };
+
+    function buildPastFormationStepsHtml(presentForm, pastForm, compact) {
+        var present = String(presentForm || '').trim();
+        var past = String(pastForm || '').trim();
+        var decision = PAST_AUGMENT.analyze(present);
+        var html = '';
+        html += '<span class="past-gr">' + present + '</span>';
+        html += '<span class="past-arrow-sm" aria-hidden="true">↓</span>';
+        if (!compact && decision.needed && decision.type === 'syllabic') {
+            html += '<span class="past-ex-aug" title="αύξηση"><span class="past-gr">+ε</span></span>';
+            html += '<span class="past-arrow-sm" aria-hidden="true">↓</span>';
+        }
+        html += '<span class="past-gr past-gr-past">' + past + '</span>';
+        if (!compact && !decision.needed) {
+            html += '<div class="past-ex-note">בלי <span class="past-gr" style="font-size:1em;">ε</span> — הפועל לא עומד בכלל התחילית</div>';
+        }
+        return html;
+    }
+
+    function renderPastExplainFormations() {
+        var nodes = document.querySelectorAll('#grammar-past-explain-view [data-past-present]');
+        Array.prototype.forEach.call(nodes, function(el) {
+            var present = el.getAttribute('data-past-present') || '';
+            var past = el.getAttribute('data-past-form') || '';
+            var compact = el.getAttribute('data-past-compact') === '1';
+            el.innerHTML = buildPastFormationStepsHtml(present, past, compact);
+        });
+    }
+
+    function injectPastExplainSpeakers() {
+        var view = document.getElementById('grammar-past-explain-view');
+        if (!view) return;
+        renderPastExplainFormations();
+        var els = view.querySelectorAll('.past-gr');
+        Array.prototype.forEach.call(els, function(el) {
+            pastExplainMakeWordInteractive(el);
+        });
+        var personChips = view.querySelectorAll('.past-person-chips > span');
+        Array.prototype.forEach.call(personChips, function(el) {
+            var w = (el.textContent || '').trim();
+            if (w === '…' || w.length < 2) return;
+            el.classList.add('past-gr');
+            pastExplainMakeWordInteractive(el, w);
+        });
+        pastExplainSpeakersReady = true;
+    }
+    function showGrammarPastExplain() {
+        closeGrammarVerbHelpPopup();
+        document.getElementById('grammar-menu').style.display = 'none';
+        document.getElementById('grammar-letters-view').style.display = 'none';
+        document.getElementById('grammar-singular-plural-submenu-view').style.display = 'none';
+        document.getElementById('grammar-singular-plural-view').style.display = 'none';
+        document.getElementById('grammar-sp-memory-view').style.display = 'none';
+        var grammarPvMemHide = document.getElementById('grammar-pv-memory-view');
+        if (grammarPvMemHide) grammarPvMemHide.style.display = 'none';
+        document.getElementById('grammar-sp-hangman-view').style.display = 'none';
+        document.getElementById('grammar-sp-match-view').style.display = 'none';
+        document.getElementById('grammar-definite-article-view').style.display = 'none';
+        document.getElementById('grammar-pronouns-verbs-submenu-view').style.display = 'none';
+        document.getElementById('grammar-pronouns-verbs-list-view').style.display = 'none';
+        document.getElementById('grammar-pronouns-verbs-sentence-view').style.display = 'none';
+        document.getElementById('grammar-past-submenu-view').style.display = 'none';
+        var grammarImperfectHide = document.getElementById('grammar-imperfect-submenu-view');
+        if (grammarImperfectHide) grammarImperfectHide.style.display = 'none';
+        var view = document.getElementById('grammar-past-explain-view');
+        if (view) {
+            view.style.display = 'flex';
+            view.classList.add('is-open');
+        }
+        injectPastExplainSpeakers();
+        pastExplainIndex = 0;
+        pastExplainAnimating = false;
+        syncPastExplainSlide(true);
+    }
+    function syncPastExplainSlide(instant) {
+        var slides = document.querySelectorAll('#past-explain-stage .past-explain-slide');
+        var prog = document.getElementById('past-explain-progress');
+        var nextBtn = document.getElementById('past-explain-next');
+        if (prog) prog.textContent = (pastExplainIndex + 1) + ' / ' + PAST_EXPLAIN_TOTAL;
+        if (nextBtn) {
+            nextBtn.textContent = pastExplainIndex >= PAST_EXPLAIN_TOTAL - 1 ? 'סיום ✓' : 'המשך →';
+        }
+        slides.forEach(function(slide, i) {
+            slide.classList.remove('is-active', 'is-leaving');
+            if (i === pastExplainIndex) {
+                if (instant) {
+                    slide.classList.add('is-active');
+                } else {
+                    // force reflow so pop/fuse animations restart
+                    void slide.offsetWidth;
+                    slide.classList.add('is-active');
+                }
+            }
+        });
+    }
+    function pastExplainGoNext() {
+        if (pastExplainAnimating) return;
+        if (pastExplainIndex >= PAST_EXPLAIN_TOTAL - 1) {
+            showGrammarPastSubmenu();
+            return;
+        }
+        var slides = document.querySelectorAll('#past-explain-stage .past-explain-slide');
+        var cur = slides[pastExplainIndex];
+        var nxt = slides[pastExplainIndex + 1];
+        if (!cur || !nxt) {
+            pastExplainIndex++;
+            syncPastExplainSlide(true);
+            return;
+        }
+        pastExplainAnimating = true;
+        cur.classList.remove('is-active');
+        cur.classList.add('is-leaving');
+        pastExplainIndex++;
+        var prog = document.getElementById('past-explain-progress');
+        var nextBtn = document.getElementById('past-explain-next');
+        if (prog) prog.textContent = (pastExplainIndex + 1) + ' / ' + PAST_EXPLAIN_TOTAL;
+        if (nextBtn) {
+            nextBtn.textContent = pastExplainIndex >= PAST_EXPLAIN_TOTAL - 1 ? 'סיום ✓' : 'המשך →';
+        }
+        void nxt.offsetWidth;
+        nxt.classList.add('is-active');
+        setTimeout(function() {
+            cur.classList.remove('is-leaving');
+            pastExplainAnimating = false;
+        }, 300);
     }
     function initGrammarPronounsVerbsList() {
         var container = document.getElementById('grammar-pronouns-verbs-list-container');
@@ -6913,6 +8056,15 @@
         if (h > 100) h = 100;
         if (sm) sm.textContent = 'שיא: ' + h + '%';
     }
+    function refreshGrammarPastSentButtonHigh() {
+        var btn = document.getElementById('grammar-btn-past-sentences');
+        if (!btn) return;
+        var h = getModeHighScore(GRAMMAR_PAST_SENT_KEY, 'pastSentences');
+        var sm = btn.querySelector('small');
+        if (!Number.isFinite(h) || h < 0) h = 0;
+        if (h > 100) h = 100;
+        if (sm) sm.textContent = 'שיא: ' + h + '%';
+    }
     function grammarVerbFinalizeRunScore() {
         if (grammarVerbScoreSavedForRun) return;
         var n = grammarVerbGameDeck.length || GRAMMAR_VERB_ROUND_SIZE;
@@ -6926,16 +8078,20 @@
         } else if (grammarVerbGameMode === 'fillFull') {
             sk = GRAMMAR_VERB_SENT_STAGE3_KEY;
             smode = 'verbSentencesStage3';
+        } else if (grammarVerbGameMode === 'mcPast') {
+            sk = GRAMMAR_PAST_SENT_KEY;
+            smode = 'pastSentences';
         }
         saveModeHighScore(sk, smode, pct);
         refreshGrammarVerbSentencesButtonHigh();
         refreshGrammarVerbMcButtonHigh();
         refreshGrammarVerbStage3ButtonHigh();
+        refreshGrammarPastSentButtonHigh();
         if (typeof refreshGrammarMainMenuScores === 'function') refreshGrammarMainMenuScores();
         grammarVerbScoreSavedForRun = true;
     }
     function grammarVerbMcPick(guess, btnEl) {
-        if (grammarVerbMcLocked || grammarVerbGameMode !== 'mc') return;
+        if (grammarVerbMcLocked || !isGrammarVerbMcMode()) return;
         if (grammarVerbGameIndex >= grammarVerbGameDeck.length) return;
         var item = grammarVerbGameDeck[grammarVerbGameIndex];
         if (!item || !item.mcChoices) return;
@@ -7060,10 +8216,10 @@
         if (rootHebEl) rootHebEl.textContent = item.rootHeb || '';
         var parts = item.sentence.split(/\s*_{2,}\s*/);
         if (parts.length < 2) parts = [parts[0] || '', ''];
-        if (grammarVerbGameMode === 'mc') {
+        if (isGrammarVerbMcMode()) {
             grammarVerbMcLocked = false;
             grammarVerbFillStem = '';
-            if (titleEl) titleEl.textContent = 'השלמת משפטים שלב 1';
+            if (titleEl) titleEl.textContent = grammarVerbGameMode === 'mcPast' ? 'השלמת משפטים · עבר' : 'השלמת משפטים שלב 1';
             if (fillActions) fillActions.style.display = 'none';
             if (helpBtn) helpBtn.style.display = 'none';
             if (mcWrap) mcWrap.style.display = 'block';
@@ -7252,6 +8408,38 @@
         grammarVerbGameDeck = buildGrammarVerbDeck();
         renderGrammarVerbSentenceRound();
     }
+    function showGrammarPastSentenceGame() {
+        closeGrammarVerbHelpPopup();
+        document.getElementById('grammar-menu').style.display = 'none';
+        document.getElementById('grammar-letters-view').style.display = 'none';
+        document.getElementById('grammar-singular-plural-submenu-view').style.display = 'none';
+        document.getElementById('grammar-singular-plural-view').style.display = 'none';
+        document.getElementById('grammar-sp-memory-view').style.display = 'none';
+        var grammarPvMemHide = document.getElementById('grammar-pv-memory-view');
+        if (grammarPvMemHide) grammarPvMemHide.style.display = 'none';
+        document.getElementById('grammar-sp-hangman-view').style.display = 'none';
+        document.getElementById('grammar-sp-match-view').style.display = 'none';
+        document.getElementById('grammar-definite-article-view').style.display = 'none';
+        document.getElementById('grammar-pronouns-verbs-submenu-view').style.display = 'none';
+        document.getElementById('grammar-pronouns-verbs-list-view').style.display = 'none';
+        document.getElementById('grammar-past-submenu-view').style.display = 'none';
+        hideGrammarPastExplainView();
+        var grammarImperfectHide = document.getElementById('grammar-imperfect-submenu-view');
+        if (grammarImperfectHide) grammarImperfectHide.style.display = 'none';
+        document.getElementById('grammar-pronouns-verbs-sentence-view').style.display = 'block';
+        var completeEl = document.getElementById('grammar-verb-sent-complete');
+        if (completeEl) completeEl.style.display = 'none';
+        grammarVerbGameMode = 'mcPast';
+        grammarVerbGameIndex = 0;
+        grammarVerbRunCorrectCount = 0;
+        grammarVerbScoreSavedForRun = false;
+        grammarVerbGameDeck = buildGrammarVerbDeck();
+        renderGrammarVerbSentenceRound();
+    }
+    function grammarVerbSentenceBack() {
+        if (grammarVerbGameMode === 'mcPast') showGrammarPastSubmenu();
+        else showGrammarPronounsVerbsSubmenu();
+    }
     function showGrammarVerbSentenceGameMc() {
         document.getElementById('grammar-menu').style.display = 'none';
         document.getElementById('grammar-letters-view').style.display = 'none';
@@ -7342,6 +8530,24 @@
             selectedSubcategory = "";
             selectedReadingVocabSub = "";
             showGrammarSection();
+            return;
+        }
+        if (isGrammarPastTimeVocabMode) {
+            isGrammarPastTimeVocabMode = false;
+            selectedCategory = "";
+            selectedSubcategory = "";
+            selectedReadingVocabSub = "";
+            showGrammarSection();
+            showGrammarPastSubmenu();
+            return;
+        }
+        if (isGrammarPastIrregularVocabMode) {
+            isGrammarPastIrregularVocabMode = false;
+            selectedCategory = "";
+            selectedSubcategory = "";
+            selectedReadingVocabSub = "";
+            showGrammarSection();
+            showGrammarPastSubmenu();
             return;
         }
         if (selectedCategory === 'קריאה' && selectedReadingVocabSub) {
@@ -7762,6 +8968,7 @@
     refreshGrammarVerbMcButtonHigh();
     refreshGrammarVerbStage3ButtonHigh();
     refreshGrammarVerbMemoryButtonHigh();
+    refreshGrammarPastSentButtonHigh();
     refreshPresentToBeMcButtonHigh();
     refreshGrammarMainMenuScores();
 
@@ -7876,6 +9083,25 @@
         if (openBtn) openBtn.addEventListener('click', openGrammarPresentPronounsVocab);
     })();
 
+    (function wireGrammarPastUI() {
+        var pastBtn = document.getElementById('grammar-btn-past');
+        if (pastBtn) pastBtn.addEventListener('click', showGrammarPastSubmenu);
+        var pastBack = document.getElementById('grammar-past-submenu-back');
+        if (pastBack) pastBack.addEventListener('click', showGrammarMenu);
+        var imperfectBtn = document.getElementById('grammar-btn-imperfect');
+        if (imperfectBtn) imperfectBtn.addEventListener('click', openGrammarPastTimeVocab);
+        var irregularBtn = document.getElementById('grammar-btn-past-irregular');
+        if (irregularBtn) irregularBtn.addEventListener('click', openGrammarPastIrregularVocab);
+        var explainBtn = document.getElementById('grammar-btn-past-explain');
+        if (explainBtn) explainBtn.addEventListener('click', showGrammarPastExplain);
+        var pastSentBtn = document.getElementById('grammar-btn-past-sentences');
+        if (pastSentBtn) pastSentBtn.addEventListener('click', showGrammarPastSentenceGame);
+        var explainBack = document.getElementById('grammar-past-explain-back');
+        if (explainBack) explainBack.addEventListener('click', showGrammarPastSubmenu);
+        var explainNext = document.getElementById('past-explain-next');
+        if (explainNext) explainNext.addEventListener('click', pastExplainGoNext);
+    })();
+
     (function wireGrammarPronounsWithVerbsUI() {
         var topicBtn = document.getElementById('grammar-btn-pronouns-with-verbs');
         if (topicBtn) topicBtn.addEventListener('click', showGrammarPronounsVerbsSubmenu);
@@ -7898,7 +9124,7 @@
         var sentMcBtn = document.getElementById('grammar-btn-pronouns-verbs-sentences-easy');
         if (sentMcBtn) sentMcBtn.addEventListener('click', showGrammarVerbSentenceGameMc);
         var sentBack = document.getElementById('grammar-verb-sent-back');
-        if (sentBack) sentBack.addEventListener('click', showGrammarPronounsVerbsSubmenu);
+        if (sentBack) sentBack.addEventListener('click', grammarVerbSentenceBack);
         var checkBtn = document.getElementById('grammar-verb-sent-check');
         if (checkBtn) checkBtn.addEventListener('click', checkGrammarVerbAnswer);
         var helpBtn = document.getElementById('grammar-verb-help-btn');
@@ -8000,6 +9226,8 @@
 
     function getSelectedData() {
         if (selectedCategory === "כינויי גוף הווה") return GRAMMAR_PRESENT_TO_BE;
+        if (selectedCategory === "מילות תיאור עבר") return GRAMMAR_PAST_TIME_WORDS;
+        if (selectedCategory === "פעלים יוצאי דופן") return GRAMMAR_PAST_IRREGULAR_VERBS;
         if (selectedCategory === "קריאה" && (selectedSubcategory === "שיחות" || selectedSubcategory === "סיפורים") && selectedReadingVocabSub && readingData[selectedSubcategory][selectedReadingVocabSub])
             return readingData[selectedSubcategory][selectedReadingVocabSub];
         if (selectedCategory === "קריאה" && (selectedSubcategory === "שיחות" || selectedSubcategory === "סיפורים") && currentConversationVocab && currentConversationVocab.length)
@@ -8191,11 +9419,27 @@
         document.getElementById('memory-results').style.display = 'none';
         document.getElementById('mem-moves').innerText = "0";
         document.getElementById('mem-pairs').innerText = "0";
-        let words = shuffle(getSelectedData()).slice(0, 6);
-        let cards = shuffle([...words.map(w=>({t:w.gr, id:w.gr, type:'gr'})), ...words.map(w=>({t:w.heb, id:w.gr, type:'heb'}))]);
-        let html = "";
-        cards.forEach((c, i) => {
-            html += `<div class="memory-card" id="mem-${i}" onclick="flipMem(${i}, '${c.id}', '${c.t}', '${c.type}')">?</div>`;
+        var cards;
+        if (selectedCategory === "פעלים יוצאי דופן") {
+            var pairs = shuffle(GRAMMAR_PAST_IRREGULAR_PAIRS.slice()).slice(0, 6);
+            cards = shuffle(pairs.flatMap(function(p) {
+                return [
+                    { t: p.present, id: p.id, type: 'gr' },
+                    { t: p.past, id: p.id, type: 'gr' }
+                ];
+            }));
+        } else {
+            var words = shuffle(getSelectedData()).slice(0, 6);
+            cards = shuffle([].concat(
+                words.map(function(w) { return { t: w.gr, id: w.gr, type: 'gr' }; }),
+                words.map(function(w) { return { t: w.heb, id: w.gr, type: 'heb' }; })
+            ));
+        }
+        var html = "";
+        cards.forEach(function(c, i) {
+            var safeT = String(c.t).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+            var safeId = String(c.id).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+            html += '<div class="memory-card" id="mem-' + i + '" onclick="flipMem(' + i + ', \'' + safeId + '\', \'' + safeT + '\', \'' + c.type + '\')">?</div>';
         });
         document.getElementById('memory-grid').innerHTML = html;
     }
@@ -11122,6 +12366,8 @@
         walk(STORY_COMPLETE_LIBRARY, 'STORY_COMPLETE_LIBRARY');
         walk(DEFINITE_ARTICLE_WORDS, 'DEFINITE_ARTICLE_WORDS');
         walk(GRAMMAR_PRESENT_TO_BE, 'GRAMMAR_PRESENT_TO_BE');
+        walk(GRAMMAR_PAST_TIME_WORDS, 'GRAMMAR_PAST_TIME_WORDS');
+        walk(GRAMMAR_PAST_IRREGULAR_VERBS, 'GRAMMAR_PAST_IRREGULAR_VERBS');
         walk(GRAMMAR_PRESENT_TO_BE_MC, 'GRAMMAR_PRESENT_TO_BE_MC');
         walk(GRAMMAR_PRONOUNS_WITH_VERBS_LIST, 'GRAMMAR_PRONOUNS_WITH_VERBS_LIST');
         walk(GRAMMAR_VERB_SENTENCE_GAME, 'GRAMMAR_VERB_SENTENCE_GAME');
