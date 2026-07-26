@@ -259,6 +259,17 @@
         .game-section .option-btn:nth-of-type(4n+2) { background: var(--pastel-pink); border-color: var(--pastel-pink-border); }
         .game-section .option-btn:nth-of-type(4n+3) { background: var(--pastel-amber); border-color: var(--pastel-amber-border); }
         .game-section .option-btn:nth-of-type(4n+4) { background: var(--pastel-lavender); border-color: var(--pastel-lavender-border); }
+        #grammar-past-match-view .option-btn:nth-of-type(4n+1) { background: var(--pastel-teal); border-color: var(--pastel-teal-border); }
+        #grammar-past-match-view .option-btn:nth-of-type(4n+2) { background: var(--pastel-pink); border-color: var(--pastel-pink-border); }
+        #grammar-past-match-view .option-btn:nth-of-type(4n+3) { background: var(--pastel-amber); border-color: var(--pastel-amber-border); }
+        #grammar-past-match-view .option-btn:nth-of-type(4n+4) { background: var(--pastel-lavender); border-color: var(--pastel-lavender-border); }
+        #grammar-past-match-view .option-btn.mc-correct { border-color: var(--pastel-green-border); background: var(--pastel-green); }
+        #grammar-past-match-view .option-btn.mc-wrong { border-color: #e57373; background: #ffebee; opacity: 0.85; }
+        #grammar-past-match-view .matching-word {
+            font-size: clamp(28px, 7vw, 36px);
+            font-weight: 800;
+            color: var(--hangman-color);
+        }
         
         #falling-controls { display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: center; align-items: stretch; gap: 15px; margin-top: 20px; width: 100%; }
         #falling-controls .option-btn { width: auto; min-width: 100px; min-height: 100px; aspect-ratio: 1; margin: 0; flex: 1; max-width: 140px; }
@@ -2792,6 +2803,10 @@
                         <span>השלמת משפטים</span>
                         <small>0%</small>
                     </button>
+                    <button type="button" class="btn-main main-choice-btn" id="grammar-btn-past-match">
+                        <span>התאמות</span>
+                        <small>0%</small>
+                    </button>
                 </div>
             </div>
             <div id="grammar-past-explain-view" style="display: none;">
@@ -2959,6 +2974,26 @@
                     </div>
                 </div>
                 <button type="button" class="btn-main past-explain-next" id="past-explain-next">המשך →</button>
+            </div>
+            <div id="grammar-past-match-view" style="display: none;">
+                <button type="button" class="back-btn" style="margin-bottom: 12px;" id="grammar-past-match-back">← חזרה</button>
+                <p style="font-size: 18px; color: var(--primary-pink); margin-bottom: 8px; text-align: center; font-weight: bold;">התאמות: הווה → עבר</p>
+                <p style="font-size: 15px; color: #666; margin-bottom: 14px; text-align: center; line-height: 1.45;">בחרי את צורת <strong>העבר</strong> הנכונה לכל פועל.</p>
+                <div class="score-board">
+                    <div style="color: green;">🌟 הצלחתי: <span id="gram-past-match-correct">0</span> מתוך <span id="gram-past-match-total">10</span> שאלות</div>
+                    <div style="color: red;">💎 טעויות: <span id="gram-past-match-wrong">0</span></div>
+                </div>
+                <div id="grammar-past-match-content" style="width: 100%;">
+                    <div class="matching-word-container"><div class="matching-word" id="gram-past-match-target" dir="ltr"></div></div>
+                    <p id="gram-past-match-heb" style="text-align: center; color: #666; font-size: 15px; margin: 6px 0 10px;"></p>
+                    <center><button type="button" class="speaker-btn" id="gram-past-match-audio">🔊 שמע</button></center>
+                    <div id="gram-past-match-options"></div>
+                </div>
+                <div id="grammar-past-match-results" style="display: none; text-align: center;">
+                    <div id="gram-past-match-res-msg" style="font-size: 24px; font-weight: bold; color: var(--primary-pink); margin-bottom: 10px;"></div>
+                    <div id="gram-past-match-final-msg" style="font-size: 18px; margin-bottom: 20px;"></div>
+                    <button type="button" class="btn-main" id="grammar-past-match-replay">שוב 🔄</button>
+                </div>
             </div>
             <div id="grammar-pronouns-verbs-submenu-view" style="display: none;">
                 <button type="button" class="back-btn" style="margin-bottom: 15px;" id="grammar-pronouns-verbs-submenu-back">← חזרה לדקדוק</button>
@@ -5821,6 +5856,128 @@
         return acc;
     }, []);
 
+    /** התאמות הווה → עבר — פעלים רגילים לפי קבוצות סיומת (-σα / -ψα / -ξα) */
+    const GRAMMAR_PAST_MATCH_VERBS = [
+        // קבוצת -σα
+        { present: "κλείνω", past: "έκλεισα", group: "sa", heb: "לסגור" },
+        { present: "καθαρίζω", past: "καθάρισα", group: "sa", heb: "לנקות" },
+        { present: "διαβάζω", past: "διάβασα", group: "sa", heb: "לקרוא" },
+        { present: "αγοράζω", past: "αγόρασα", group: "sa", heb: "לקנות" },
+        { present: "ακούω", past: "άκουσα", group: "sa", heb: "לשמוע" },
+        { present: "μιλάω", past: "μίλησα", group: "sa", heb: "לדבר" },
+        { present: "ξυπνάω", past: "ξύπνησα", group: "sa", heb: "להתעורר" },
+        { present: "τραγουδάω", past: "τραγούδησα", group: "sa", heb: "לשיר" },
+        { present: "ζωγραφίζω", past: "ζωγράφισα", group: "sa", heb: "לצייר" },
+        { present: "γελάω", past: "γέλασα", group: "sa", heb: "לצחוק" },
+        { present: "κολυμπάω", past: "κολύμπησα", group: "sa", heb: "לשחות" },
+        { present: "περπατάω", past: "περπάτησα", group: "sa", heb: "ללכת ברגל" },
+        { present: "ρωτάω", past: "ρώτησα", group: "sa", heb: "לשאול" },
+        { present: "τελειώνω", past: "τελείωσα", group: "sa", heb: "לסיים" },
+        // קבוצת -ψα
+        { present: "γράφω", past: "έγραψα", group: "psa", heb: "לכתוב" },
+        { present: "κόβω", past: "έκοψα", group: "psa", heb: "לחתוך" },
+        { present: "κρύβω", past: "έκρυψα", group: "psa", heb: "להסתיר" },
+        { present: "μαγειρεύω", past: "μαγείρεψα", group: "psa", heb: "לבשל" },
+        { present: "δουλεύω", past: "δούλεψα", group: "psa", heb: "לעבוד" },
+        { present: "χορεύω", past: "χόρεψα", group: "psa", heb: "לרקוד" },
+        { present: "βάφω", past: "έβαψα", group: "psa", heb: "לצבוע" },
+        { present: "τρίβω", past: "έτριψα", group: "psa", heb: "לשפשף" },
+        { present: "λείπω", past: "έλειψα", group: "psa", heb: "להחסיר / להיעדר" },
+        { present: "αλείφω", past: "άλειψα", group: "psa", heb: "למרוח" },
+        // קבוצת -ξα
+        { present: "παίζω", past: "έπαιξα", group: "ksa", heb: "לשחק" },
+        { present: "ανοίγω", past: "άνοιξα", group: "ksa", heb: "לפתוח" },
+        { present: "τρέχω", past: "έτρεξα", group: "ksa", heb: "לרוץ" },
+        { present: "αλλάζω", past: "άλλαξα", group: "ksa", heb: "להחליף" },
+        { present: "δείχνω", past: "έδειξα", group: "ksa", heb: "להראות" },
+        { present: "φωνάζω", past: "φώναξα", group: "ksa", heb: "לקרוא / לצעוק" },
+        { present: "διαλέγω", past: "διάλεξα", group: "ksa", heb: "לבחור" },
+        { present: "κοιτάζω", past: "κοίταξα", group: "ksa", heb: "להסתכל" },
+        { present: "προσέχω", past: "πρόσεξα", group: "ksa", heb: "לשים לב" },
+        { present: "αγγίζω", past: "άγγιξα", group: "ksa", heb: "לגעת" }
+    ];
+    const GRAMMAR_PAST_MATCH_ENDINGS = ["σα", "ψα", "ξα"];
+    const GRAMMAR_PAST_MATCH_ROUND_SIZE = 10;
+
+    /** מפרק צורת עבר לליבה + סיומת (-σα / -ψα / -ξα) */
+    function grammarPastMatchParseForm(past) {
+        var p = String(past || "").trim();
+        var end = "";
+        if (/ψα$/i.test(p)) end = "ψα";
+        else if (/ξα$/i.test(p)) end = "ξα";
+        else if (/σα$/i.test(p)) end = "σα";
+        else return null;
+        return { core: p.slice(0, -end.length), ending: end };
+    }
+
+    /** מפריד תחילית ε/έ מהליבה (אם יש) */
+    function grammarPastMatchSplitAugment(core) {
+        var c = String(core || "");
+        if (/^[εέ]/.test(c) && c.length > 1) {
+            return { hasE: true, eChar: c.charAt(0), bare: c.slice(1) };
+        }
+        return { hasE: false, eChar: "ε", bare: c };
+    }
+
+    /**
+     * מסיחים מאותו שורש בלבד:
+     * - סיומות σα / ψα / ξα (כולל הנכונה והשגויות)
+     * - עם ובלי אפסילון בתחילה
+     */
+    function buildGrammarPastMatchOptions(item) {
+        if (!item) return [];
+        var correct = String(item.past || "").trim();
+        var parsed = grammarPastMatchParseForm(correct);
+        if (!parsed) return [correct];
+        var aug = grammarPastMatchSplitAugment(parsed.core);
+        if (!aug.bare) return [correct];
+
+        var pool = [];
+        function addCand(form) {
+            if (!form || form === correct) return;
+            if (pool.indexOf(form) === -1) pool.push(form);
+        }
+        GRAMMAR_PAST_MATCH_ENDINGS.forEach(function(end) {
+            addCand(aug.bare + end);
+            addCand(aug.eChar + aug.bare + end);
+            if (aug.eChar !== "ε") addCand("ε" + aug.bare + end);
+            if (aug.eChar !== "έ") addCand("έ" + aug.bare + end);
+        });
+
+        var sameAugWrongEnds = [];
+        var flippedAugSameEnd = [];
+        var flippedAugWrongEnds = [];
+        var other = [];
+        pool.forEach(function(form) {
+            var pf = grammarPastMatchParseForm(form);
+            if (!pf) return;
+            var fa = grammarPastMatchSplitAugment(pf.core);
+            var sameAug = fa.hasE === aug.hasE;
+            var sameEnd = pf.ending === parsed.ending;
+            if (sameAug && !sameEnd) sameAugWrongEnds.push(form);
+            else if (!sameAug && sameEnd) flippedAugSameEnd.push(form);
+            else if (!sameAug && !sameEnd) flippedAugWrongEnds.push(form);
+            else other.push(form);
+        });
+
+        var opts = [correct];
+        function takeOne(arr) {
+            if (!arr.length) return;
+            var pick = shuffle(arr.slice())[0];
+            if (opts.indexOf(pick) === -1) opts.push(pick);
+            var idx = arr.indexOf(pick);
+            if (idx !== -1) arr.splice(idx, 1);
+        }
+        takeOne(flippedAugSameEnd);
+        takeOne(sameAugWrongEnds);
+        takeOne(flippedAugWrongEnds);
+        var leftovers = shuffle(sameAugWrongEnds.concat(flippedAugSameEnd, flippedAugWrongEnds, other));
+        for (var i = 0; i < leftovers.length && opts.length < 4; i++) {
+            if (opts.indexOf(leftovers[i]) === -1) opts.push(leftovers[i]);
+        }
+        return shuffle(opts);
+    }
+
     const GRAMMAR_PRESENT_TO_BE = [
         { gr: "Εγώ είμαι", heb: "אני" },
         { gr: "Εσύ είσαι", heb: "אתה / את" },
@@ -6079,6 +6236,7 @@
     const GRAMMAR_VERB_SENT_STAGE3_KEY = 'דקדוק - השלמת משפטים שלב 3';
     const GRAMMAR_VERB_MEMORY_KEY = 'דקדוק - זיכרון הווה';
     const GRAMMAR_PAST_SENT_KEY = 'דקדוק - השלמת משפטים עבר';
+    const GRAMMAR_PAST_MATCH_KEY = 'דקדוק - התאמות עבר';
     const GRAMMAR_SP_SCORE_KEY = 'דקדוק - יחיד רבים';
     const GRAMMAR_DEFINITE_ARTICLE_SCORE_KEY = 'דקדוק - ה הידיעה';
     const GRAMMAR_PRESENT_PRONOUNS_SCORE_KEY = 'כינויי גוף הווה';
@@ -6440,6 +6598,7 @@
         var grammarImperfectHide = document.getElementById('grammar-imperfect-submenu-view');
         if (grammarImperfectHide) grammarImperfectHide.style.display = 'none';
         hideGrammarPastExplainView();
+        hideGrammarPastMatchView();
         document.getElementById('grammar-pronouns-verbs-list-view').style.display = 'none';
         document.getElementById('grammar-pronouns-verbs-sentence-view').style.display = 'none';
         document.getElementById('grammar-definite-article-view').style.display = 'none';
@@ -6539,6 +6698,10 @@
         el.classList.remove('is-open');
         el.style.display = 'none';
     }
+    function hideGrammarPastMatchView() {
+        var el = document.getElementById('grammar-past-match-view');
+        if (el) el.style.display = 'none';
+    }
     function showGrammarPastSubmenu() {
         closeGrammarVerbHelpPopup();
         document.getElementById('grammar-menu').style.display = 'none';
@@ -6555,10 +6718,12 @@
         document.getElementById('grammar-pronouns-verbs-list-view').style.display = 'none';
         document.getElementById('grammar-pronouns-verbs-sentence-view').style.display = 'none';
         hideGrammarPastExplainView();
+        hideGrammarPastMatchView();
         var grammarImperfectHide = document.getElementById('grammar-imperfect-submenu-view');
         if (grammarImperfectHide) grammarImperfectHide.style.display = 'none';
         document.getElementById('grammar-past-submenu-view').style.display = 'block';
         refreshGrammarPastSentButtonHigh();
+        refreshGrammarPastMatchButtonHigh();
     }
     var pastExplainIndex = 0;
     var PAST_EXPLAIN_TOTAL = 6;
@@ -6812,6 +6977,7 @@
         document.getElementById('grammar-pronouns-verbs-list-view').style.display = 'none';
         document.getElementById('grammar-pronouns-verbs-sentence-view').style.display = 'none';
         document.getElementById('grammar-past-submenu-view').style.display = 'none';
+        hideGrammarPastMatchView();
         var grammarImperfectHide = document.getElementById('grammar-imperfect-submenu-view');
         if (grammarImperfectHide) grammarImperfectHide.style.display = 'none';
         var view = document.getElementById('grammar-past-explain-view');
@@ -8065,6 +8231,137 @@
         if (h > 100) h = 100;
         if (sm) sm.textContent = 'שיא: ' + h + '%';
     }
+    function refreshGrammarPastMatchButtonHigh() {
+        var btn = document.getElementById('grammar-btn-past-match');
+        if (!btn) return;
+        var h = getModeHighScore(GRAMMAR_PAST_MATCH_KEY, 'pastMatch');
+        var sm = btn.querySelector('small');
+        if (!Number.isFinite(h) || h < 0) h = 0;
+        if (h > 100) h = 100;
+        if (sm) sm.textContent = 'שיא: ' + h + '%';
+    }
+
+    let grammarPastMatchIndex = 0;
+    let grammarPastMatchCorrect = 0;
+    let grammarPastMatchWrong = 0;
+    let grammarPastMatchDeck = [];
+    let grammarPastMatchLocked = false;
+
+    function loadGrammarPastMatch() {
+        var content = document.getElementById('grammar-past-match-content');
+        var results = document.getElementById('grammar-past-match-results');
+        var optsEl = document.getElementById('gram-past-match-options');
+        var targetEl = document.getElementById('gram-past-match-target');
+        var hebEl = document.getElementById('gram-past-match-heb');
+        var audioBtn = document.getElementById('gram-past-match-audio');
+        var cEl = document.getElementById('gram-past-match-correct');
+        var wEl = document.getElementById('gram-past-match-wrong');
+        if (cEl) cEl.textContent = String(grammarPastMatchCorrect);
+        if (wEl) wEl.textContent = String(grammarPastMatchWrong);
+        if (grammarPastMatchIndex >= grammarPastMatchDeck.length) {
+            if (content) content.style.display = 'none';
+            if (results) results.style.display = 'block';
+            var total = grammarPastMatchCorrect + grammarPastMatchWrong;
+            var score = total ? Math.round((grammarPastMatchCorrect / total) * 100) : 0;
+            saveModeHighScore(GRAMMAR_PAST_MATCH_KEY, 'pastMatch', score);
+            refreshGrammarPastMatchButtonHigh();
+            var resMsg = document.getElementById('gram-past-match-res-msg');
+            var finalMsg = document.getElementById('gram-past-match-final-msg');
+            if (resMsg) resMsg.textContent = 'הציון שלך: ' + score + '%';
+            var msg = '';
+            if (score > 90) { msg = 'גאון של אמא'; celebrate(); }
+            else if (score >= 80) msg = 'חיים שלי בלב! לנסות שוב';
+            else if (score >= 70) msg = 'כפרה עליך לחזור על הפעלים';
+            else msg = 'נסיון יפה, אבל צריך לחזור על הפעלים';
+            if (finalMsg) finalMsg.textContent = msg;
+            return;
+        }
+        if (content) content.style.display = 'block';
+        if (results) results.style.display = 'none';
+        grammarPastMatchLocked = false;
+        var item = grammarPastMatchDeck[grammarPastMatchIndex];
+        if (targetEl) targetEl.textContent = item.present;
+        if (hebEl) hebEl.textContent = item.heb || '';
+        if (audioBtn) {
+            audioBtn.onclick = function() { playAudio(item.present); };
+        }
+        var options = buildGrammarPastMatchOptions(item);
+        if (optsEl) {
+            optsEl.innerHTML = '';
+            options.forEach(function(opt) {
+                var b = document.createElement('button');
+                b.type = 'button';
+                b.className = 'option-btn';
+                b.dir = 'ltr';
+                b.textContent = opt;
+                b.addEventListener('click', function() { checkGrammarPastMatch(opt, b); });
+                optsEl.appendChild(b);
+            });
+        }
+    }
+
+    function checkGrammarPastMatch(guess, btnEl) {
+        if (grammarPastMatchLocked || grammarPastMatchIndex >= grammarPastMatchDeck.length) return;
+        var item = grammarPastMatchDeck[grammarPastMatchIndex];
+        if (!item) return;
+        var optsEl = document.getElementById('gram-past-match-options');
+        var buttons = optsEl ? optsEl.querySelectorAll('.option-btn') : [];
+        if (guess === item.past) {
+            grammarPastMatchLocked = true;
+            grammarPastMatchCorrect++;
+            if (btnEl) btnEl.classList.add('mc-correct');
+            Array.prototype.forEach.call(buttons, function(b) { b.disabled = true; });
+            try { playAudio(item.past); } catch (e) {}
+            setTimeout(function() {
+                grammarPastMatchIndex++;
+                loadGrammarPastMatch();
+            }, 700);
+        } else {
+            grammarPastMatchWrong++;
+            var wEl = document.getElementById('gram-past-match-wrong');
+            if (wEl) wEl.textContent = String(grammarPastMatchWrong);
+            if (btnEl) {
+                btnEl.classList.add('mc-wrong');
+                btnEl.disabled = true;
+            }
+        }
+    }
+
+    function initGrammarPastMatch() {
+        grammarPastMatchIndex = 0;
+        grammarPastMatchCorrect = 0;
+        grammarPastMatchWrong = 0;
+        grammarPastMatchLocked = false;
+        grammarPastMatchDeck = shuffle(GRAMMAR_PAST_MATCH_VERBS.slice()).slice(0, GRAMMAR_PAST_MATCH_ROUND_SIZE);
+        var tEl = document.getElementById('gram-past-match-total');
+        if (tEl) tEl.textContent = String(grammarPastMatchDeck.length);
+        loadGrammarPastMatch();
+    }
+
+    function showGrammarPastMatch() {
+        closeGrammarVerbHelpPopup();
+        document.getElementById('grammar-menu').style.display = 'none';
+        document.getElementById('grammar-letters-view').style.display = 'none';
+        document.getElementById('grammar-singular-plural-submenu-view').style.display = 'none';
+        document.getElementById('grammar-singular-plural-view').style.display = 'none';
+        document.getElementById('grammar-sp-memory-view').style.display = 'none';
+        var grammarPvMemHide = document.getElementById('grammar-pv-memory-view');
+        if (grammarPvMemHide) grammarPvMemHide.style.display = 'none';
+        document.getElementById('grammar-sp-hangman-view').style.display = 'none';
+        document.getElementById('grammar-sp-match-view').style.display = 'none';
+        document.getElementById('grammar-definite-article-view').style.display = 'none';
+        document.getElementById('grammar-pronouns-verbs-submenu-view').style.display = 'none';
+        document.getElementById('grammar-pronouns-verbs-list-view').style.display = 'none';
+        document.getElementById('grammar-pronouns-verbs-sentence-view').style.display = 'none';
+        document.getElementById('grammar-past-submenu-view').style.display = 'none';
+        hideGrammarPastExplainView();
+        var grammarImperfectHide = document.getElementById('grammar-imperfect-submenu-view');
+        if (grammarImperfectHide) grammarImperfectHide.style.display = 'none';
+        var view = document.getElementById('grammar-past-match-view');
+        if (view) view.style.display = 'block';
+        initGrammarPastMatch();
+    }
+
     function grammarVerbFinalizeRunScore() {
         if (grammarVerbScoreSavedForRun) return;
         var n = grammarVerbGameDeck.length || GRAMMAR_VERB_ROUND_SIZE;
@@ -8090,6 +8387,20 @@
         if (typeof refreshGrammarMainMenuScores === 'function') refreshGrammarMainMenuScores();
         grammarVerbScoreSavedForRun = true;
     }
+    function grammarVerbCompletedSentence(item) {
+        if (!item) return '';
+        var sent = String(item.sentence || '');
+        var ans = String(item.answer || '').trim();
+        if (!ans) return sent.replace(/_{2,}/g, '').replace(/\s+/g, ' ').trim();
+        return sent.replace(/_{2,}/g, ans).replace(/\s+/g, ' ').trim();
+    }
+    function grammarVerbFillBlankWithAnswer(answer) {
+        var blank = document.getElementById('grammar-verb-blank-slot');
+        if (!blank) return;
+        blank.textContent = answer || '';
+        blank.classList.add('grammar-verb-blank-correct');
+        blank.removeAttribute('aria-hidden');
+    }
     function grammarVerbMcPick(guess, btnEl) {
         if (grammarVerbMcLocked || !isGrammarVerbMcMode()) return;
         if (grammarVerbGameIndex >= grammarVerbGameDeck.length) return;
@@ -8104,13 +8415,18 @@
             grammarVerbRunCorrectCount++;
             btnEl.classList.add('mc-correct');
             buttons.forEach(function(b) { b.disabled = true; });
+            grammarVerbFillBlankWithAnswer(item.answer);
+            var isPast = grammarVerbGameMode === 'mcPast';
+            if (isPast) {
+                try { playAudio(grammarVerbCompletedSentence(item)); } catch (eAudio) {}
+            }
             setTimeout(function() {
                 grammarVerbGameIndex++;
                 if (grammarVerbGameIndex >= grammarVerbGameDeck.length) {
                     celebrate();
                 }
                 renderGrammarVerbSentenceRound();
-            }, 850);
+            }, isPast ? 2200 : 850);
         } else {
             grammarVerbMcLocked = true;
             btnEl.classList.add('mc-wrong');
@@ -8424,6 +8740,7 @@
         document.getElementById('grammar-pronouns-verbs-list-view').style.display = 'none';
         document.getElementById('grammar-past-submenu-view').style.display = 'none';
         hideGrammarPastExplainView();
+        hideGrammarPastMatchView();
         var grammarImperfectHide = document.getElementById('grammar-imperfect-submenu-view');
         if (grammarImperfectHide) grammarImperfectHide.style.display = 'none';
         document.getElementById('grammar-pronouns-verbs-sentence-view').style.display = 'block';
@@ -8969,6 +9286,7 @@
     refreshGrammarVerbStage3ButtonHigh();
     refreshGrammarVerbMemoryButtonHigh();
     refreshGrammarPastSentButtonHigh();
+    refreshGrammarPastMatchButtonHigh();
     refreshPresentToBeMcButtonHigh();
     refreshGrammarMainMenuScores();
 
@@ -9096,6 +9414,12 @@
         if (explainBtn) explainBtn.addEventListener('click', showGrammarPastExplain);
         var pastSentBtn = document.getElementById('grammar-btn-past-sentences');
         if (pastSentBtn) pastSentBtn.addEventListener('click', showGrammarPastSentenceGame);
+        var pastMatchBtn = document.getElementById('grammar-btn-past-match');
+        if (pastMatchBtn) pastMatchBtn.addEventListener('click', showGrammarPastMatch);
+        var pastMatchBack = document.getElementById('grammar-past-match-back');
+        if (pastMatchBack) pastMatchBack.addEventListener('click', showGrammarPastSubmenu);
+        var pastMatchReplay = document.getElementById('grammar-past-match-replay');
+        if (pastMatchReplay) pastMatchReplay.addEventListener('click', initGrammarPastMatch);
         var explainBack = document.getElementById('grammar-past-explain-back');
         if (explainBack) explainBack.addEventListener('click', showGrammarPastSubmenu);
         var explainNext = document.getElementById('past-explain-next');
